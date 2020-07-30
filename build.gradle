@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
+}
+
+ext {
+    packageName = "com.snowypeaksystems"
+}
+
+if (hasProperty('ver')) {
+    version = ver
+} else {
+    version = 'SNAPSHOT'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'papermc'
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+}
+
+dependencies {
+    implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
+    implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
+}
+
+processResources {
+    filesMatching("**/plugin.yml") {
+        expand ( NAME: rootProject.name, VERSION: version, PACKAGE: packageName )
+    }
+}
+
+checkstyle {
+    toolVersion '8.35'
+    maxWarnings = 0
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled false
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('dev')
+    relocate 'io.papermc.lib', packageName + rootProject.name + '.paperlib'
+    minimize()
+}
+
+jar.enabled = false
+assemble.dependsOn(shadowJar)
+
+task release {
+    dependsOn build
+    doLast {
+        def dirStr = buildDir.toString() + '/libs/'
+
+        file(dirStr + rootProject.name + '-' + version + '-dev.jar')
+        .renameTo(dirStr + rootProject.name + '.jar')
+    }
+}
