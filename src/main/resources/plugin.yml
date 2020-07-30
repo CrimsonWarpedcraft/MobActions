@@ -2,8 +2,8 @@ main: ${PACKAGE}.${NAME}.${NAME}
 name: ${NAME}
 version: ${VERSION}
 api-version: "1.16"
-author: AUTHOR
-description: DESCRIPTION
+author: Levi Muniz
+description: Allow players to teleport between locations by interacting with mobs
 commands:
   ex:
     description: Base command for EXAMPLE

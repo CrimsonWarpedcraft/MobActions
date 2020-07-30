@@ -45,6 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/build/libs/plugin-template.jar
-          asset_name: plugin-template.jar
+          asset_path: ${{ github.workspace }}/build/libs/MobPortals.jar
+          asset_name: MobPortals.jar
           asset_content_type: application/java-archive
