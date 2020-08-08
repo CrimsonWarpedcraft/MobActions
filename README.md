@@ -33,7 +33,7 @@ For a simple plugin, we pack a few powerful features!
 Please refer to the [config.yml](https://github.com/leviem1/MobPortals/blob/master/src/main/resources/config.yml) for further information.
 
 ## Installation
-Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/rw reload` to load any changes you make or messages you add!
+Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/mp reload` to load any changes you make or messages you add!
 
 ## Building From Source
 You can build from source by running the following command.
