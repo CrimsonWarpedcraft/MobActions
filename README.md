@@ -5,8 +5,8 @@ Welcome to MobPortals! A simple way to turn any mob into a portal players can cl
 ## Simple and Stable
 Works with Paper, Spigot, and Bukkit servers!
 
-Native Version: 1.16  
-Tested Minecraft Versions: 1.16
+Native Version: **1.16**  
+Tested Minecraft Versions: **1.16**
 
 ## Features
 For a simple plugin, we pack a few powerful features!
