@@ -74,8 +74,7 @@ public class Messages {
         ChatColor.AQUA + "Right click on a mob to remove the portal",
         warpToken, warpFormat);
 
-    portalRemoveSuccess = setTokenFormat(
-        ChatColor.GREEN + "Portal to %warp% successfully removed!", warpToken, warpFormat);
+    portalRemoveSuccess = ChatColor.GREEN + "Portal successfully removed!";
 
     portalRemoveError = ChatColor.RED + "No portal found!";
 

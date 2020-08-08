@@ -45,11 +45,9 @@ public class Warps extends HashMap<String, Location> {
    */
   @Override
   public Location put(@Nonnull String name, @Nonnull Location location) {
-    String lowerName = name.toLowerCase();
+    Location last = super.put(name, location);
 
-    Location last = super.put(lowerName, location);
-
-    writeWarp(lowerName, location);
+    writeWarp(name, location);
 
     return last;
   }
@@ -61,17 +59,15 @@ public class Warps extends HashMap<String, Location> {
    */
   @Override
   public Location remove(Object name) {
-    String lowerName = ((String) name).toLowerCase();
+    Location last = super.remove(name);
 
-    Location last = super.remove(lowerName);
-
-    deleteWarp(lowerName);
+    deleteWarp((String) name);
 
     return last;
   }
 
   /** Loads all warps from the warp directory. */
-  public void loadAll() {
+  private void loadAll() {
     File[] files = storageDir.listFiles();
 
     for (File f : files) {

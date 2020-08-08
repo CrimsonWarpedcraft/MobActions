@@ -20,11 +20,12 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class MobPortals extends JavaPlugin {
-  Messages messages;
   private Warps warpStorage;
   private NamespacedKey warpKey;
   private HashMap<Player, String> creators;
   private HashSet<Player> removers;
+  private File warpDir;
+  Messages messages;
 
   @Override
   public void onEnable() {
@@ -39,7 +40,8 @@ public class MobPortals extends JavaPlugin {
 
     warpKey = new NamespacedKey(this, "portalDest");
     messages = Messages.getMessages(getConfig());
-    warpStorage = new Warps(new File(getDataFolder(), "warps"), getServer());
+    warpDir = new File(getDataFolder(), "warps");
+    warpStorage = new Warps(warpDir, getServer());
     creators = new HashMap<>();
     removers = new HashSet<>();
 
@@ -55,11 +57,13 @@ public class MobPortals extends JavaPlugin {
    * @return Returns true on success, or false if a warp with that name already exists
    */
   public boolean setWarp(String name, Location location) {
-    if (warpExists(name)) {
+    String nameLower = name.toLowerCase();
+
+    if (warpExists(nameLower)) {
       return false;
     }
 
-    warpStorage.put(name, location);
+    warpStorage.put(nameLower, location);
 
     return true;
   }
@@ -70,32 +74,35 @@ public class MobPortals extends JavaPlugin {
    * @return Returns true on success, or false if a warp with that name does not exist
    */
   public boolean delWarp(String name) {
-    if (!warpExists(name)) {
+    String nameLower = name.toLowerCase();
+    if (!warpExists(nameLower)) {
       return false;
     }
 
-    warpStorage.remove(name);
+    warpStorage.remove(nameLower);
 
     return true;
   }
 
   /** Returns true if the warp exists, false otherwise. */
   public boolean warpExists(String name) {
-    return warpStorage.containsKey(name);
+    return warpStorage.containsKey(name.toLowerCase());
   }
 
   /** Returns the location of the warp associated with that name, or null if absent. */
   public Location getWarpLocation(String name) {
-    return warpStorage.get(name);
+    return warpStorage.get(name.toLowerCase());
   }
 
   /**
    * Teleports the player to a warp with the designated name.
    * @param player player to teleport
-   * @param warp name of warp to teleport to
+   * @param name name of warp to teleport to
    * @throws PermissionException if the player does not have the required permission
    */
-  public void warpPlayer(Player player, String warp) throws PermissionException {
+  public void warpPlayer(Player player, String name) throws PermissionException {
+    String warp = name.toLowerCase();
+
     if (!player.hasPermission("mobportals.use." + warp)
         && !player.hasPermission("mobportals.use.*")) {
       throw new PermissionException("mobportals.use." + warp);
@@ -139,7 +146,11 @@ public class MobPortals extends JavaPlugin {
       throw new PermissionException("mobportals.create");
     }
 
-    creators.put(player, warp);
+    if (isRemoving(player)) {
+      stopRemoving(player);
+    }
+
+    creators.put(player, warp.toLowerCase());
   }
 
   /** Gets the name of the warp the player is creating a portal for. */
@@ -161,6 +172,10 @@ public class MobPortals extends JavaPlugin {
   public void setRemoving(Player player) throws PermissionException {
     if (!player.hasPermission("mobportals.remove")) {
       throw new PermissionException("mobportals.remove");
+    }
+
+    if (isCreating(player)) {
+      stopCreating(player);
     }
 
     removers.add(player);
@@ -192,7 +207,7 @@ public class MobPortals extends JavaPlugin {
     if (entity instanceof Player) {
       throw new IllegalArgumentException("Portals cannot be set to players!");
     }
-    if (warpExists(warp)) {
+    if (!warpExists(warp.toLowerCase())) {
       return false;
     }
 
@@ -222,7 +237,7 @@ public class MobPortals extends JavaPlugin {
   public void reload() {
     reloadConfig();
     messages.regenerateMessages(getConfig());
-    warpStorage.loadAll();
+    warpStorage = new Warps(warpDir, getServer());
   }
 
   private void greeting() {

@@ -34,6 +34,7 @@ public class EventListener implements Listener {
     }
 
     if (mp.isCreating(piee.getPlayer())) {
+      piee.setCancelled(true);
       String name = mp.getCreation(piee.getPlayer());
 
       if (mp.createPortal(mob, name)) {
@@ -43,20 +44,21 @@ public class EventListener implements Listener {
         piee.getPlayer().sendMessage(
             mp.messages.warpNotFound.replaceAll(mp.messages.warpToken, name));
       }
+
       mp.stopCreating(piee.getPlayer());
     } else if (mp.isRemoving(piee.getPlayer())) {
+      piee.setCancelled(true);
 
       if (mp.removePortal(mob)) {
-        piee.getPlayer().sendMessage(
-            mp.messages.portalRemoveSuccess.replaceAll(mp.messages.warpToken,
-                mp.getPortalDestination(mob)));
+        piee.getPlayer().sendMessage(mp.messages.portalRemoveSuccess);
       } else {
-        piee.getPlayer().sendMessage(
-            mp.messages.portalRemoveError.replaceAll(mp.messages.warpToken,
-                mp.getPortalDestination(mob)));
+        piee.getPlayer().sendMessage(mp.messages.portalRemoveError);
       }
+
       mp.stopRemoving(piee.getPlayer());
     } else if (mp.isPortal(mob)) {
+      piee.setCancelled(true);
+
       try {
         mp.warpPlayer(piee.getPlayer(), mp.getPortalDestination(mob));
       } catch (PermissionException e) {

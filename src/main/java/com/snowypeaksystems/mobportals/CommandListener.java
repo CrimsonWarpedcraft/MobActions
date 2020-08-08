@@ -18,11 +18,11 @@ public class CommandListener implements TabExecutor {
   private final MobPortals mp;
   private static final String[] HELP = {
       "Usage: /mp <subcommand>",
-      "/mp create - Create a portal",
+      "/mp create <warp> - Create a portal to the warp",
       "/mp remove - Remove a portal",
       "/mp setwarp <name> - Create a warp",
       "/mp delwarp <name> - Delete a warp",
-      "/mp warp <name> - Teleport to a warp",
+      "/mp warp <warp> - Teleport to a warp",
       "/mp reload - Reloads the plugin's configuration",
       "/mp help - Shows this message"
   };
@@ -113,7 +113,7 @@ public class CommandListener implements TabExecutor {
                 mp.messages.cancelInfo});
       } else {
         sender.sendMessage(
-            mp.messages.portalCreateError.replaceAll(mp.messages.warpToken, name));
+            mp.messages.warpNotFound.replaceAll(mp.messages.warpToken, name));
       }
     } catch (PermissionException e) {
       sender.sendMessage(
@@ -210,8 +210,16 @@ public class CommandListener implements TabExecutor {
   }
 
   private boolean reload(Player sender) {
-    mp.reload();
-    sender.sendMessage(mp.messages.reloadComplete);
+    try {
+      if (!sender.hasPermission("mobportals.reload")) {
+        throw new PermissionException("mobportals.reload");
+      }
+      mp.reload();
+      sender.sendMessage(mp.messages.reloadComplete);
+    } catch (PermissionException e) {
+      sender.sendMessage(
+          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+    }
 
     return true;
   }
