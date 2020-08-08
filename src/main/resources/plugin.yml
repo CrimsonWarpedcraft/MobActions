@@ -5,16 +5,39 @@ api-version: "1.16"
 author: Levi Muniz
 description: Allow players to teleport between locations by interacting with mobs
 commands:
-  ex:
-    description: Base command for EXAMPLE
-    usage: "For a list of commands, type /ex help"
-    aliases: example
+  mp:
+    description: Base command for MobPortals
+    usage: "For a list of commands, type /mp help"
+    aliases: mobportals,mportals
 permissions:
-  example.test:
-    description: DESCRIPTION
+  mobportals.use.*:
+    description: Allows players to use all mob portals, or specify a portal name instead of *
     default: true
-  example.*:
-    description: Grants all other permissions
+  mobportals.create:
+    description: Allows players to create mob portals with /mp create
+    default: op
+  mobportals.remove:
+    description: Allows players to destroy mob portals with /mp remove
+    default: op
+  mobportals.setwarp:
+    description: Allows players to create a warp using /mp setwarp
+    default: op
+  mobportals.delwarp:
+    description: Allows players to delete a warp using /mp delwarp
+    default: op
+  mobportals.warp:
+    description: Allows players to go to a warp using /mp warp
+    default: op
+  mobportals.reload:
+    description: Allows players to reload the plugin configuration
+    default: op
+  mobportals.*:
+    description: Grants access to all portals and all other permissions
     default: false
     children:
-      example.test: true
+      mobportals.use.*: true
+      mobportals.create: true
+      mobportals.remove: true
+      mobportals.setwarp: true
+      mobportals.delwarp: true
+      mobportals.warp: true
