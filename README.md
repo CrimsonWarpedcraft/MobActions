@@ -1,4 +1,4 @@
-# MobPortal
+# MobPortals
 
 Welcome to MobPortals! A simple way to turn any mob into a portal players can click on to use!
 
