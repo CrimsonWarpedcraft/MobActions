@@ -14,8 +14,9 @@ For a simple plugin, we pack a few powerful features!
 ### Commands
 `/mp create <warp>` - Create a portal to the specified warp  
 `/mp remove` - Remove a portal  
-`/mp setwarp <name>` - Create a warp at the player's location  
 `/mp warp <warp>` - Teleport to a warp  
+`/mp list` - Lists the available warps  
+`/mp setwarp <name>` - Create a warp at the player's location  
 `/mp delwarp <name>` - Delete a warp  
 `/mp reload` - Reload the configuration
 
@@ -24,9 +25,9 @@ For a simple plugin, we pack a few powerful features!
 `mobportals.use.[warp]` - Allows players to use portals to the specific warp (Default: disabled)  
 `mobportals.create` - Allows players to create mob portals with /mp create (Default: op)  
 `mobportals.remove` - Allows players to destroy mob portals with /mp remove (Default: op)  
+`mobportals.warp` - Allows players to go to a warp using /mp warp. Also needed for /mp list (Default: op)  
 `mobportals.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
 `mobportals.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  
-`mobportals.warp` - Allows players to go to a warp using /mp warp (Default: op)  
 `mobportals.reload` - Allows players to reload the plugin configuration (Default: op)  
 `mobportals.*` - Grants access to all portals and all other permissions (Default: disabled)
 
@@ -39,6 +40,12 @@ Simply drop into your server's plugin folder, and we'll generate your config for
 ## Building From Source
 You can build from source by running the following command.
 
+On macOS, Linux, or Unix:
 ```bash
 ./gradlew build
+```
+
+On Windows:
+```batch
+gradlew.bat build
 ```
