@@ -21,14 +21,15 @@ public class Messages {
   public String portalRemoveSuccess;
   public String permissionError;
   public String reloadComplete;
-  public String warpCreateError;
+  public String reloadError;
+  public String warpExistsError;
+  public String warpWriteError;
   public String warpCreateSuccess;
-  public String warpDeleteError;
   public String warpDeleteSuccess;
   public String warpNotFound;
   public String warpSuccess;
-  public final String permToken = "%perm%";
-  public final String warpToken = "%warp%";
+  public static final String permToken = "%perm%";
+  public static final String warpToken = "%warp%";
   private static Messages singleton;
 
   /** Get the message object based on the specified config. */
@@ -49,9 +50,11 @@ public class Messages {
   }
 
   private void generateMessages(FileConfiguration config) {
-    final String warpFormat =
-        ChatColor.translateAlternateColorCodes('&',
-            config.getString("warp-name-formatting", ""));
+    String warpName = config.getString("warp-name-formatting", "");
+    if (warpName == null) {
+      warpName = "";
+    }
+    final String warpFormat = ChatColor.translateAlternateColorCodes('&', warpName);
 
     consoleCommandError = ChatColor.RED + "You cannot execute commands from the console!";
 
@@ -63,16 +66,16 @@ public class Messages {
 
     portalCreateInfo = setTokenFormat(
         ChatColor.AQUA + "Right click on a mob to create a portal to %warp%",
-        warpToken, warpFormat);
+        warpFormat);
 
     portalCreateSuccess = setTokenFormat(
-        ChatColor.GREEN + "Portal to %warp% created successfully!", warpToken, warpFormat);
+        ChatColor.GREEN + "Portal to %warp% created successfully!", warpFormat);
 
     portalCreateError = ChatColor.RED + "Portals cannot be set to players!";
 
     portalRemoveInfo = setTokenFormat(
         ChatColor.AQUA + "Right click on a mob to remove the portal",
-        warpToken, warpFormat);
+        warpFormat);
 
     portalRemoveSuccess = ChatColor.GREEN + "Portal successfully removed!";
 
@@ -82,32 +85,45 @@ public class Messages {
 
     reloadComplete = ChatColor.GREEN + "MobPortals reload complete!";
 
-    warpSuccess = setTokenFormat(ChatColor.translateAlternateColorCodes('&',
-        config.getString("warp-message", "")), warpToken, warpFormat);
+    reloadError = ChatColor.RED + "Unable to reload MobPortals!";
+
+    String warpMessage = config.getString("warp-message", "");
+    if (warpMessage == null) {
+      warpMessage = "";
+    }
+    warpSuccess = setTokenFormat(
+        ChatColor.translateAlternateColorCodes('&', warpMessage), warpFormat);
 
     warpNotFound = setTokenFormat(ChatColor.RED + "Warp %warp% not found!",
-        warpToken, warpFormat);
+        warpFormat);
 
-    warpCreateError = setTokenFormat(
-        ChatColor.RED + "Warp %warp% already exists!", warpToken, warpFormat);
+    warpExistsError = setTokenFormat(
+        ChatColor.RED + "Warp %warp% already exists!", warpFormat);
+
+    warpWriteError = setTokenFormat(
+        ChatColor.RED + "Couldn't save warp %warp%!", warpFormat);
 
     warpCreateSuccess = setTokenFormat(
-        ChatColor.GREEN + "Warp %warp% created successfully!", warpToken, warpFormat);
+        ChatColor.GREEN + "Warp %warp% created successfully!", warpFormat);
 
     warpDeleteSuccess = setTokenFormat(
-        ChatColor.GREEN + "Warp %warp% deleted successfully!", warpToken, warpFormat);
+        ChatColor.GREEN + "Warp %warp% deleted successfully!", warpFormat);
 
-    mobNameText = setTokenFormat(ChatColor.translateAlternateColorCodes('&',
-        config.getString("mob-nametag-text", "")), warpToken, warpFormat);
+    String nametagText = config.getString("warp-message", "");
+    if (nametagText == null) {
+      nametagText = "";
+    }
+    mobNameText = setTokenFormat(
+        ChatColor.translateAlternateColorCodes('&', nametagText), warpFormat);
   }
 
-  private String setTokenFormat(String message, String token, String format) {
+  private String setTokenFormat(String message, String format) {
     //TODO: Locate token and find last colors before it rather than the end of the message
     String lastFormat = ChatColor.getLastColors(message);
 
-    String wrappedToken = ChatColor.RESET + format + token
+    String wrappedToken = ChatColor.RESET + format + Messages.warpToken
         + ChatColor.RESET + lastFormat;
 
-    return message.replaceAll(token, wrappedToken);
+    return message.replaceAll(Messages.warpToken, wrappedToken);
   }
 }

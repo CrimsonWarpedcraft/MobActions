@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobportals;
 
 import io.papermc.lib.PaperLib;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.CompletableFuture;
@@ -33,17 +34,31 @@ public class MobPortals extends JavaPlugin {
 
     saveDefaultConfig();
 
-    PluginCommand cmd = getCommand("mp");
-    CommandListener cl = new CommandListener(this);
-    cmd.setExecutor(cl);
-    cmd.setTabCompleter(cl);
+    warpDir = new File(getDataFolder(), "warps");
+    try {
+      warpStorage = new Warps(warpDir, getServer());
+    } catch (IOException e) {
+      getServer().getLogger().severe(e.getMessage());
+      e.printStackTrace();
+      setEnabled(false);
+      return;
+    }
 
     warpKey = new NamespacedKey(this, "portalDest");
     messages = Messages.getMessages(getConfig());
-    warpDir = new File(getDataFolder(), "warps");
-    warpStorage = new Warps(warpDir, getServer());
     creators = new HashMap<>();
     removers = new HashSet<>();
+
+    PluginCommand cmd = getCommand("mp");
+    if (cmd == null) {
+      getServer().getLogger().severe("PluginCommand \"mp\" not found");
+      setEnabled(false);
+      return;
+    }
+
+    CommandListener cl = new CommandListener(this);
+    cmd.setExecutor(cl);
+    cmd.setTabCompleter(cl);
 
     getServer().getPluginManager().registerEvents(new EventListener(this), this);
 
@@ -56,14 +71,14 @@ public class MobPortals extends JavaPlugin {
    * @param location location of the warp
    * @return Returns true on success, or false if a warp with that name already exists
    */
-  public boolean setWarp(String name, Location location) {
+  public boolean setWarp(String name, Location location) throws IOException {
     String nameLower = name.toLowerCase();
 
     if (warpExists(nameLower)) {
       return false;
     }
 
-    warpStorage.put(nameLower, location);
+    warpStorage.create(nameLower, location);
 
     return true;
   }
@@ -86,7 +101,7 @@ public class MobPortals extends JavaPlugin {
 
   /** Returns true if the warp exists, false otherwise. */
   public boolean warpExists(String name) {
-    return warpStorage.containsKey(name.toLowerCase());
+    return warpStorage.exists(name.toLowerCase());
   }
 
   /** Returns the location of the warp associated with that name, or null if absent. */
@@ -109,7 +124,7 @@ public class MobPortals extends JavaPlugin {
     }
 
     if (warpExists(warp)) {
-      String message = messages.warpSuccess.replaceAll(messages.warpToken, warp);
+      String message = messages.warpSuccess.replaceAll(Messages.warpToken, warp);
 
       CompletableFuture<Boolean> future = new CompletableFuture<>();
       future.thenAccept(success -> {
@@ -120,7 +135,7 @@ public class MobPortals extends JavaPlugin {
 
       warpPlayer(player, getWarpLocation(warp), future);
     } else {
-      player.sendMessage(messages.warpNotFound.replace(messages.warpToken, warp));
+      player.sendMessage(messages.warpNotFound.replace(Messages.warpToken, warp));
     }
   }
 
@@ -212,7 +227,7 @@ public class MobPortals extends JavaPlugin {
     }
 
     entity.getPersistentDataContainer().set(warpKey, PersistentDataType.STRING, warp);
-    entity.setCustomName(messages.mobNameText.replace(messages.warpToken, warp));
+    entity.setCustomName(messages.mobNameText.replace(Messages.warpToken, warp));
     entity.setCustomNameVisible(true);
     entity.setInvulnerable(true);
 
@@ -234,9 +249,10 @@ public class MobPortals extends JavaPlugin {
   }
 
   /** Reloads the configuration. */
-  public void reload() {
+  public void reload() throws IOException {
     reloadConfig();
     messages.regenerateMessages(getConfig());
+
     warpStorage = new Warps(warpDir, getServer());
   }
 
