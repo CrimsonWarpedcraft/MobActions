@@ -39,10 +39,10 @@ public class EventListener implements Listener {
 
       if (mp.createPortal(mob, name)) {
         piee.getPlayer().sendMessage(
-            mp.messages.portalCreateSuccess.replaceAll(mp.messages.warpToken, name));
+            mp.messages.portalCreateSuccess.replaceAll(Messages.warpToken, name));
       } else {
         piee.getPlayer().sendMessage(
-            mp.messages.warpNotFound.replaceAll(mp.messages.warpToken, name));
+            mp.messages.warpNotFound.replaceAll(Messages.warpToken, name));
       }
 
       mp.stopCreating(piee.getPlayer());
@@ -63,7 +63,7 @@ public class EventListener implements Listener {
         mp.warpPlayer(piee.getPlayer(), mp.getPortalDestination(mob));
       } catch (PermissionException e) {
         piee.getPlayer().sendMessage(
-            mp.messages.permissionError.replace(mp.messages.permToken, e.getMissingPermission()));
+            mp.messages.permissionError.replace(Messages.permToken, e.getMissingPermission()));
       }
     }
   }

@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobportals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -109,15 +110,15 @@ public class CommandListener implements TabExecutor {
       if (mp.warpExists(name)) {
         mp.setCreating(sender, name);
         sender.sendMessage(new String[]
-            {mp.messages.portalCreateInfo.replaceAll(mp.messages.warpToken, name),
+            {mp.messages.portalCreateInfo.replaceAll(Messages.warpToken, name),
                 mp.messages.cancelInfo});
       } else {
         sender.sendMessage(
-            mp.messages.warpNotFound.replaceAll(mp.messages.warpToken, name));
+            mp.messages.warpNotFound.replaceAll(Messages.warpToken, name));
       }
     } catch (PermissionException e) {
       sender.sendMessage(
-          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
     }
     return true;
   }
@@ -128,7 +129,7 @@ public class CommandListener implements TabExecutor {
       sender.sendMessage(new String[] {mp.messages.portalRemoveInfo, mp.messages.cancelInfo});
     } catch (PermissionException e) {
       sender.sendMessage(
-          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
     }
 
     return true;
@@ -163,14 +164,18 @@ public class CommandListener implements TabExecutor {
       }
 
       if (mp.setWarp(name, sender.getLocation())) {
-        sender.sendMessage(mp.messages.warpCreateSuccess.replaceAll(mp.messages.warpToken, name));
+        sender.sendMessage(mp.messages.warpCreateSuccess.replaceAll(Messages.warpToken, name));
       } else {
-        sender.sendMessage(mp.messages.warpCreateError.replaceAll(mp.messages.warpToken, name));
+        sender.sendMessage(mp.messages.warpExistsError.replaceAll(Messages.warpToken, name));
       }
 
     } catch (PermissionException e) {
       sender.sendMessage(
-          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+    } catch (IOException e) {
+      mp.getServer().getLogger().severe(e.getMessage());
+      e.printStackTrace();
+      sender.sendMessage(mp.messages.warpWriteError.replaceAll(Messages.warpToken, name));
     }
 
     return true;
@@ -182,14 +187,14 @@ public class CommandListener implements TabExecutor {
         throw new PermissionException("mobportals.delwarp");
       }
       if (mp.delWarp(name)) {
-        sender.sendMessage(mp.messages.warpDeleteSuccess.replaceAll(mp.messages.warpToken, name));
+        sender.sendMessage(mp.messages.warpDeleteSuccess.replaceAll(Messages.warpToken, name));
       } else {
-        sender.sendMessage(mp.messages.warpNotFound.replaceAll(mp.messages.warpToken, name));
+        sender.sendMessage(mp.messages.warpNotFound.replaceAll(Messages.warpToken, name));
       }
 
     } catch (PermissionException e) {
       sender.sendMessage(
-          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
     }
 
     return true;
@@ -203,7 +208,7 @@ public class CommandListener implements TabExecutor {
       mp.warpPlayer(sender, name);
     } catch (PermissionException e) {
       sender.sendMessage(
-          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
     }
 
     return true;
@@ -218,7 +223,11 @@ public class CommandListener implements TabExecutor {
       sender.sendMessage(mp.messages.reloadComplete);
     } catch (PermissionException e) {
       sender.sendMessage(
-          mp.messages.permissionError.replaceAll(mp.messages.permToken, e.getMissingPermission()));
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+    } catch (IOException e) {
+      mp.getServer().getLogger().severe(e.getMessage());
+      e.printStackTrace();
+      sender.sendMessage(mp.messages.reloadError);
     }
 
     return true;

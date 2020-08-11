@@ -1,6 +1,6 @@
 main: ${PACKAGE}.${NAME}
 name: ${NAME}
-version: ${VERSION}
+version: "${VERSION}"
 api-version: "1.16"
 author: Levi Muniz
 description: Allow players to teleport between locations by interacting with mobs
