@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -21,14 +22,15 @@ public class CommandListener implements TabExecutor {
       "Usage: /mp <subcommand>",
       "/mp create <warp> - Create a portal to the warp",
       "/mp remove - Remove a portal",
+      "/mp warp <warp> - Teleport to a warp",
+      "/mp list - List available warps",
       "/mp setwarp <name> - Create a warp",
       "/mp delwarp <name> - Delete a warp",
-      "/mp warp <warp> - Teleport to a warp",
       "/mp reload - Reloads the plugin's configuration",
       "/mp help - Shows this message"
   };
   private static final String[] SUBCOMMANDS =
-      {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp"};
+      {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "list"};
 
   public CommandListener(MobPortals parent) {
     this.mp = parent;
@@ -86,6 +88,11 @@ public class CommandListener implements TabExecutor {
       case "warp":
         if (args.length == 2) {
           return warp(player, args[1]);
+        }
+        break;
+      case "list":
+        if (args.length == 1) {
+          return list(player);
         }
         break;
       case "reload":
@@ -206,6 +213,26 @@ public class CommandListener implements TabExecutor {
         throw new PermissionException("mobportals.warp");
       }
       mp.warpPlayer(sender, name);
+    } catch (PermissionException e) {
+      sender.sendMessage(
+          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+    }
+
+    return true;
+  }
+
+  private boolean list(Player sender) {
+    try {
+      if (!sender.hasPermission("mobportals.warp")) {
+        throw new PermissionException("mobportals.warp");
+      }
+      Set<String> warpNames = mp.getWarpNames();
+      if (warpNames.size() > 0) {
+        sender.sendMessage(mp.messages.listMessage);
+        sender.sendMessage(String.join(", ", warpNames));
+      } else {
+        sender.sendMessage(mp.messages.noWarpsFound);
+      }
     } catch (PermissionException e) {
       sender.sendMessage(
           mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));

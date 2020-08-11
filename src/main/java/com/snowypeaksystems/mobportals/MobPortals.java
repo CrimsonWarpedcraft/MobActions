@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -254,6 +255,11 @@ public class MobPortals extends JavaPlugin {
     messages.regenerateMessages(getConfig());
 
     warpStorage = new Warps(warpDir, getServer());
+  }
+
+  /** Returns a set of warp names. */
+  public Set<String> getWarpNames() {
+    return warpStorage.getWarpNames();
   }
 
   private void greeting() {
