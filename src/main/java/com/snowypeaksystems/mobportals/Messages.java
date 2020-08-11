@@ -28,6 +28,8 @@ public class Messages {
   public String warpDeleteSuccess;
   public String warpNotFound;
   public String warpSuccess;
+  public String listMessage;
+  public String noWarpsFound;
   public static final String permToken = "%perm%";
   public static final String warpToken = "%warp%";
   private static Messages singleton;
@@ -108,6 +110,10 @@ public class Messages {
 
     warpDeleteSuccess = setTokenFormat(
         ChatColor.GREEN + "Warp %warp% deleted successfully!", warpFormat);
+
+    listMessage = ChatColor.GREEN + "Available warps:";
+
+    noWarpsFound = ChatColor.YELLOW + "No warps available!";
 
     String nametagText = config.getString("warp-message", "");
     if (nametagText == null) {

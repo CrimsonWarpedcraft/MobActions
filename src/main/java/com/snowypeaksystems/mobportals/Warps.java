@@ -4,6 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Set;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -68,6 +69,11 @@ public class Warps {
   /** Returns true if the given warp exists, and false otherwise. */
   public boolean exists(String key) {
     return warps.containsKey(key);
+  }
+
+  /** Returns a set of warp names. */
+  public Set<String> getWarpNames() {
+    return warps.keySet();
   }
 
   /** Loads all warps from the warp directory. */
