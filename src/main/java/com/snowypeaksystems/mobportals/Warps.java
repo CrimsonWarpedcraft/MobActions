@@ -1,15 +1,20 @@
 package com.snowypeaksystems.mobportals;
 
+import com.snowypeaksystems.mobportals.exceptions.WarpConfigException;
+import com.snowypeaksystems.mobportals.exceptions.WorldNotFoundException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * A map implementation used for warps that persists the keys upon write and remove.
@@ -18,6 +23,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class Warps {
   private final File storageDir;
+  private final Plugin plugin;
   private final Server server;
   private final HashMap<String, Location> warps;
 
@@ -25,8 +31,10 @@ public class Warps {
    * Construct a new Warps map from the specified dataDir and server.
    * @param dataDir folder for the map to write to
    * @param server server instance to pull world, logger, and other data from
+   * @param plugin the plugin creating the constructor
    */
-  public Warps(File dataDir, Server server) throws IOException {
+  public Warps(File dataDir, Server server, Plugin plugin) throws IOException {
+    this.plugin = plugin;
     this.server = server;
     this.storageDir = dataDir;
     this.warps = new HashMap<>();
@@ -79,6 +87,7 @@ public class Warps {
   /** Loads all warps from the warp directory. */
   private void loadAll() throws IOException {
     File[] files = storageDir.listFiles();
+    HashSet<YamlConfiguration> retryList = new HashSet<>();
 
     if (files == null) {
       throw new IOException("Storage directory does not exist!");
@@ -90,9 +99,35 @@ public class Warps {
 
       String name = config.getString("name");
 
-      convertOldName(f, name);
+      try {
+        convertOldName(f, name);
+        warps.put(name, yamlToLocation(config));
+      } catch (WarpConfigException | IOException e) {
+        server.getLogger().severe(e.getMessage());
+        e.printStackTrace();
+      } catch (WorldNotFoundException e) {
+        retryList.add(config);
+      }
+    }
 
-      warps.put(name, yamlToLocation(config));
+    if (retryList.size() > 0) {
+      BukkitRunnable retry = new BukkitRunnable() {
+        @Override
+        public void run() {
+          for (YamlConfiguration config : retryList) {
+            String name = config.getString("name");
+
+            try {
+              warps.put(name, yamlToLocation(config));
+            } catch (Exception e) {
+              server.getLogger().severe(e.getMessage());
+              e.printStackTrace();
+            }
+          }
+        }
+      };
+
+      retry.runTask(plugin); // Try again after other plugins are finished loading
     }
   }
 
@@ -123,12 +158,17 @@ public class Warps {
     config.set("pitch", loc.getPitch());
   }
 
-  private Location yamlToLocation(YamlConfiguration config) throws IOException {
+  private Location yamlToLocation(YamlConfiguration config) {
     String worldName = config.getString("world");
     if (worldName == null) {
-      throw new IOException("Missing world name in warp config!");
+      throw new WarpConfigException("Missing world name in warp config!");
     }
+
     World world = server.getWorld(worldName);
+    if (world == null) {
+      throw new WorldNotFoundException("No world named " + worldName);
+    }
+
     double x = config.getDouble("x");
     double y = config.getDouble("y");
     double z = config.getDouble("z");

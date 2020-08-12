@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobportals;
 
+import com.snowypeaksystems.mobportals.exceptions.PermissionException;
 import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class MobPortals extends JavaPlugin {
 
     warpDir = new File(getDataFolder(), "warps");
     try {
-      warpStorage = new Warps(warpDir, getServer());
+      warpStorage = new Warps(warpDir, getServer(), this);
     } catch (IOException e) {
       getServer().getLogger().severe(e.getMessage());
       e.printStackTrace();
@@ -254,7 +255,7 @@ public class MobPortals extends JavaPlugin {
     reloadConfig();
     messages.regenerateMessages(getConfig());
 
-    warpStorage = new Warps(warpDir, getServer());
+    warpStorage = new Warps(warpDir, getServer(), this);
   }
 
   /** Returns a set of warp names. */

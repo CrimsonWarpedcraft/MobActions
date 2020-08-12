@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobportals;
 
+import com.snowypeaksystems.mobportals.exceptions.PermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

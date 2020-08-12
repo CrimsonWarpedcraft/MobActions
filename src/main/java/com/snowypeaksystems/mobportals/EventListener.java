@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobportals;
 
+import com.snowypeaksystems.mobportals.exceptions.PermissionException;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

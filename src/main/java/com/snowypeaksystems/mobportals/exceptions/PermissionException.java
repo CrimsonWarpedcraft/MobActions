@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobportals;
+package com.snowypeaksystems.mobportals.exceptions;
 
 /**
  * Exception that is thrown whenever a user does not have required privileges.
