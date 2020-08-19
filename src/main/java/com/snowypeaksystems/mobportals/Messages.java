@@ -115,7 +115,7 @@ public class Messages {
 
     noWarpsFound = ChatColor.YELLOW + "No warps available!";
 
-    String nametagText = config.getString("warp-message", "");
+    String nametagText = config.getString("mob-nametag-tex", "");
     if (nametagText == null) {
       nametagText = "";
     }
