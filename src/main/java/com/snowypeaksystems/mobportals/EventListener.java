@@ -5,6 +5,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
@@ -19,7 +20,9 @@ public class EventListener implements Listener {
     mp = parent;
   }
 
-  /** Handles when players interact with mobs depending on the state their in. */
+  /**
+   * Handles when players interact with mobs depending on the state their in.
+   */
   @EventHandler
   public void onMobInteract(PlayerInteractEntityEvent piee) {
     if (!(piee.getRightClicked() instanceof LivingEntity)
@@ -69,7 +72,9 @@ public class EventListener implements Listener {
     }
   }
 
-  /** Handles when a mob is damaged, cancelling when necessary. */
+  /**
+   * Handles when a mob is damaged, cancelling when necessary.
+   */
   @EventHandler
   public void onMobDamage(EntityDamageEvent ede) {
     if (!(ede.getEntity() instanceof LivingEntity) || ede.getEntity() instanceof Player) {
@@ -80,6 +85,21 @@ public class EventListener implements Listener {
 
     if (mp.isPortal(mob)) {
       ede.setCancelled(true);
+
+      if (ede instanceof EntityDamageByEntityEvent) {
+        EntityDamageByEntityEvent edee = (EntityDamageByEntityEvent) ede;
+
+        if (edee.getDamager() instanceof Player) {
+          Player player = (Player) edee.getDamager();
+
+          try {
+            mp.warpPlayer(player, mp.getPortalDestination(mob));
+          } catch (PermissionException e) {
+            player.sendMessage(mp.messages.permissionError.replace(
+                Messages.permToken, e.getMissingPermission()));
+          }
+        }
+      }
     }
   }
 }

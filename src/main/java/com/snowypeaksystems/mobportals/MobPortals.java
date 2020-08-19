@@ -231,7 +231,6 @@ public class MobPortals extends JavaPlugin {
     entity.getPersistentDataContainer().set(warpKey, PersistentDataType.STRING, warp);
     entity.setCustomName(messages.mobNameText.replace(Messages.warpToken, warp));
     entity.setCustomNameVisible(true);
-    entity.setInvulnerable(true);
 
     return true;
   }
@@ -245,7 +244,6 @@ public class MobPortals extends JavaPlugin {
     entity.getPersistentDataContainer().remove(warpKey);
     entity.setCustomName(null);
     entity.setCustomNameVisible(false);
-    entity.setInvulnerable(false);
 
     return true;
   }

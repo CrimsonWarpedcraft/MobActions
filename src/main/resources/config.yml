@@ -8,7 +8,7 @@ warp-name-formatting: "&c"
 
 # Message to displayed above a mob's head, or use "" to disable
 # You can use %warp% as a placeholder
-mob-nametag-text: "&6Right click to warp to %warp%!"
+mob-nametag-text: "&6Click to warp to %warp%!"
 
 # Message to display to user after a successful warp, or use "" to disable
 # You can use %warp% as a placeholder
