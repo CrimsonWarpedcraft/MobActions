@@ -32,7 +32,7 @@ For a simple plugin, we pack a few powerful features!
 `mobportals.*` - Grants access to all portals and all other permissions (Default: disabled)
 
 ### Configuration
-Please refer to the [config.yml](https://github.com/leviem1/MobPortals/blob/master/src/main/resources/config.yml) for further information.
+Please refer to the [config.yml](https://github.com/leviem1/MobPortals/blob/main/src/main/resources/config.yml) for further information.
 
 ## Installation
 Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/mp reload` to load any changes you make or messages you add!
