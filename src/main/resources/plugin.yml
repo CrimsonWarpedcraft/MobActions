@@ -4,11 +4,15 @@ version: "${VERSION}"
 api-version: "1.16"
 author: Levi Muniz
 description: Allow players to teleport between locations by interacting with mobs
+softdepend:
+  - Multiverse-Core
+
 commands:
   mp:
     description: Base command for MobPortals
     usage: "For a list of commands, type /mp help"
     aliases: mobportals,mportals
+
 permissions:
   mobportals.use.*:
     description: Allows players to use all mob portals, or specify a portal name instead of *
