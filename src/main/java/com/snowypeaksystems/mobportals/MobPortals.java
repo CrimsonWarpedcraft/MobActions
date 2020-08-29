@@ -40,7 +40,7 @@ public class MobPortals extends JavaPlugin {
     try {
       warpStorage = new Warps(warpDir, getServer(), this);
     } catch (IOException e) {
-      getServer().getLogger().severe(e.getMessage());
+      getLogger().severe(e.getMessage());
       e.printStackTrace();
       setEnabled(false);
       return;
@@ -53,7 +53,7 @@ public class MobPortals extends JavaPlugin {
 
     PluginCommand cmd = getCommand("mp");
     if (cmd == null) {
-      getServer().getLogger().severe("PluginCommand \"mp\" not found");
+      getLogger().severe("PluginCommand \"mp\" not found");
       setEnabled(false);
       return;
     }
@@ -120,8 +120,8 @@ public class MobPortals extends JavaPlugin {
   public void warpPlayer(Player player, String name) throws PermissionException {
     String warp = name.toLowerCase();
 
-    if (!player.hasPermission("mobportals.use." + warp)
-        && !player.hasPermission("mobportals.use.*")) {
+    if (!player.hasPermission("mobportals.use.*")
+        && !player.hasPermission("mobportals.use." + warp)) {
       throw new PermissionException("mobportals.use." + warp);
     }
 
@@ -262,9 +262,7 @@ public class MobPortals extends JavaPlugin {
   }
 
   private void greeting() {
-    getServer().getConsoleSender().sendMessage(
-        ChatColor.GOLD + "Rise and shine, MobPortals is ready to go!");
-    getServer().getConsoleSender().sendMessage(
-        ChatColor.YELLOW + "Please consider donating at https://github.com/sponsors/leviem1/");
+    getLogger().info("Rise and shine, MobPortals is ready to go!");
+    getLogger().info("Please consider donating at https://github.com/sponsors/leviem1/");
   }
 }
