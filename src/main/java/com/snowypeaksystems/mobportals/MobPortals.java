@@ -263,7 +263,7 @@ public class MobPortals extends JavaPlugin {
   }
 
   private void greeting() {
-    getLogger().info("Rise and shine, MobPortals is ready to go!");
-    getLogger().info("Please consider donating at https://github.com/sponsors/leviem1/");
+    getLogger().config("Rise and shine, MobPortals is ready to go!");
+    getLogger().config("Please consider donating at https://github.com/sponsors/leviem1/");
   }
 }
