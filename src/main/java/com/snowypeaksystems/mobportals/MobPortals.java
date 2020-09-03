@@ -143,8 +143,7 @@ public class MobPortals extends JavaPlugin {
 
   private void warpPlayer(Player player, Location location, CompletableFuture<Boolean> future) {
     PaperLib.getChunkAtAsync(location).thenAccept(chunk -> {
-      player.teleport(location);
-      future.complete(true);
+      future.complete(player.teleport(location));
     });
   }
 
