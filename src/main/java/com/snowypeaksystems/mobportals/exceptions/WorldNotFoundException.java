@@ -5,7 +5,14 @@ package com.snowypeaksystems.mobportals.exceptions;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class WorldNotFoundException extends RuntimeException {
-  public WorldNotFoundException(String message) {
-    super(message);
+  private final String missingWorld;
+
+  public WorldNotFoundException(String world) {
+    super("World \"" + world + "\" not found");
+    missingWorld = world;
+  }
+
+  public String getMissingWorld() {
+    return missingWorld;
   }
 }

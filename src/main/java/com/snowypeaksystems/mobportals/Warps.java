@@ -166,7 +166,7 @@ public class Warps {
 
     World world = server.getWorld(worldName);
     if (world == null) {
-      throw new WorldNotFoundException("No world named " + worldName);
+      throw new WorldNotFoundException(worldName);
     }
 
     double x = config.getDouble("x");
