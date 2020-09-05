@@ -1,6 +1,9 @@
 package com.snowypeaksystems.mobportals;
 
+import static com.snowypeaksystems.mobportals.messages.Messages.gm;
+
 import com.snowypeaksystems.mobportals.exceptions.PermissionException;
+import com.snowypeaksystems.mobportals.messages.Messages;
 import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +11,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.PluginCommand;
@@ -28,7 +30,6 @@ public class MobPortals extends JavaPlugin {
   private HashMap<Player, String> creators;
   private HashSet<Player> removers;
   private File warpDir;
-  Messages messages;
 
   @Override
   public void onEnable() {
@@ -47,7 +48,6 @@ public class MobPortals extends JavaPlugin {
     }
 
     warpKey = new NamespacedKey(this, "portalDest");
-    messages = Messages.getMessages(getConfig());
     creators = new HashMap<>();
     removers = new HashSet<>();
 
@@ -126,7 +126,7 @@ public class MobPortals extends JavaPlugin {
     }
 
     if (warpExists(warp)) {
-      String message = messages.warpSuccess.replaceAll(Messages.warpToken, warp);
+      String message = gm("warp-success", warp);
 
       CompletableFuture<Boolean> future = new CompletableFuture<>();
       future.thenAccept(success -> {
@@ -137,7 +137,7 @@ public class MobPortals extends JavaPlugin {
 
       warpPlayer(player, getWarpLocation(warp), future);
     } else {
-      player.sendMessage(messages.warpNotFound.replace(Messages.warpToken, warp));
+      player.sendMessage(gm("warp-missing", warp));
     }
   }
 
@@ -228,7 +228,7 @@ public class MobPortals extends JavaPlugin {
     }
 
     entity.getPersistentDataContainer().set(warpKey, PersistentDataType.STRING, warp);
-    entity.setCustomName(messages.mobNameText.replace(Messages.warpToken, warp));
+    entity.setCustomName(gm("mob-nametag-text", warp));
     entity.setCustomNameVisible(true);
     entity.setRemoveWhenFarAway(false);
 
@@ -252,7 +252,8 @@ public class MobPortals extends JavaPlugin {
   /** Reloads the configuration. */
   public void reload() throws IOException {
     reloadConfig();
-    messages.regenerateMessages(getConfig());
+    Messages.initialize();
+    warpStorage = new Warps(warpDir, getServer(), this);
 
     getLogger().info("MobPortals reloaded successfully!");
   }

@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobportals;
 
+import static com.snowypeaksystems.mobportals.messages.Messages.gm;
+
 import com.snowypeaksystems.mobportals.exceptions.PermissionException;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -33,7 +35,7 @@ public class EventListener implements Listener {
     LivingEntity mob = (LivingEntity) piee.getRightClicked();
 
     if (mob instanceof Player) {
-      piee.getPlayer().sendMessage(mp.messages.portalCreateError);
+      piee.getPlayer().sendMessage(gm("portal-create-error"));
       return;
     }
 
@@ -42,11 +44,9 @@ public class EventListener implements Listener {
       String name = mp.getCreation(piee.getPlayer());
 
       if (mp.createPortal(mob, name)) {
-        piee.getPlayer().sendMessage(
-            mp.messages.portalCreateSuccess.replaceAll(Messages.warpToken, name));
+        piee.getPlayer().sendMessage(gm("portal-create-success", name));
       } else {
-        piee.getPlayer().sendMessage(
-            mp.messages.warpNotFound.replaceAll(Messages.warpToken, name));
+        piee.getPlayer().sendMessage(gm("warp-missing", name));
       }
 
       mp.stopCreating(piee.getPlayer());
@@ -54,9 +54,9 @@ public class EventListener implements Listener {
       piee.setCancelled(true);
 
       if (mp.removePortal(mob)) {
-        piee.getPlayer().sendMessage(mp.messages.portalRemoveSuccess);
+        piee.getPlayer().sendMessage(gm("portal-remove-success"));
       } else {
-        piee.getPlayer().sendMessage(mp.messages.portalRemoveError);
+        piee.getPlayer().sendMessage(gm("portal-remove-error"));
       }
 
       mp.stopRemoving(piee.getPlayer());
@@ -66,8 +66,7 @@ public class EventListener implements Listener {
       try {
         mp.warpPlayer(piee.getPlayer(), mp.getPortalDestination(mob));
       } catch (PermissionException e) {
-        piee.getPlayer().sendMessage(
-            mp.messages.permissionError.replace(Messages.permToken, e.getMissingPermission()));
+        piee.getPlayer().sendMessage(gm("permission-error", e.getMissingPermission()));
       }
     }
   }
@@ -95,8 +94,7 @@ public class EventListener implements Listener {
           try {
             mp.warpPlayer(player, mp.getPortalDestination(mob));
           } catch (PermissionException e) {
-            player.sendMessage(mp.messages.permissionError.replace(
-                Messages.permToken, e.getMissingPermission()));
+            player.sendMessage(gm("permission-error", e.getMissingPermission()));
           }
         }
       }

@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobportals;
 
+import static com.snowypeaksystems.mobportals.messages.Messages.gm;
+
 import com.snowypeaksystems.mobportals.exceptions.PermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public class CommandListener implements TabExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player)) {
-      sender.sendMessage(mp.messages.consoleCommandError);
+      sender.sendMessage(gm("console-command-error"));
       return true;
     }
 
@@ -117,16 +119,12 @@ public class CommandListener implements TabExecutor {
     try {
       if (mp.warpExists(name)) {
         mp.setCreating(sender, name);
-        sender.sendMessage(new String[]
-            {mp.messages.portalCreateInfo.replaceAll(Messages.warpToken, name),
-                mp.messages.cancelInfo});
+        sender.sendMessage(new String[]{gm("portal-create", name), gm("portal-cancel")});
       } else {
-        sender.sendMessage(
-            mp.messages.warpNotFound.replaceAll(Messages.warpToken, name));
+        sender.sendMessage(gm("warp-missing", name));
       }
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     }
     return true;
   }
@@ -134,10 +132,9 @@ public class CommandListener implements TabExecutor {
   private boolean portalRemove(Player sender) {
     try {
       mp.setRemoving(sender);
-      sender.sendMessage(new String[] {mp.messages.portalRemoveInfo, mp.messages.cancelInfo});
+      sender.sendMessage(new String[] {gm("portal-remove"), gm("portal-cancel")});
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     }
 
     return true;
@@ -157,9 +154,9 @@ public class CommandListener implements TabExecutor {
     }
 
     if (changed) {
-      sender.sendMessage(mp.messages.cancelSuccess);
+      sender.sendMessage(gm("cancel-success"));
     } else {
-      sender.sendMessage(mp.messages.cancelError);
+      sender.sendMessage(gm("cancel-error"));
     }
 
     return true;
@@ -172,18 +169,17 @@ public class CommandListener implements TabExecutor {
       }
 
       if (mp.setWarp(name, sender.getLocation())) {
-        sender.sendMessage(mp.messages.warpCreateSuccess.replaceAll(Messages.warpToken, name));
+        sender.sendMessage(gm("warp-create-success", name));
       } else {
-        sender.sendMessage(mp.messages.warpExistsError.replaceAll(Messages.warpToken, name));
+        sender.sendMessage(gm("warp-create-error", name));
       }
 
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     } catch (IOException e) {
       mp.getServer().getLogger().severe(e.getMessage());
       e.printStackTrace();
-      sender.sendMessage(mp.messages.warpWriteError.replaceAll(Messages.warpToken, name));
+      sender.sendMessage(gm("warp-save-error", name));
     }
 
     return true;
@@ -195,14 +191,13 @@ public class CommandListener implements TabExecutor {
         throw new PermissionException("mobportals.delwarp");
       }
       if (mp.delWarp(name)) {
-        sender.sendMessage(mp.messages.warpDeleteSuccess.replaceAll(Messages.warpToken, name));
+        sender.sendMessage(gm("warp-delete-success", name));
       } else {
-        sender.sendMessage(mp.messages.warpNotFound.replaceAll(Messages.warpToken, name));
+        sender.sendMessage(gm("warp-missing", name));
       }
 
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     }
 
     return true;
@@ -215,8 +210,7 @@ public class CommandListener implements TabExecutor {
       }
       mp.warpPlayer(sender, name);
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     }
 
     return true;
@@ -229,14 +223,13 @@ public class CommandListener implements TabExecutor {
       }
       Set<String> warpNames = mp.getWarpNames();
       if (warpNames.size() > 0) {
-        sender.sendMessage(mp.messages.listMessage);
+        sender.sendMessage(gm("list-message"));
         sender.sendMessage(String.join(", ", warpNames));
       } else {
-        sender.sendMessage(mp.messages.noWarpsFound);
+        sender.sendMessage(gm("list-empty-message"));
       }
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     }
 
     return true;
@@ -248,14 +241,13 @@ public class CommandListener implements TabExecutor {
         throw new PermissionException("mobportals.reload");
       }
       mp.reload();
-      sender.sendMessage(mp.messages.reloadComplete);
+      sender.sendMessage(gm("reload-success"));
     } catch (PermissionException e) {
-      sender.sendMessage(
-          mp.messages.permissionError.replaceAll(Messages.permToken, e.getMissingPermission()));
+      sender.sendMessage(gm("permission-error", e.getMissingPermission()));
     } catch (IOException e) {
       mp.getServer().getLogger().severe(e.getMessage());
       e.printStackTrace();
-      sender.sendMessage(mp.messages.reloadError);
+      sender.sendMessage(gm("reload-error"));
     }
 
     return true;
