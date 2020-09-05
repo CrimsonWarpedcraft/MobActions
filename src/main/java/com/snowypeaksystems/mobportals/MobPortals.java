@@ -142,9 +142,8 @@ public class MobPortals extends JavaPlugin {
   }
 
   private void warpPlayer(Player player, Location location, CompletableFuture<Boolean> future) {
-    PaperLib.getChunkAtAsync(location).thenAccept(chunk -> {
-      future.complete(player.teleport(location));
-    });
+    PaperLib.getChunkAtAsync(location)
+        .thenAccept(chunk -> future.complete(player.teleport(location)));
   }
 
   /** Returns true if player is creating a portal, false otherwise. */
