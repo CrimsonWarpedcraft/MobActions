@@ -254,7 +254,7 @@ public class MobPortals extends JavaPlugin {
     reloadConfig();
     messages.regenerateMessages(getConfig());
 
-    warpStorage = new Warps(warpDir, getServer(), this);
+    getLogger().info("MobPortals reloaded successfully!");
   }
 
   /** Returns a set of warp names. */
