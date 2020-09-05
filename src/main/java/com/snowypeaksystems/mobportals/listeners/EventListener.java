@@ -1,7 +1,8 @@
-package com.snowypeaksystems.mobportals;
+package com.snowypeaksystems.mobportals.listeners;
 
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
+import com.snowypeaksystems.mobportals.MobPortals;
 import com.snowypeaksystems.mobportals.exceptions.PermissionException;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

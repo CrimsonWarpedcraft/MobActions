@@ -3,6 +3,8 @@ package com.snowypeaksystems.mobportals;
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
 import com.snowypeaksystems.mobportals.exceptions.PermissionException;
+import com.snowypeaksystems.mobportals.listeners.CommandListener;
+import com.snowypeaksystems.mobportals.listeners.EventListener;
 import com.snowypeaksystems.mobportals.messages.Messages;
 import io.papermc.lib.PaperLib;
 import java.io.File;
