@@ -14,34 +14,50 @@ commands:
     aliases: mobportals,mportals
 
 permissions:
-  mobportals.use.*:
-    description: Allows players to use all mob portals, or specify a portal name instead of *
+  mobportals.warp.*:
+    description: Allows players to use all warps, or specify a warp name instead of *
     default: true
-  mobportals.create:
-    description: Allows players to create mob portals with /mp create
-    default: op
-  mobportals.remove:
-    description: Allows players to destroy mob portals with /mp remove
-    default: op
-  mobportals.setwarp:
-    description: Allows players to create a warp using /mp setwarp
-    default: op
-  mobportals.delwarp:
-    description: Allows players to delete a warp using /mp delwarp
-    default: op
   mobportals.warp:
     description: Allows players to go to a warp using /mp warp
     default: op
-  mobportals.reload:
-    description: Allows players to reload the plugin configuration
+  mobportals.listwarps:
+    description: Allows players to list available warps
     default: op
+  mobportals.admin.create:
+    description: Allows players to create mob portals with /mp create
+    default: false
+  mobportals.admin.remove:
+    description: Allows players to destroy mob portals with /mp remove
+    default: false
+  mobportals.admin.setwarp:
+    description: Allows players to create a warp using /mp setwarp
+    default: false
+  mobportals.admin.delwarp:
+    description: Allows players to delete a warp using /mp delwarp
+    default: false
+  mobportals.admin.reload:
+    description: Allows players to reload the plugin configuration
+    default: false
   mobportals.*:
     description: Grants access to all portals and all other permissions
     default: false
     children:
-      mobportals.use.*: true
-      mobportals.create: true
-      mobportals.remove: true
-      mobportals.setwarp: true
-      mobportals.delwarp: true
+      mobportals.warp.*: true
       mobportals.warp: true
+      mobportals.listwarps: true
+      mobportals.admin.create: true
+      mobportals.admin.remove: true
+      mobportals.admin.setwarp: true
+      mobportals.admin.delwarp: true
+      mobportals.admin.reload: true
+  mobportals.admin.*:
+    description: Grants access to all portals and other admin permissions
+    default: op
+    children:
+      mobportals.warp.*: true
+      mobportals.admin.create: true
+      mobportals.admin.remove: true
+      mobportals.admin.setwarp: true
+      mobportals.admin.delwarp: true
+      mobportals.admin.reload: true
+

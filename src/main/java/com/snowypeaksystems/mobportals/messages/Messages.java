@@ -1,6 +1,5 @@
 package com.snowypeaksystems.mobportals.messages;
 
-import com.snowypeaksystems.mobportals.exceptions.MessageNotFoundException;
 import java.util.HashMap;
 
 /**
@@ -16,7 +15,7 @@ public class Messages {
    * @param key the identifier of the message
    * @param args list of strings to replace tokens with in messages
    * @return Returns the message for the key
-   * @throws MessageNotFoundException If a message is not found for the provided key
+   * @throws RuntimeException If a message is not found for the provided key
    */
   public static String gm(String key, String... args) {
     if (messages == null) {
@@ -24,7 +23,7 @@ public class Messages {
     }
 
     if (!messages.containsKey(key)) {
-      throw new MessageNotFoundException(key);
+      throw new RuntimeException("Message for " + key + " not found");
     }
 
     return messages.get(key).getMessage(args);
@@ -58,14 +57,14 @@ public class Messages {
     // Portal create messages
     messages.put("portal-create",
         new Message("&bRight click on a mob to create a portal to {&c}", TOKEN));
-    messages.put("portal-create-error", new Message("&cPortals cannot be set to players!"));
     messages.put("portal-create-success",
         new Message("&aPortal to {&c} created successfully!", TOKEN));
 
     // Portal remove messages
     messages.put("portal-remove", new Message("&bRight click on a mob to remove the portal"));
     messages.put("portal-remove-error", new Message("&cNo portal found!"));
-    messages.put("portal-remove-success", new Message("&aPortal successfully removed!"));
+    messages.put("portal-remove-success",
+        new Message("&aPortal to {&c} successfully removed!", TOKEN));
 
     // Reload messages
     messages.put("reload-success", new Message("&aMobPortals reload complete!"));
@@ -73,7 +72,8 @@ public class Messages {
         new Message("&cUnable to reload MobPortals! Some things may not be working properly..."));
 
     // Warp messages
-    messages.put("warp-create-error", new Message("&cWarp \"{}\" already exists!", TOKEN));
+    messages.put("warp-create-error",
+        new Message("&cCouldn't save warp! See console!", TOKEN));
     messages.put("warp-create-success",
         new Message("&aWarp {&c} created successfully!", TOKEN));
     messages.put("warp-delete-success",

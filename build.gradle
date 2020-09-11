@@ -35,7 +35,6 @@ dependencies {
     compileOnly group: 'com.github.spotbugs', name: 'spotbugs-annotations', version:'3.1.2'
     compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.2-R0.1-SNAPSHOT'
     implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 }
 
 processResources {
