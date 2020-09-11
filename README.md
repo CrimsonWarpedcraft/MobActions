@@ -21,15 +21,18 @@ For a simple plugin, we pack a few powerful features!
 `/mp reload` - Reload the configuration
 
 ### Permissions
-`mobportals.use.*` - Allows players to use all mob portals (Default: enabled)  
-`mobportals.use.[warp]` - Allows players to use portals to the specific warp (Default: disabled)  
-`mobportals.create` - Allows players to create mob portals with /mp create (Default: op)  
-`mobportals.remove` - Allows players to destroy mob portals with /mp remove (Default: op)  
+`mobportals.*` - Grants access to all warps and all other permissions (Default: disabled)  
 `mobportals.warp` - Allows players to go to a warp using /mp warp. Also needed for /mp list (Default: op)  
-`mobportals.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
-`mobportals.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  
-`mobportals.reload` - Allows players to reload the plugin configuration (Default: op)  
-`mobportals.*` - Grants access to all portals and all other permissions (Default: disabled)
+`mobportals.warp.*` - Allows players to use all mob portals (Default: enabled)  
+`mobportals.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)  
+`mobportals.listwarps` - Allows players to list warps that they have access to (Default: op)
+  
+`mobportal.admin.*` - Grants access to all admin commands and warps (Default: op)  
+`mobportals.admin.create` - Allows players to create mob portals with /mp create (Default: false)  
+`mobportals.admin.remove` - Allows players to destroy mob portals with /mp remove (Default: false)  
+`mobportals.admin.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
+`mobportals.admin.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  
+`mobportals.admin.reload` - Allows players to reload the plugin configuration (Default: op)  
 
 ### Configuration
 For now, enjoy a simple, empty config. :)
