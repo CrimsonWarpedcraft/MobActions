@@ -2,7 +2,7 @@ package com.snowypeaksystems.mobportals.mobs;
 
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
-import com.snowypeaksystems.mobportals.MobPortals;
+import com.snowypeaksystems.mobportals.AbstractMobPortals;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import com.snowypeaksystems.mobportals.warps.IWarps;
 import org.bukkit.NamespacedKey;
@@ -22,10 +22,10 @@ public class PortalMob implements IPortalMob {
   /**
    * Constructs a new PortalMob from an entity and plugin.
    * @param entity the non-Player LivingEntity
-   * @param mp the MobPortals instance
+   * @param mp the AbstractMobPortals instance
    * @throws IllegalArgumentException if entity is an instance of Player
    */
-  public PortalMob(LivingEntity entity, MobPortals mp) {
+  public PortalMob(LivingEntity entity, AbstractMobPortals mp) {
     if (entity instanceof Player) {
       throw new IllegalArgumentException("Players may not be used as portals!");
     }

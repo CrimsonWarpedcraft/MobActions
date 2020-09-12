@@ -19,14 +19,13 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Main class which handles initialization of the plugin. Additionally,
  * provides methods to be used throughout the codebase.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class MobPortals extends JavaPlugin implements IMobPortals {
+public class MobPortals extends AbstractMobPortals {
   private IWarps warps;
   private HashMap<Player, IMobWritable> editors;
 

@@ -8,15 +8,10 @@ import org.bukkit.ChatColor;
  */
 public class Message implements IMessage {
   private final String message;
-  private final String token;
 
-  public Message(String message) {
-    this(message, null);
-  }
-
-  public Message(String message, String token) {
-    this.message = message;
-    this.token = token;
+  Message(String message) {
+    this.message = ChatColor.translateAlternateColorCodes('&', message);
+    // TODO: Get number of tokens here so that we can throw errors faster in getMessage
   }
 
   @Override
@@ -25,7 +20,7 @@ public class Message implements IMessage {
   }
 
   private String replaceAndColorize(String... args) {
-    if (args.length == 0 || token == null) {
+    if (args.length == 0) {
       return message;
     }
 
@@ -33,41 +28,42 @@ public class Message implements IMessage {
     int last = 0;
     int tokens = 0;
     int[] positions = new int[2];
-    StringBuilder sb = new StringBuilder();
-
+    StringBuilder newString = new StringBuilder();
+    StringBuilder colors = new StringBuilder();
     for (int j = 0; i < message.length(); i++) {
+      if (message.charAt(i) == IMessage.TOKEN.charAt(j)) {
+        positions[j] = i;
+        j++;
+      }
+
       if (j == positions.length) {
         if (tokens == args.length) {
-          throw new IllegalArgumentException("Number of arguments must match number of tokens");
+          throw new IllegalArgumentException("Expected " + args.length + " tokens, found more");
         }
 
         String segment = message.substring(last, positions[0]);
-        String lastColors = ChatColor.getLastColors(segment);
-
+        colors.append(ChatColor.getLastColors(segment));
 
         String newColors = ChatColor.getLastColors(
             message.substring(positions[0] + 1, positions[1]));
 
-        sb.append(segment).append(ChatColor.RESET)
+        newString.append(segment).append(ChatColor.RESET)
             .append(newColors).append(args[tokens])
-            .append(ChatColor.RESET).append(lastColors);
+            .append(ChatColor.RESET).append(colors.toString());
 
         j = 0;
-        last = i;
+        last = i + 1;
         tokens++;
       }
-
-      if (message.charAt(i) == token.charAt(j)) {
-        positions[j] = i;
-        j++;
-      }
     }
+
+    newString.append(message, last, message.length());
 
     if (tokens != args.length) {
-      throw new IllegalArgumentException("Number of arguments must match number of tokens");
+      throw new IllegalArgumentException(
+          "Expected " + args.length + " tokens, " + tokens + " found");
     }
 
-    sb.append(message, last, i);
-    return sb.toString();
+    return newString.toString();
   }
 }

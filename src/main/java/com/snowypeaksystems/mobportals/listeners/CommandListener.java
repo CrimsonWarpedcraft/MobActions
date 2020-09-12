@@ -2,8 +2,8 @@ package com.snowypeaksystems.mobportals.listeners;
 
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
+import com.snowypeaksystems.mobportals.AbstractMobPortals;
 import com.snowypeaksystems.mobportals.IMobPortalPlayer;
-import com.snowypeaksystems.mobportals.MobPortals;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import com.snowypeaksystems.mobportals.warps.IWarps;
 import java.io.IOException;
@@ -24,8 +24,8 @@ import org.bukkit.util.StringUtil;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class CommandListener implements TabExecutor {
-  private final MobPortals mp;
-  // TODO: Add to Messages
+  private final AbstractMobPortals mp;
+  // TODO: Add to Messages class
   private static final String[] HELP = {
       "Usage: /mp <subcommand>",
       "/mp create <warp> - Create a portal to the warp",
@@ -41,7 +41,7 @@ public class CommandListener implements TabExecutor {
   private static final String[] SUBCOMMANDS =
       {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "list"};
 
-  public CommandListener(MobPortals parent) {
+  public CommandListener(AbstractMobPortals parent) {
     this.mp = parent;
   }
 

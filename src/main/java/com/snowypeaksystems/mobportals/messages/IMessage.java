@@ -5,6 +5,8 @@ package com.snowypeaksystems.mobportals.messages;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface IMessage {
+  String TOKEN = "{}";
+
   /**
    * Gets the message, replacing IMessage.TOKEN with any specified args.
    * @param args List of arguments to replace in the message

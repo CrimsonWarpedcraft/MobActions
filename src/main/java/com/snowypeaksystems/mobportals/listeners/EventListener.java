@@ -2,8 +2,8 @@ package com.snowypeaksystems.mobportals.listeners;
 
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
+import com.snowypeaksystems.mobportals.AbstractMobPortals;
 import com.snowypeaksystems.mobportals.IMobPortalPlayer;
-import com.snowypeaksystems.mobportals.MobPortals;
 import com.snowypeaksystems.mobportals.mobs.IPortalMob;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import org.bukkit.entity.LivingEntity;
@@ -21,9 +21,9 @@ import org.bukkit.event.world.WorldLoadEvent;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class EventListener implements Listener {
-  private final MobPortals mp;
+  private final AbstractMobPortals mp;
 
-  public EventListener(MobPortals parent) {
+  public EventListener(AbstractMobPortals parent) {
     mp = parent;
   }
 
