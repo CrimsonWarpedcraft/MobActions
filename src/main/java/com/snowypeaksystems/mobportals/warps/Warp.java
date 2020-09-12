@@ -30,11 +30,10 @@ public class Warp implements IWarp {
     dest = loadLocation(config, server);
   }
 
-  Warp(String name, Location dest, File warpFolder) throws IOException {
+  Warp(String name, Location dest, File warpFolder) {
     this.name = name;
     this.dest = dest;
     save = new File(warpFolder, String.valueOf(name.toLowerCase().hashCode()));
-    save();
   }
 
   @Override

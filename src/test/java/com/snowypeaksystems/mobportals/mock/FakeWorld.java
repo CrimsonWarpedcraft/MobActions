@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobportals;
+package com.snowypeaksystems.mobportals.mock;
 
 import com.destroystokyo.paper.HeightmapType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -61,6 +61,16 @@ import org.bukkit.util.Vector;
  */
 @SuppressFBWarnings
 public class FakeWorld implements World {
+  private final String name;
+
+  public FakeWorld() {
+    this.name = String.valueOf(System.currentTimeMillis());
+  }
+
+  public FakeWorld(String name) {
+    this.name = name;
+  }
+
   @Override
   public int getEntityCount() {
     return 0;
@@ -430,7 +440,7 @@ public class FakeWorld implements World {
 
   @Override
   public String getName() {
-    return null;
+    return "test";
   }
 
   @Override

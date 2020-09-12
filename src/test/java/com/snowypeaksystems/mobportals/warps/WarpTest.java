@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.snowypeaksystems.mobportals.FakeWorld;
+import com.snowypeaksystems.mobportals.mock.FakeWorld;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -25,30 +25,22 @@ public class WarpTest {
   /** Creates a WarpTest with a warpDir File. */
   @BeforeClass
   public static void setup() {
-    warpDir = new File("warps/");
+    warpDir = new File("tests/warps/");
     warpDir.delete();
     warpDir.mkdirs();
   }
 
   @Test
   public void getName() {
-    try {
-      IWarp w = new Warp("Test", new Location(new FakeWorld(), 0, 0, 0), warpDir);
-      assertEquals("Test", w.getName());
-    } catch (IOException e) {
-      fail();
-    }
+    IWarp w = new Warp("Test", new Location(new FakeWorld(), 0, 0, 0), warpDir);
+    assertEquals("Test", w.getName());
   }
 
   @Test
   public void getDestination() {
     Location loc = new Location(new FakeWorld(), 0, 0, 0);
-    try {
-      IWarp w = new Warp("Test", loc, warpDir);
-      assertEquals(loc, w.getDestination());
-    } catch (IOException e) {
-      fail();
-    }
+    IWarp w = new Warp("Test", loc, warpDir);
+    assertEquals(loc, w.getDestination());
   }
 
   @Test
@@ -80,5 +72,6 @@ public class WarpTest {
   @AfterClass
   public static void tearDown() {
     warpDir.delete();
+    assertFalse(warpDir.exists());
   }
 }

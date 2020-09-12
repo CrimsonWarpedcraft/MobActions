@@ -187,7 +187,9 @@ public class CommandListener implements TabExecutor {
 
         try {
           IWarps warps = mp.getWarps();
-          warps.add(warps.create(args[1], player.getPlayer().getLocation()));
+          IWarp warp = warps.create(args[1], player.getPlayer().getLocation());
+          warps.add(warp);
+          warp.save();
         } catch (IOException e) {
           sender.sendMessage(gm("warp-create-error"));
           mp.getLogger().log(Level.SEVERE, "Error saving warp file!", e);

@@ -1,6 +1,5 @@
 package com.snowypeaksystems.mobportals.warps;
 
-import java.io.IOException;
 import java.util.Set;
 import org.bukkit.Location;
 
@@ -14,9 +13,8 @@ public interface IWarps {
    * @param name name of the warp
    * @param location location in which the warp takes you
    * @return Returns the IWarp created
-   * @throws IOException if the warp cannot be written to storage
    */
-  IWarp create(String name, Location location) throws IOException;
+  IWarp create(String name, Location location);
 
   /** Add the IWarp to the available warps. */
   IWarp add(IWarp warp);

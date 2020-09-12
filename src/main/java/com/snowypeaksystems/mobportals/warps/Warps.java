@@ -3,8 +3,8 @@ package com.snowypeaksystems.mobportals.warps;
 import com.snowypeaksystems.mobportals.exceptions.WarpConfigException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.Location;
@@ -37,18 +37,13 @@ public class Warps implements IWarps {
   }
 
   @Override
-  public IWarp create(String name, Location location) throws IOException {
+  public IWarp create(String name, Location location) {
     return new Warp(name, location, storageDir);
   }
 
   @Override
   public synchronized IWarp add(IWarp warp) {
-    String nameLower = warp.getName().toLowerCase();
-    IWarp old = warps.get(nameLower);
-
-    warps.put(nameLower, warp);
-
-    return old;
+    return warps.put(warp.getName().toLowerCase(), warp);
   }
 
   @Override
@@ -62,13 +57,19 @@ public class Warps implements IWarps {
   }
 
   @Override
-  public synchronized boolean exists(String key) {
-    return warps.containsKey(key);
+  public synchronized boolean exists(String name) {
+    return warps.containsKey(name.toLowerCase());
   }
 
   @Override
   public synchronized Set<String> getWarpNames() {
-    return warps.keySet();
+    Set<String> names = new HashSet<>();
+
+    for (IWarp warp : warps.values()) {
+      names.add(warp.getName());
+    }
+
+    return names;
   }
 
   @Override
