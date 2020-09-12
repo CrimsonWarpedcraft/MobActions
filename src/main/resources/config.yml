@@ -1,16 +1,6 @@
 # Thanks for using MobPortals by Levi Muniz (https://github.com/leviem1/MobPortals/)!
-# You can use formatting codes anywhere there's text! (see https://wiki.ess3.net/mc/)
+# Please consider donating at https://github.com/sponsors/leviem1/
 # Update the information below as needed. Happy mining!
 # Run `/mp reload` to apply changes
 
-# Formatting that should be applied to warp names
-warp-name-formatting: "&c"
-
-# Message to displayed above a mob's head, or use "" to disable
-# You can use %warp% as a placeholder
-mob-nametag-text: "&6Click to warp to %warp%!"
-
-# Message to display to user after a successful warp, or use "" to disable
-# You can use %warp% as a placeholder
-warp-message: "&6Welcome to %warp%!"
 
