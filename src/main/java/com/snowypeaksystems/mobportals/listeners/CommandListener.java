@@ -39,7 +39,7 @@ public class CommandListener implements TabExecutor {
   };
   // How could these be translated?
   private static final String[] SUBCOMMANDS =
-      {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "list"};
+      {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "list", "cancel"};
 
   public CommandListener(AbstractMobPortals parent) {
     this.mp = parent;
@@ -190,6 +190,7 @@ public class CommandListener implements TabExecutor {
           IWarp warp = warps.create(args[1], player.getPlayer().getLocation());
           warps.add(warp);
           warp.save();
+          sender.sendMessage(gm("warp-create-success", warp.getName()));
         } catch (IOException e) {
           sender.sendMessage(gm("warp-create-error"));
           mp.getLogger().log(Level.SEVERE, "Error saving warp file!", e);
@@ -228,6 +229,9 @@ public class CommandListener implements TabExecutor {
 
       } else {
         mp.reloadConfig();
+        if (sender instanceof Player) {
+          sender.sendMessage(gm("reload-success"));
+        }
       }
 
       return true;

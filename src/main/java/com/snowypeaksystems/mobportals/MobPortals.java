@@ -64,8 +64,8 @@ public class MobPortals extends AbstractMobPortals {
 
     getServer().getPluginManager().registerEvents(new EventListener(this), this);
 
-    getLogger().config("Rise and shine, MobPortals is ready to go!");
-    getLogger().config("Please consider donating at https://github.com/sponsors/leviem1/");
+    getLogger().info("Rise and shine, MobPortals is ready to go!");
+    getLogger().info("Please consider donating at https://github.com/sponsors/leviem1/");
   }
 
   @Override

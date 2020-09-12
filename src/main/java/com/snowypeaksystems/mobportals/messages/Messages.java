@@ -28,7 +28,7 @@ public class Messages {
 
     // Permission messages
     messages.put("permission-error",
-        new Message("You need the {} permission node to do that!"));
+        new Message("&cYou need the {} permission node to do that!"));
 
     // Portal cancel messages
     messages.put("portal-cancel", new Message("&eUse /mp cancel to cancel"));
@@ -49,8 +49,6 @@ public class Messages {
 
     // Reload messages
     messages.put("reload-success", new Message("&aMobPortals reload complete!"));
-    messages.put("reload-error",
-        new Message("&cUnable to reload MobPortals! Some things may not be working properly..."));
 
     // Warp messages
     messages.put("warp-create-error",

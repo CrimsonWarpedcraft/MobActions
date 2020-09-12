@@ -5,6 +5,7 @@ import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 import com.snowypeaksystems.mobportals.AbstractMobPortals;
 import com.snowypeaksystems.mobportals.IMobPortalPlayer;
 import com.snowypeaksystems.mobportals.mobs.IPortalMob;
+import com.snowypeaksystems.mobportals.mobs.PortalMob;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -35,16 +36,15 @@ public class EventListener implements Listener {
       return;
     }
 
-    IPortalMob portal = mp.getPortalMob((LivingEntity) event.getRightClicked());
-    if (!portal.hasData()) {
-      return;
-    }
-
     IMobPortalPlayer player = mp.getPlayer(event.getPlayer());
+    IPortalMob portal = mp.getPortalMob((LivingEntity) event.getRightClicked());
     if (player.isCreating()) {
       if (player.getCreation() instanceof IWarp) {
         IWarp warp = (IWarp) player.getCreation();
         if (mp.getWarps().exists(warp.getName())) {
+          if (portal == null) {
+            portal = new PortalMob((LivingEntity) event.getRightClicked(), mp);
+          }
           portal.create(warp);
           player.setCreation(null);
           player.getPlayer().sendMessage(gm("portal-create-success", warp.getName()));
@@ -56,7 +56,7 @@ public class EventListener implements Listener {
       }
 
     } else if (player.isDestroying()) {
-      if (portal.hasData()) {
+      if (portal != null) {
         IWarp warp = portal.destroy();
         player.setDestroying(false);
         player.getPlayer().sendMessage(gm("portal-remove-success", warp.getName()));
@@ -67,16 +67,19 @@ public class EventListener implements Listener {
       }
 
     } else {
-      IWarp warp = portal.getData();
-      String allPerm = "mobportals.warp.*";
-      String altPerm = "mobportals.warp." + warp.getName();
+      if (portal != null) {
+        IWarp warp = portal.getData();
+        String allPerm = "mobportals.warp.*";
+        String altPerm = "mobportals.warp." + warp.getName();
 
-      if (player.getPlayer().hasPermission(allPerm) || player.getPlayer().hasPermission(altPerm)) {
-        player.warp(warp);
+        if (player.getPlayer().hasPermission(allPerm)
+            || player.getPlayer().hasPermission(altPerm)) {
+          player.warp(warp);
 
-      } else {
-        player.getPlayer().sendMessage(
-            gm("permission-error", allPerm + " or " + altPerm));
+        } else {
+          player.getPlayer().sendMessage(
+              gm("permission-error", allPerm + " or " + altPerm));
+        }
       }
     }
 
@@ -91,7 +94,7 @@ public class EventListener implements Listener {
     }
 
     IPortalMob portal = mp.getPortalMob((LivingEntity) event.getEntity());
-    if (!portal.hasData()) {
+    if (portal == null) {
       return;
     }
 
