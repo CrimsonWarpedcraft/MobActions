@@ -8,6 +8,8 @@ Works with Paper, Spigot, and Bukkit servers!
 Native Version: **1.16**  
 Tested Minecraft Versions: **1.16**
 
+![Build and Artifact](https://github.com/CrimsonWarpedcraft/MobPortals/workflows/Build%20and%20Artifact/badge.svg?event=push)
+
 ## Features
 For a simple plugin, we pack a few powerful features!
 
