@@ -1,6 +1,7 @@
 package com.snowypeaksystems.mobportals.messages;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -13,20 +14,22 @@ import org.junit.Test;
 public class MessageTests {
   @Test
   public void gm() {
-    Messages.getMessages().put("test-message", new Message("Test"));
+    try {
+      Messages.gm("test-message");
+      fail();
+    } catch (RuntimeException e) {
+      assertTrue(true);
+    }
+
+    MutableMessages.put("test-message", new Message("Test"));
     assertEquals("Test", Messages.gm("test-message"));
   }
 
   @Test
   public void initialize() {
-    Messages.getMessages().put("test-message", new Message("Test"));
+    MutableMessages.put("test-message", new Message("Test"));
     Messages.initialize();
-    try {
-      Messages.gm("test-message");
-      fail();
-    } catch (RuntimeException ignored) {
-      assertTrue(true);
-    }
+    assertFalse(MutableMessages.contains("test-message"));
   }
 
   @Test
@@ -67,9 +70,8 @@ public class MessageTests {
     try {
       m = new Message("&6{}");
       m.getString("TEST", "TEST");
-      fail();
     } catch (IllegalArgumentException ignored) {
-      assertTrue(true);
+      fail();
     }
   }
 }

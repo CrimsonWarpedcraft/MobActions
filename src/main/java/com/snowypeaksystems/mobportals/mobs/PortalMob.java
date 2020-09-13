@@ -3,6 +3,7 @@ package com.snowypeaksystems.mobportals.mobs;
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
 import com.snowypeaksystems.mobportals.AbstractMobPortals;
+import com.snowypeaksystems.mobportals.exceptions.MobAlreadyExists;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import com.snowypeaksystems.mobportals.warps.IWarps;
 import org.bukkit.NamespacedKey;
@@ -25,9 +26,13 @@ public class PortalMob implements IPortalMob {
    * @param mp the AbstractMobPortals instance
    * @throws IllegalArgumentException if entity is an instance of Player
    */
-  public PortalMob(LivingEntity entity, AbstractMobPortals mp) {
+  public PortalMob(LivingEntity entity, AbstractMobPortals mp) throws MobAlreadyExists {
     if (entity instanceof Player) {
       throw new IllegalArgumentException("Players may not be used as portal mobs!");
+    }
+
+    if (mp.getKeys().retainAll(entity.getPersistentDataContainer().getKeys())) {
+      throw new MobAlreadyExists("Mob already exists!");
     }
 
     this.entity = entity;

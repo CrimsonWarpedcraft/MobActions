@@ -3,8 +3,10 @@ package com.snowypeaksystems.mobportals.mobs;
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
 import com.snowypeaksystems.mobportals.AbstractMobPortals;
-import com.snowypeaksystems.mobportals.Command;
-import com.snowypeaksystems.mobportals.ICommand;
+import com.snowypeaksystems.mobportals.IMobCommand;
+import com.snowypeaksystems.mobportals.MobCommand;
+import com.snowypeaksystems.mobportals.exceptions.MobAlreadyExists;
+import java.util.Collections;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,9 +22,13 @@ public class CommandMob implements ICommandMob {
   private final NamespacedKey nameKey;
 
   /** Constructs a CommandMob from then given entity and AbstractMobPortals. */
-  public CommandMob(LivingEntity entity, AbstractMobPortals mp) {
+  public CommandMob(LivingEntity entity, AbstractMobPortals mp) throws MobAlreadyExists {
     if (entity instanceof Player) {
       throw new IllegalArgumentException("Players may not be used as command mobs!");
+    }
+
+    if (!Collections.disjoint(entity.getPersistentDataContainer().getKeys(), mp.getKeys())) {
+      throw new MobAlreadyExists("Mob already exists!");
     }
 
     this.entity = entity;
@@ -31,7 +37,7 @@ public class CommandMob implements ICommandMob {
   }
 
   @Override
-  public void create(ICommand data) {
+  public void create(IMobCommand data) {
     entity.getPersistentDataContainer().set(nameKey, PersistentDataType.STRING, data.getName());
     entity.getPersistentDataContainer().set(commandKey, PersistentDataType.STRING, data.getKey());
     entity.setCustomName(gm("command-portal-text", data.getName()));
@@ -40,7 +46,7 @@ public class CommandMob implements ICommandMob {
   }
 
   @Override
-  public ICommand destroy() {
+  public IMobCommand destroy() {
     String name = entity.getPersistentDataContainer().get(nameKey, PersistentDataType.STRING);
     String rawCommand = entity.getPersistentDataContainer()
         .get(commandKey, PersistentDataType.STRING);
@@ -49,7 +55,7 @@ public class CommandMob implements ICommandMob {
       return null;
     }
 
-    ICommand command = new Command(name, rawCommand);
+    IMobCommand command = new MobCommand(name, rawCommand);
 
     entity.remove();
 
@@ -57,7 +63,7 @@ public class CommandMob implements ICommandMob {
   }
 
   @Override
-  public ICommand getData() {
+  public IMobCommand getData() {
     String name = entity.getPersistentDataContainer().get(nameKey, PersistentDataType.STRING);
     String rawCommand = entity.getPersistentDataContainer()
         .get(commandKey, PersistentDataType.STRING);
@@ -66,7 +72,7 @@ public class CommandMob implements ICommandMob {
       return null;
     }
 
-    return new Command(name, rawCommand);
+    return new MobCommand(name, rawCommand);
   }
 
   @Override

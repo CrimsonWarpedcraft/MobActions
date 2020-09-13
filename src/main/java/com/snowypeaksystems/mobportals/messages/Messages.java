@@ -1,19 +1,18 @@
 package com.snowypeaksystems.mobportals.messages;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Collection of messages to be used throughout the project.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class Messages {
-  private static HashMap<String, IMessage> messages;
+  static HashMap<String, Message> messages = new HashMap<>();
 
   /** Loads message data. */
   public static void initialize() {
     // TODO: Load other language translations if available in data folder and store in 2D map
-    messages = new HashMap<>();
+    messages.clear();
 
     // Command messages
     messages.put("command-create",
@@ -35,12 +34,16 @@ public class Messages {
     // Remove messages
     messages.put("edit-remove", new Message("&bRight click on a mob to disable it"));
     messages.put("edit-remove-error", new Message("&cNo active mob found!"));
+    messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
 
     // List messages
     messages.put("list-message", new Message("&aAvailable warps:"));
     messages.put("list-empty-message", new Message("&eNo warps available!"));
 
-    // Mob nametag message
+    // Mob exists message
+    messages.put("mob-exists-error", new Message("&cAvailable warps:"));
+
+    // Nametag messages
     messages.put("nametag-command-text", new Message("&6Click to {&c}!"));
     messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
 
@@ -53,8 +56,6 @@ public class Messages {
         new Message("&bRight click on a mob to create a portal to {&c}"));
     messages.put("portal-create-success",
         new Message("&aPortal to {&c} created successfully!"));
-    messages.put("portal-remove-success",
-        new Message("&aPortal to {&c} successfully removed!"));
 
     // Reload messages
     messages.put("reload-success", new Message("&aMobPortals reload complete!"));
@@ -79,7 +80,7 @@ public class Messages {
    * @throws RuntimeException If a message is not found for the provided key
    */
   public static String gm(String key, String... args) {
-    if (messages == null) {
+    if (messages.size() == 0) {
       initialize();
     }
 
@@ -88,14 +89,5 @@ public class Messages {
     }
 
     return messages.get(key).getString(args);
-  }
-
-  /** Returns the Map of messages kept by this class. */
-  public static Map<String, IMessage> getMessages() {
-    if (messages == null) {
-      initialize();
-    }
-
-    return messages;
   }
 }

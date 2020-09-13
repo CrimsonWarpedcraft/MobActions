@@ -9,8 +9,8 @@ public interface ITokenized {
    * Gets the message, replacing IMessage.TOKEN with any specified args.
    * @param args List of arguments to replace in the message
    * @return Returns the String form of the message
-   * @throws IllegalArgumentException if the instances of IMessage.TOKEN in the instance are not
-   *             equal to the length of args
+   * @throws IllegalArgumentException if the instances of IMessage.TOKEN in the instance are greater
+   *             than the length of args
    */
   String getString(String... args);
 }

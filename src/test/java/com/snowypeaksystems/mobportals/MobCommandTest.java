@@ -10,22 +10,22 @@ import org.junit.Test;
  * Tests for Command class.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class CommandTest {
+public class MobCommandTest {
   @Test
   public void getString() {
     String message = "TEST";
-    Command m = new Command(message, message);
+    MobCommand m = new MobCommand(message, message);
     assertEquals(message, m.getName());
     assertEquals(message, m.getString());
 
-    m = new Command("TEST", "T{}T");
+    m = new MobCommand("TEST", "T{}T");
     assertEquals("TEST", m.getString("ES"));
 
-    m = new Command("TEST", "T{} {}T");
+    m = new MobCommand("TEST", "T{} {}T");
     assertEquals("TEST TEST", m.getString("EST", "TES"));
 
     try {
-      m = new Command("TEST", "{}");
+      m = new MobCommand("TEST", "{}");
       m.getString();
       fail();
     } catch (IllegalArgumentException ignored) {
@@ -33,7 +33,7 @@ public class CommandTest {
     }
 
     try {
-      m = new Command("TEST", "{} {}");
+      m = new MobCommand("TEST", "{} {}");
       m.getString("TEST");
       fail();
     } catch (IllegalArgumentException ignored) {
@@ -41,11 +41,10 @@ public class CommandTest {
     }
 
     try {
-      m = new Command("TEST", "{}");
+      m = new MobCommand("TEST", "{}");
       m.getString("TEST", "TEST");
-      fail();
     } catch (IllegalArgumentException ignored) {
-      assertTrue(true);
+      fail();
     }
   }
 }

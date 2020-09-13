@@ -6,7 +6,8 @@ import org.bukkit.ChatColor;
  * Implementation of IMessage.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class Message implements IMessage {
+public class Message implements ITokenized {
+  static final String token = "{}";
   private final String message;
   private final int tokens;
 
@@ -15,7 +16,7 @@ public class Message implements IMessage {
 
     int tokens = 0;
     for (int i = 0, j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == IMessage.TOKEN.charAt(j)) {
+      if (message.charAt(i) == token.charAt(j)) {
         j++;
       }
 
@@ -34,9 +35,9 @@ public class Message implements IMessage {
   }
 
   private String replaceAndColorize(String... args) {
-    if (tokens != args.length) {
+    if (tokens > args.length) {
       throw new IllegalArgumentException(
-          "Expected " + args.length + " tokens, " + tokens + " found");
+          "Expected at least" + tokens + " arguments, " + args.length + " found");
     }
 
     int last = 0;
@@ -45,7 +46,7 @@ public class Message implements IMessage {
     StringBuilder newString = new StringBuilder();
     StringBuilder colors = new StringBuilder();
     for (int i = 0, j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == IMessage.TOKEN.charAt(j)) {
+      if (message.charAt(i) == token.charAt(j)) {
         positions[j] = i;
         j++;
       }

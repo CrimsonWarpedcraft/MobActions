@@ -105,6 +105,7 @@ public class WarpsTest {
     assertEquals(warp.getDestination(), warps.get("Test").getDestination());
 
     warps.remove("Test").delete();
+
     warps.reload();
     assertEquals(0, warps.size());
   }

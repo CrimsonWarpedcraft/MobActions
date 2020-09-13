@@ -4,20 +4,20 @@ package com.snowypeaksystems.mobportals;
  * Stores a String command.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class Command implements ICommand {
+public class MobCommand implements IMobCommand {
   private final int tokens;
   private final String name;
   private final String command;
 
   /** Constructs a command given a name and command to execute (use {} as player placeholder). */
-  public Command(String name, String command) {
+  public MobCommand(String name, String command) {
     this.name = name;
     this.command = command;
 
     int tokens = 0;
 
     for (int i = 0, j = 0; i < command.length(); i++) {
-      if (command.charAt(i) == ICommand.TOKEN.charAt(j)) {
+      if (command.charAt(i) == IMobCommand.TOKEN.charAt(j)) {
         j++;
       }
 
@@ -46,9 +46,9 @@ public class Command implements ICommand {
   }
 
   private String replace(String... args) {
-    if (tokens != args.length) {
+    if (tokens > args.length) {
       throw new IllegalArgumentException(
-          "Expected " + args.length + " tokens, " + tokens + " found");
+          "Expected at least" + tokens + " arguments, " + args.length + " found");
     }
 
     int last = 0;
@@ -56,7 +56,7 @@ public class Command implements ICommand {
     int[] positions = new int[2];
     StringBuilder newString = new StringBuilder();
     for (int i = 0, j = 0; i < command.length(); i++) {
-      if (command.charAt(i) == ICommand.TOKEN.charAt(j)) {
+      if (command.charAt(i) == IMobCommand.TOKEN.charAt(j)) {
         positions[j] = i;
         j++;
       }
