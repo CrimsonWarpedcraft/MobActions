@@ -76,7 +76,7 @@ public class CommandListener implements TabExecutor {
           player.setCreation(mp.getWarps().get(args[1]));
           player.setDestroying(false);
           sender.sendMessage(
-              new String[]{gm("portal-create", args[1]), gm("portal-cancel")});
+              new String[]{gm("portal-create", args[1]), gm("edit-cancel")});
 
         } else {
           sender.sendMessage(gm("warp-missing", args[1]));
@@ -99,7 +99,7 @@ public class CommandListener implements TabExecutor {
 
         player.setCreation(null);
         player.setDestroying(true);
-        sender.sendMessage(gm("portal-remove"));
+        sender.sendMessage(gm("edit-remove"));
       }
 
       return true;
@@ -115,10 +115,10 @@ public class CommandListener implements TabExecutor {
         if (player.isCreating() || player.isDestroying()) {
           player.setCreation(null);
           player.setDestroying(false);
-          sender.sendMessage(gm("portal-cancel-success"));
+          sender.sendMessage(gm("edit-cancel-success"));
 
         } else {
-          sender.sendMessage(gm("portal-cancel-error"));
+          sender.sendMessage(gm("edit-cancel-error"));
         }
       }
 

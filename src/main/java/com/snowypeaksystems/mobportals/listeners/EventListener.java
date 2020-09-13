@@ -63,7 +63,7 @@ public class EventListener implements Listener {
 
       } else {
         player.setDestroying(false);
-        player.getPlayer().sendMessage(gm("portal-remove-error"));
+        player.getPlayer().sendMessage(gm("edit-remove-error"));
       }
 
     } else {

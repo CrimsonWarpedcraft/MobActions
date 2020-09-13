@@ -27,7 +27,7 @@ public class PortalMob implements IPortalMob {
    */
   public PortalMob(LivingEntity entity, AbstractMobPortals mp) {
     if (entity instanceof Player) {
-      throw new IllegalArgumentException("Players may not be used as portals!");
+      throw new IllegalArgumentException("Players may not be used as portal mobs!");
     }
 
     this.entity = entity;
@@ -38,7 +38,7 @@ public class PortalMob implements IPortalMob {
   @Override
   public synchronized void create(IWarp warp) {
     entity.getPersistentDataContainer().set(key, PersistentDataType.STRING, warp.getKey());
-    entity.setCustomName(gm("mob-nametag-text", warp.getName()));
+    entity.setCustomName(gm("nametag-portal-text", warp.getName()));
     entity.setCustomNameVisible(true);
     entity.setRemoveWhenFarAway(false);
   }
@@ -48,10 +48,7 @@ public class PortalMob implements IPortalMob {
     IWarp warp = warps.get(entity.getPersistentDataContainer().get(key, PersistentDataType.STRING));
 
     if (warp != null) {
-      entity.getPersistentDataContainer().remove(key);
-      entity.setCustomName(null);
-      entity.setCustomNameVisible(false);
-      entity.setRemoveWhenFarAway(true);
+      entity.remove();
     }
 
     return warp;
