@@ -29,7 +29,7 @@ public class Message implements IMessage {
   }
 
   @Override
-  public String getMessage(String... args) {
+  public String getString(String... args) {
     return replaceAndColorize(args);
   }
 

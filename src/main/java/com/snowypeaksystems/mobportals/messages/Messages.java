@@ -78,7 +78,7 @@ public class Messages {
       throw new RuntimeException("Message for " + key + " not found");
     }
 
-    return messages.get(key).getMessage(args);
+    return messages.get(key).getString(args);
   }
 
   /** Returns the Map of messages kept by this class. */

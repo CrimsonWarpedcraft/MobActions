@@ -33,24 +33,24 @@ public class MessageTests {
   public void getMessage() {
     String message = "TEST";
     Message m = new Message(message);
-    assertEquals(message, m.getMessage());
+    assertEquals(message, m.getString());
 
     message = "&6TEST";
     m = new Message(message);
-    assertEquals("§6TEST", m.getMessage());
+    assertEquals("§6TEST", m.getString());
 
     m = new Message("&6{}T");
-    assertEquals("§6§rTES§r§6T", m.getMessage("TES"));
+    assertEquals("§6§rTES§r§6T", m.getString("TES"));
 
     m = new Message("&6{} {}T");
-    assertEquals("§6§rTEST§r§6 §rTES§r§6T", m.getMessage("TEST", "TES"));
+    assertEquals("§6§rTEST§r§6 §rTES§r§6T", m.getString("TEST", "TES"));
 
     m = new Message("&6{&c}T");
-    assertEquals("§6§r§cTES§r§6T", m.getMessage("TES"));
+    assertEquals("§6§r§cTES§r§6T", m.getString("TES"));
 
     try {
       m = new Message("&6{}");
-      m.getMessage();
+      m.getString();
       fail();
     } catch (IllegalArgumentException ignored) {
       assertTrue(true); // Satisfy checks
@@ -58,7 +58,7 @@ public class MessageTests {
 
     try {
       m = new Message("&6{} {}");
-      m.getMessage("TEST");
+      m.getString("TEST");
       fail();
     } catch (IllegalArgumentException ignored) {
       assertTrue(true);
@@ -66,7 +66,7 @@ public class MessageTests {
 
     try {
       m = new Message("&6{}");
-      m.getMessage("TEST", "TEST");
+      m.getString("TEST", "TEST");
       fail();
     } catch (IllegalArgumentException ignored) {
       assertTrue(true);
