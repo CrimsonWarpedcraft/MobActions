@@ -50,6 +50,7 @@ public class WarpTest {
       IWarp w = new Warp("Test", loc, warpDir);
       w.save();
       assertTrue(new File(warpDir, String.valueOf(w.getName().toLowerCase().hashCode())).exists());
+
       w.delete();
     } catch (IOException e) {
       fail();

@@ -67,6 +67,7 @@ public class WarpsTest {
     IWarp warp = warps.create("Test", loc);
     warps.add(warp);
     assertEquals(warp, warps.get("test"));
+
     warps.remove("Test");
   }
 
@@ -74,6 +75,7 @@ public class WarpsTest {
   public void exists() {
     warps.add(warps.create("Test", loc));
     assertTrue(warps.exists("test"));
+
     warps.remove("test");
   }
 
@@ -85,6 +87,7 @@ public class WarpsTest {
     assertTrue(names.contains("Test"));
     assertTrue(names.contains("Test2"));
     assertEquals(2, names.size());
+
     warps.remove("Test");
     warps.remove("test2");
   }
@@ -100,6 +103,7 @@ public class WarpsTest {
     warps.add(warp);
     warps.reload();
     assertEquals(warp.getDestination(), warps.get("Test").getDestination());
+
     warps.remove("Test").delete();
     warps.reload();
     assertEquals(0, warps.size());
