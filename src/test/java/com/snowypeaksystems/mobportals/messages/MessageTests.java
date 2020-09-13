@@ -10,7 +10,7 @@ import org.junit.Test;
  * Tests for classes in the messages package.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class MessagesTest {
+public class MessageTests {
   @Test
   public void gm() {
     Messages.getMessages().put("test-message", new Message("Test"));
@@ -47,6 +47,14 @@ public class MessagesTest {
 
     m = new Message("&6{&c}T");
     assertEquals("§6§r§cTES§r§6T", m.getMessage("TES"));
+
+    try {
+      m = new Message("&6{}");
+      m.getMessage();
+      fail();
+    } catch (IllegalArgumentException ignored) {
+      assertTrue(true); // Satisfy checks
+    }
 
     try {
       m = new Message("&6{} {}");
