@@ -69,12 +69,17 @@ public class PortalMob implements IPortalMob {
 
   @Override
   public boolean hasData() {
-    return getData() != null;
+    return entity.getPersistentDataContainer().has(key, PersistentDataType.STRING);
   }
 
   @Override
   public LivingEntity getLivingEntity() {
     return entity;
+  }
+
+  @Override
+  public void purge() {
+    entity.getPersistentDataContainer().remove(key);
   }
 
   @Override

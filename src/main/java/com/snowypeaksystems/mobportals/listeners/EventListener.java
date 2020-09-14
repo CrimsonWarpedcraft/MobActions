@@ -61,7 +61,13 @@ public class EventListener implements Listener {
       if (player.getCreationType() == IMobPortalPlayer.Type.PORTAL) {
         IWarp warp = (IWarp) player.getCreation();
         if (mp.getWarps().exists(warp.getName())) {
-          IPortalMob portal = (IPortalMob) mob;
+          IPortalMob portal = null;
+
+          if (mob != null && mob.hasData() && !(mob instanceof IPortalMob)) {
+            mob.purge();
+          } else {
+            portal = (IPortalMob) mob;
+          }
 
           if (portal == null) {
             try {
@@ -82,8 +88,13 @@ public class EventListener implements Listener {
         }
 
       } else if (player.getCreationType() == IMobPortalPlayer.Type.COMMAND) {
-        IMobCommand command = (IMobCommand) player.getCreation();
-        ICommandMob commandMob = (ICommandMob) mob;
+        ICommandMob commandMob = null;
+
+        if (mob != null && mob.hasData() && !(mob instanceof ICommandMob)) {
+          mob.purge();
+        } else {
+          commandMob = (ICommandMob) mob;
+        }
 
         if (commandMob == null) {
           try {
@@ -94,6 +105,7 @@ public class EventListener implements Listener {
           }
         }
 
+        IMobCommand command = (IMobCommand) player.getCreation();
         commandMob.create(command);
         player.setCreation(IMobPortalPlayer.Type.NONE, null);
         player.getPlayer().sendMessage(gm("portal-create-success", command.getName()));
@@ -112,8 +124,9 @@ public class EventListener implements Listener {
 
     } else {
       if (mob instanceof IPortalMob) {
-        if (mob.hasData()) {
-          IWarp warp = (IWarp) mob.getData();
+        IWarp warp = (IWarp) mob.getData();
+
+        if (warp != null) {
           warp(player, warp);
 
         } else {
@@ -155,10 +168,10 @@ public class EventListener implements Listener {
       EntityDamageByEntityEvent edee = (EntityDamageByEntityEvent) event;
       if (edee.getDamager() instanceof Player) {
         if (mob instanceof IPortalMob) {
-          IPortalMob portal = (IPortalMob) mob;
+          IWarp warp = (IWarp) mob.getData();
           IMobPortalPlayer player = mp.getPlayer((Player) edee.getDamager());
-          if (portal.hasData()) {
-            IWarp warp = (IWarp) mob.getData();
+
+          if (warp != null) {
             warp(player, warp);
 
           } else {

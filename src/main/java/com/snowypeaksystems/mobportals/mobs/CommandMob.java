@@ -82,11 +82,18 @@ public class CommandMob implements ICommandMob {
 
   @Override
   public boolean hasData() {
-    return getData() != null;
+    return entity.getPersistentDataContainer().has(nameKey, PersistentDataType.STRING)
+        && entity.getPersistentDataContainer().has(commandKey, PersistentDataType.STRING);
   }
 
   @Override
   public LivingEntity getLivingEntity() {
     return entity;
+  }
+
+  @Override
+  public void purge() {
+    entity.getPersistentDataContainer().remove(nameKey);
+    entity.getPersistentDataContainer().remove(commandKey);
   }
 }

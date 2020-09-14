@@ -22,4 +22,7 @@ public interface IMob<T extends IMobWritable> {
 
   /** Returns the LivingEntity instance associated with the IMob. */
   LivingEntity getLivingEntity();
+
+  /** Removes data stored in this mob. */
+  void purge();
 }
