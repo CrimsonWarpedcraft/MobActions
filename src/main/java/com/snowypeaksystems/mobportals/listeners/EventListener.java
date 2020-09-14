@@ -23,6 +23,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 /**
  * Handles all events relevant to the plugin, excluding command handlers.
@@ -38,7 +39,8 @@ public class EventListener implements Listener {
   /** Handles when players interact with mobs. */
   @EventHandler(priority = EventPriority.HIGH)
   public void onMobInteract(PlayerInteractEntityEvent event) {
-    if (!(event.getRightClicked() instanceof LivingEntity)
+    if (event.getHand().equals(EquipmentSlot.OFF_HAND)
+        || !(event.getRightClicked() instanceof LivingEntity)
         || event.getRightClicked() instanceof Player) {
       return;
     }
