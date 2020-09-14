@@ -1,18 +1,16 @@
 package com.snowypeaksystems.mobportals.messages;
 
 /**
- * Message to be sent to the user.
+ * Classes that are tokenized and able to filled with Strings.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public interface IMessage {
-  String TOKEN = "{}";
-
+public interface ITokenized {
   /**
    * Gets the message, replacing IMessage.TOKEN with any specified args.
    * @param args List of arguments to replace in the message
    * @return Returns the String form of the message
-   * @throws IllegalArgumentException if the instances of IMessage.TOKEN in the instance are
-   *             less than the length of args
+   * @throws IllegalArgumentException if the instances of IMessage.TOKEN in the instance are greater
+   *             than the length of args
    */
-  String getMessage(String... args);
+  String getString(String... args);
 }

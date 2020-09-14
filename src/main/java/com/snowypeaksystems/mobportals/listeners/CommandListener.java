@@ -4,6 +4,7 @@ import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
 import com.snowypeaksystems.mobportals.AbstractMobPortals;
 import com.snowypeaksystems.mobportals.IMobPortalPlayer;
+import com.snowypeaksystems.mobportals.MobCommand;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import com.snowypeaksystems.mobportals.warps.IWarps;
 import java.io.IOException;
@@ -28,10 +29,12 @@ public class CommandListener implements TabExecutor {
   // TODO: Add to Messages class
   private static final String[] HELP = {
       "Usage: /mp <subcommand>",
-      "/mp create <warp> - Create a portal to the warp",
-      "/mp remove - Remove a portal",
       "/mp warp <warp> - Teleport to a warp",
       "/mp list - List available warps",
+      "/mp create portal <warp> - Create a new mob portal",
+      "/mp create command <name> <command> - Create a new command mob",
+      "/mp remove - Remove a mob's action",
+      "/mp cancel - Cancels the current operation",
       "/mp setwarp <name> - Create a warp",
       "/mp delwarp <name> - Delete a warp",
       "/mp reload - Reloads the plugin's configuration",
@@ -61,26 +64,52 @@ public class CommandListener implements TabExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    if (args[0].equals("create") && args.length == 2) {
-      String perm = "mobportals.admin.create";
-      if (!sender.hasPermission(perm)) {
-        sender.sendMessage(gm("permission-error", "mobportals.admin.create"));
+    if (args.length == 0) {
+      sender.sendMessage(HELP);
 
-      } else if (!(sender instanceof Player)) {
-        sender.sendMessage(gm("console-command-error"));
+      return true;
+    }
 
-      } else {
-        IMobPortalPlayer player = mp.getPlayer((Player) sender);
+    if (args[0].equals("create") && args.length > 2) {
+      if (args[1].equals("portal") && args.length == 3) {
+        String perm = "mobportals.admin.createportal";
+        if (!sender.hasPermission(perm)) {
+          sender.sendMessage(gm("permission-error", "mobportals.admin.createportal"));
 
-        if (mp.getWarps().exists(args[1])) {
-          player.setCreation(mp.getWarps().get(args[1]));
-          player.setDestroying(false);
-          sender.sendMessage(
-              new String[]{gm("portal-create", args[1]), gm("portal-cancel")});
+        } else if (!(sender instanceof Player)) {
+          sender.sendMessage(gm("console-command-error"));
 
         } else {
-          sender.sendMessage(gm("warp-missing", args[1]));
+          IMobPortalPlayer player = mp.getPlayer((Player) sender);
+
+          if (mp.getWarps().exists(args[2])) {
+            player.setCreation(IMobPortalPlayer.Type.PORTAL, mp.getWarps().get(args[2]));
+            sender.sendMessage(
+                new String[]{gm("portal-create", args[2]), gm("edit-cancel")});
+
+          } else {
+            sender.sendMessage(gm("warp-missing", args[2]));
+          }
         }
+      } else if (args[1].equals("command") && args.length >= 4) {
+        String perm = "mobportals.admin.createcommand";
+        if (!sender.hasPermission(perm)) {
+          sender.sendMessage(gm("permission-error", "mobportals.admin.createportal"));
+
+        } else if (!(sender instanceof Player)) {
+          sender.sendMessage(gm("console-command-error"));
+
+        } else {
+          IMobPortalPlayer player = mp.getPlayer((Player) sender);
+          String rawCommand = String.join(" ",
+              Arrays.copyOfRange(args, 3, args.length));
+          player.setCreation(IMobPortalPlayer.Type.COMMAND, new MobCommand(args[2], rawCommand));
+          sender.sendMessage(
+              new String[]{gm("command-create", args[2]), gm("edit-cancel")});
+        }
+
+      } else {
+        return false;
       }
 
       return true;
@@ -97,9 +126,8 @@ public class CommandListener implements TabExecutor {
       } else {
         IMobPortalPlayer player = mp.getPlayer((Player) sender);
 
-        player.setCreation(null);
         player.setDestroying(true);
-        sender.sendMessage(gm("portal-remove"));
+        sender.sendMessage(gm("edit-remove"));
       }
 
       return true;
@@ -113,12 +141,12 @@ public class CommandListener implements TabExecutor {
         IMobPortalPlayer player = mp.getPlayer((Player) sender);
 
         if (player.isCreating() || player.isDestroying()) {
-          player.setCreation(null);
+          player.setCreation(IMobPortalPlayer.Type.NONE, null);
           player.setDestroying(false);
-          sender.sendMessage(gm("portal-cancel-success"));
+          sender.sendMessage(gm("edit-cancel-success"));
 
         } else {
-          sender.sendMessage(gm("portal-cancel-error"));
+          sender.sendMessage(gm("edit-cancel-error"));
         }
       }
 

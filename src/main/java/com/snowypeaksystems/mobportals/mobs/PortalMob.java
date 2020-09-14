@@ -3,8 +3,11 @@ package com.snowypeaksystems.mobportals.mobs;
 import static com.snowypeaksystems.mobportals.messages.Messages.gm;
 
 import com.snowypeaksystems.mobportals.AbstractMobPortals;
+import com.snowypeaksystems.mobportals.exceptions.MobAlreadyExists;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import com.snowypeaksystems.mobportals.warps.IWarps;
+import java.util.Collections;
+import java.util.Set;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -25,9 +28,16 @@ public class PortalMob implements IPortalMob {
    * @param mp the AbstractMobPortals instance
    * @throws IllegalArgumentException if entity is an instance of Player
    */
-  public PortalMob(LivingEntity entity, AbstractMobPortals mp) {
+  public PortalMob(LivingEntity entity, AbstractMobPortals mp) throws MobAlreadyExists {
     if (entity instanceof Player) {
-      throw new IllegalArgumentException("Players may not be used as portals!");
+      throw new IllegalArgumentException("Players may not be used as portal mobs!");
+    }
+
+    Set<NamespacedKey> keys = mp.getKeys();
+    keys.remove(IPortalMob.getKey(mp));
+
+    if (!Collections.disjoint(entity.getPersistentDataContainer().getKeys(), keys)) {
+      throw new MobAlreadyExists("Mob already exists!");
     }
 
     this.entity = entity;
@@ -38,7 +48,7 @@ public class PortalMob implements IPortalMob {
   @Override
   public synchronized void create(IWarp warp) {
     entity.getPersistentDataContainer().set(key, PersistentDataType.STRING, warp.getKey());
-    entity.setCustomName(gm("mob-nametag-text", warp.getName()));
+    entity.setCustomName(gm("nametag-portal-text", warp.getName()));
     entity.setCustomNameVisible(true);
     entity.setRemoveWhenFarAway(false);
   }
@@ -48,10 +58,7 @@ public class PortalMob implements IPortalMob {
     IWarp warp = warps.get(entity.getPersistentDataContainer().get(key, PersistentDataType.STRING));
 
     if (warp != null) {
-      entity.getPersistentDataContainer().remove(key);
-      entity.setCustomName(null);
-      entity.setCustomNameVisible(false);
-      entity.setRemoveWhenFarAway(true);
+      entity.remove();
     }
 
     return warp;

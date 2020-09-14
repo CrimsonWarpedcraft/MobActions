@@ -1,8 +1,12 @@
 package com.snowypeaksystems.mobportals;
 
+import com.snowypeaksystems.mobportals.exceptions.MobAlreadyExists;
 import com.snowypeaksystems.mobportals.listeners.CommandListener;
 import com.snowypeaksystems.mobportals.listeners.EventListener;
 import com.snowypeaksystems.mobportals.messages.Messages;
+import com.snowypeaksystems.mobportals.mobs.CommandMob;
+import com.snowypeaksystems.mobportals.mobs.ICommandMob;
+import com.snowypeaksystems.mobportals.mobs.IMob;
 import com.snowypeaksystems.mobportals.mobs.IPortalMob;
 import com.snowypeaksystems.mobportals.mobs.PortalMob;
 import com.snowypeaksystems.mobportals.persistence.IMobWritable;
@@ -13,7 +17,10 @@ import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.LivingEntity;
@@ -27,7 +34,8 @@ import org.bukkit.persistence.PersistentDataType;
  */
 public class MobPortals extends AbstractMobPortals {
   private IWarps warps;
-  private HashMap<Player, IMobWritable> editors;
+  private Set<NamespacedKey> keys;
+  private HashMap<Player, MobPortalPlayer.Creation> editors;
 
   @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
   @Override
@@ -57,6 +65,10 @@ public class MobPortals extends AbstractMobPortals {
     }
 
     editors = new HashMap<>();
+    keys = new HashSet<>();
+    keys.add(IPortalMob.getKey(this));
+    keys.add(ICommandMob.getNameKey(this));
+    keys.add(ICommandMob.getCommandKey(this));
 
     TabExecutor cl = new CommandListener(this);
     cmd.setExecutor(cl);
@@ -69,10 +81,16 @@ public class MobPortals extends AbstractMobPortals {
   }
 
   @Override
-  public IPortalMob getPortalMob(LivingEntity entity) {
+  public IMob<? extends IMobWritable> getMob(LivingEntity entity) throws MobAlreadyExists {
     if (entity.getPersistentDataContainer().has(
         IPortalMob.getKey(this), PersistentDataType.STRING)) {
       return new PortalMob(entity, this);
+    } else if (entity.getPersistentDataContainer()
+        .has(ICommandMob.getNameKey(this), PersistentDataType.STRING)
+        && entity.getPersistentDataContainer()
+        .has(ICommandMob.getCommandKey(this), PersistentDataType.STRING)) {
+
+      return new CommandMob(entity, this);
     }
 
     return null;
@@ -81,6 +99,11 @@ public class MobPortals extends AbstractMobPortals {
   @Override
   public IWarps getWarps() {
     return warps;
+  }
+
+  @Override
+  public Set<NamespacedKey> getKeys() {
+    return new HashSet<>(keys);
   }
 
   @Override

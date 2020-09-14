@@ -4,8 +4,6 @@ version: "${VERSION}"
 api-version: "1.16"
 author: Levi Muniz
 description: Allow players to teleport between locations by interacting with mobs
-softdepend:
-  - Multiverse-Core
 
 commands:
   mp:
@@ -17,17 +15,23 @@ permissions:
   mobportals.warp.*:
     description: Allows players to use all warps, or specify a warp name instead of *
     default: true
+  mobportals.command.*:
+    description: Allows players to use all command mobs, or specify a command mob name instead of *
+    default: true
   mobportals.warp:
     description: Allows players to go to a warp using /mp warp
     default: op
   mobportals.listwarps:
     description: Allows players to list available warps
     default: op
-  mobportals.admin.create:
-    description: Allows players to create mob portals with /mp create
+  mobportals.admin.createcommand:
+    description: Allows players to create command mobs with /mp create command
+    default: false
+  mobportals.admin.createportal:
+    description: Allows players to create mob portals with /mp create portal
     default: false
   mobportals.admin.remove:
-    description: Allows players to destroy mob portals with /mp remove
+    description: Allows players to destroy mobs with /mp remove
     default: false
   mobportals.admin.setwarp:
     description: Allows players to create a warp using /mp setwarp
@@ -42,10 +46,12 @@ permissions:
     description: Grants access to all portals and all other permissions
     default: false
     children:
-      mobportals.warp.*: true
       mobportals.warp: true
+      mobportals.warp.*: true
+      mobportals.command.*: true
       mobportals.listwarps: true
-      mobportals.admin.create: true
+      mobportals.admin.createportal: true
+      mobportals.admin.createcommand: true
       mobportals.admin.remove: true
       mobportals.admin.setwarp: true
       mobportals.admin.delwarp: true
@@ -55,7 +61,8 @@ permissions:
     default: op
     children:
       mobportals.warp.*: true
-      mobportals.admin.create: true
+      mobportals.admin.createportal: true
+      mobportals.admin.createcommand: true
       mobportals.admin.remove: true
       mobportals.admin.setwarp: true
       mobportals.admin.delwarp: true

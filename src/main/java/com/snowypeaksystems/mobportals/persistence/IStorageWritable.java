@@ -9,4 +9,7 @@ import java.io.IOException;
 public interface IStorageWritable extends IWritable {
   /** Writes the configuration to storage. */
   void save() throws IOException;
+
+  /** Deletes the configuration from storage, if present. */
+  boolean delete();
 }

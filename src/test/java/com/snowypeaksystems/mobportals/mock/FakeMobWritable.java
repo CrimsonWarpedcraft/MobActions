@@ -14,9 +14,4 @@ public class FakeMobWritable implements IMobWritable {
   public String getKey() {
     return null;
   }
-
-  @Override
-  public boolean delete() {
-    return false;
-  }
 }

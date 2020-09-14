@@ -1,51 +1,61 @@
 package com.snowypeaksystems.mobportals.messages;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Collection of messages to be used throughout the project.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class Messages {
-  private static HashMap<String, IMessage> messages;
+  static HashMap<String, Message> messages = new HashMap<>();
 
   /** Loads message data. */
   public static void initialize() {
     // TODO: Load other language translations if available in data folder and store in 2D map
-    messages = new HashMap<>();
+    messages.clear();
+
+    // Command messages
+    messages.put("command-create",
+        new Message("&bRight click on a mob to bind the command {&c}"));
+    messages.put("command-create-success",
+        new Message("&aCommand {&c} bound successfully!"));
+    messages.put("command-remove-success",
+        new Message("&aCommand {&c} successfully removed!"));
 
     // Console messages
     messages.put("console-command-error",
         new Message("&cYou cannot execute commands from the console!"));
 
+    // Cancel messages
+    messages.put("edit-cancel", new Message("&eUse /mp cancel to cancel"));
+    messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
+    messages.put("edit-cancel-success", new Message("&eCancelled!"));
+
+    // Remove messages
+    messages.put("edit-remove", new Message("&bRight click on a mob to remove it"));
+    messages.put("edit-remove-error", new Message("&cNo active mob found!"));
+    messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
+
     // List messages
     messages.put("list-message", new Message("&aAvailable warps:"));
     messages.put("list-empty-message", new Message("&eNo warps available!"));
 
-    // Mob nametag message
-    messages.put("mob-nametag-text", new Message("&6Click to warp to {&c}!"));
+    // Mob exists message
+    messages.put("mob-exists-error", new Message("&cAvailable warps:"));
+
+    // Nametag messages
+    messages.put("nametag-command-text", new Message("&6Click to {&c}!"));
+    messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
 
     // Permission messages
     messages.put("permission-error",
         new Message("&cYou need the {} permission node to do that!"));
 
-    // Portal cancel messages
-    messages.put("portal-cancel", new Message("&eUse /mp cancel to cancel"));
-    messages.put("portal-cancel-error", new Message("&eNothing to cancel!"));
-    messages.put("portal-cancel-success", new Message("&eCancelled!"));
-
-    // Portal create messages
+    // Portal messages
     messages.put("portal-create",
         new Message("&bRight click on a mob to create a portal to {&c}"));
     messages.put("portal-create-success",
         new Message("&aPortal to {&c} created successfully!"));
-
-    // Portal remove messages
-    messages.put("portal-remove", new Message("&bRight click on a mob to remove the portal"));
-    messages.put("portal-remove-error", new Message("&cNo portal found!"));
-    messages.put("portal-remove-success",
-        new Message("&aPortal to {&c} successfully removed!"));
 
     // Reload messages
     messages.put("reload-success", new Message("&aMobPortals reload complete!"));
@@ -70,7 +80,7 @@ public class Messages {
    * @throws RuntimeException If a message is not found for the provided key
    */
   public static String gm(String key, String... args) {
-    if (messages == null) {
+    if (messages.size() == 0) {
       initialize();
     }
 
@@ -78,15 +88,6 @@ public class Messages {
       throw new RuntimeException("Message for " + key + " not found");
     }
 
-    return messages.get(key).getMessage(args);
-  }
-
-  /** Returns the Map of messages kept by this class. */
-  public static Map<String, IMessage> getMessages() {
-    if (messages == null) {
-      initialize();
-    }
-
-    return messages;
+    return messages.get(key).getString(args);
   }
 }

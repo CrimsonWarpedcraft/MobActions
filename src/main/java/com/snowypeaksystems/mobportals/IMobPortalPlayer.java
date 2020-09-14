@@ -10,15 +10,25 @@ import org.bukkit.entity.Player;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface IMobPortalPlayer {
+  enum Type {
+    PORTAL,
+    COMMAND,
+    NONE
+  }
+
   /**
    * Marks the IMPPlayer as creating something and stores the IMobWritable data, or unmarks them
    * if data is null.
+   * @param type the type of creation being made
    * @param data data to store if the player is creating, or null
    */
-  void setCreation(IMobWritable data);
+  void setCreation(Type type, IMobWritable data);
 
   /** Retrieves the IMobWritable data if the IMPPlayer is creating, null otherwise. */
   IMobWritable getCreation();
+
+  /** Returns the Type of creation the IMPPlayer is creating. */
+  Type getCreationType();
 
   /** Returns true if creating, false otherwise. */
   boolean isCreating();

@@ -6,41 +6,52 @@ import org.bukkit.ChatColor;
  * Implementation of IMessage.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class Message implements IMessage {
+public class Message implements ITokenized {
+  static final String token = "{}";
   private final String message;
+  private final int tokens;
 
   Message(String message) {
     this.message = ChatColor.translateAlternateColorCodes('&', message);
-    // TODO: Get number of tokens here so that we can throw errors faster in getMessage
+
+    int tokens = 0;
+    for (int i = 0, j = 0; i < message.length(); i++) {
+      if (message.charAt(i) == token.charAt(j)) {
+        j++;
+      }
+
+      if (j == 2) {
+        j = 0;
+        tokens++;
+      }
+    }
+
+    this.tokens = tokens;
   }
 
   @Override
-  public String getMessage(String... args) {
+  public String getString(String... args) {
     return replaceAndColorize(args);
   }
 
   private String replaceAndColorize(String... args) {
-    if (args.length == 0) {
-      return message;
+    if (tokens > args.length) {
+      throw new IllegalArgumentException(
+          "Expected at least" + tokens + " arguments, " + args.length + " found");
     }
 
-    int i = 0;
     int last = 0;
     int tokens = 0;
     int[] positions = new int[2];
     StringBuilder newString = new StringBuilder();
     StringBuilder colors = new StringBuilder();
-    for (int j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == IMessage.TOKEN.charAt(j)) {
+    for (int i = 0, j = 0; i < message.length(); i++) {
+      if (message.charAt(i) == token.charAt(j)) {
         positions[j] = i;
         j++;
       }
 
       if (j == positions.length) {
-        if (tokens == args.length) {
-          throw new IllegalArgumentException("Expected " + args.length + " tokens, found more");
-        }
-
         String segment = message.substring(last, positions[0]);
         colors.append(ChatColor.getLastColors(segment));
 
@@ -58,11 +69,6 @@ public class Message implements IMessage {
     }
 
     newString.append(message, last, message.length());
-
-    if (tokens != args.length) {
-      throw new IllegalArgumentException(
-          "Expected " + args.length + " tokens, " + tokens + " found");
-    }
 
     return newString.toString();
   }
