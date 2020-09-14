@@ -85,6 +85,10 @@ public class Warps implements IWarps {
     // TODO: Maybe async this?
     if (files != null) {
       for (File f : files) {
+        if (f.getName().startsWith(".")) {
+          continue;
+        }
+
         try {
           IWarp warp = new Warp(f, server);
           warps.put(warp.getName().toLowerCase(), warp);
