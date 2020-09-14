@@ -1,16 +1,16 @@
 package com.snowypeaksystems.mobportals;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.snowypeaksystems.mobportals.mock.FakeMobWritable;
 import com.snowypeaksystems.mobportals.mock.FakePlayer;
 import com.snowypeaksystems.mobportals.persistence.IMobWritable;
 import java.util.HashMap;
 import org.bukkit.entity.Player;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for MobPortalPlayers.
@@ -19,7 +19,7 @@ import org.junit.Test;
 public class MobPortalPlayerTest {
   private static HashMap<Player, MobPortalPlayer.Creation> editors;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     editors = new HashMap<>();
   }
