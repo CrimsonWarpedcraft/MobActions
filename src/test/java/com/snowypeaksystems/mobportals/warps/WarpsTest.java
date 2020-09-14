@@ -1,10 +1,10 @@
 package com.snowypeaksystems.mobportals.warps;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.snowypeaksystems.mobportals.mock.FakeServer;
 import com.snowypeaksystems.mobportals.mock.FakeWorld;
@@ -14,9 +14,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
 import org.bukkit.Location;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for Warps class.
@@ -29,7 +29,7 @@ public class WarpsTest {
   private static Location loc;
 
   /** Creates a WarpTest with a warpDir File. */
-  @BeforeClass
+  @BeforeAll
   public static void setup() {
     loc = new Location(new FakeWorld(), 0, 0, 0);
     warpDir = new File("tests/warps/");
@@ -110,7 +110,7 @@ public class WarpsTest {
     assertEquals(0, warps.size());
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDown() {
     warpDir.delete();
     assertFalse(warpDir.exists());

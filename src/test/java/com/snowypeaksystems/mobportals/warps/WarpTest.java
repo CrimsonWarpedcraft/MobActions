@@ -1,18 +1,18 @@
 package com.snowypeaksystems.mobportals.warps;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.snowypeaksystems.mobportals.mock.FakeWorld;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import org.bukkit.Location;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the Warp object.
@@ -23,7 +23,7 @@ public class WarpTest {
   private static File warpDir;
 
   /** Creates a WarpTest with a warpDir File. */
-  @BeforeClass
+  @BeforeAll
   public static void setup() {
     warpDir = new File("tests/warps/");
     warpDir.delete();
@@ -70,7 +70,7 @@ public class WarpTest {
     }
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDown() {
     warpDir.delete();
     assertFalse(warpDir.exists());
