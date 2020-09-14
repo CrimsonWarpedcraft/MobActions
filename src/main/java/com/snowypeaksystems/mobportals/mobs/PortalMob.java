@@ -6,6 +6,8 @@ import com.snowypeaksystems.mobportals.AbstractMobPortals;
 import com.snowypeaksystems.mobportals.exceptions.MobAlreadyExists;
 import com.snowypeaksystems.mobportals.warps.IWarp;
 import com.snowypeaksystems.mobportals.warps.IWarps;
+import java.util.Collections;
+import java.util.Set;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -31,7 +33,10 @@ public class PortalMob implements IPortalMob {
       throw new IllegalArgumentException("Players may not be used as portal mobs!");
     }
 
-    if (mp.getKeys().retainAll(entity.getPersistentDataContainer().getKeys())) {
+    Set<NamespacedKey> keys = mp.getKeys();
+    keys.remove(IPortalMob.getKey(mp));
+
+    if (!Collections.disjoint(entity.getPersistentDataContainer().getKeys(), keys)) {
       throw new MobAlreadyExists("Mob already exists!");
     }
 

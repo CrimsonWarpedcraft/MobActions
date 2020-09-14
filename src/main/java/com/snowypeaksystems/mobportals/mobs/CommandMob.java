@@ -7,6 +7,7 @@ import com.snowypeaksystems.mobportals.IMobCommand;
 import com.snowypeaksystems.mobportals.MobCommand;
 import com.snowypeaksystems.mobportals.exceptions.MobAlreadyExists;
 import java.util.Collections;
+import java.util.Set;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -27,7 +28,11 @@ public class CommandMob implements ICommandMob {
       throw new IllegalArgumentException("Players may not be used as command mobs!");
     }
 
-    if (!Collections.disjoint(entity.getPersistentDataContainer().getKeys(), mp.getKeys())) {
+    Set<NamespacedKey> keys = mp.getKeys();
+    keys.remove(ICommandMob.getNameKey(mp));
+    keys.remove(ICommandMob.getCommandKey(mp));
+
+    if (!Collections.disjoint(entity.getPersistentDataContainer().getKeys(), keys)) {
       throw new MobAlreadyExists("Mob already exists!");
     }
 
