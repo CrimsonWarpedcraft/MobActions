@@ -148,15 +148,21 @@ public class EventListener implements Listener {
       return;
     }
 
+    event.setCancelled(true);
+
     if (event instanceof EntityDamageByEntityEvent) {
       EntityDamageByEntityEvent edee = (EntityDamageByEntityEvent) event;
       if (edee.getDamager() instanceof Player) {
         if (mob instanceof IPortalMob) {
           IPortalMob portal = (IPortalMob) mob;
-          IWarp warp = portal.getData();
           IMobPortalPlayer player = mp.getPlayer((Player) edee.getDamager());
+          if (portal.hasData()) {
+            IWarp warp = (IWarp) mob.getData();
+            warp(player, warp);
 
-          warp(player, warp);
+          } else {
+            player.getPlayer().sendMessage(gm("warp-missing", "DELETED"));
+          }
         } else if (mob instanceof ICommandMob) {
           ICommandMob portal = (ICommandMob) mob;
           IMobCommand command = portal.getData();
@@ -166,8 +172,6 @@ public class EventListener implements Listener {
         }
       }
     }
-
-    event.setCancelled(true);
   }
 
   /** Reloads the config to make sure we have all possible warps loaded. */
