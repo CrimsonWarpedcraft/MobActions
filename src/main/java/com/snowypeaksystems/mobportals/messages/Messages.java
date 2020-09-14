@@ -32,7 +32,7 @@ public class Messages {
     messages.put("edit-cancel-success", new Message("&eCancelled!"));
 
     // Remove messages
-    messages.put("edit-remove", new Message("&bRight click on a mob to disable it"));
+    messages.put("edit-remove", new Message("&bRight click on a mob to remove it"));
     messages.put("edit-remove-error", new Message("&cNo active mob found!"));
     messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
 

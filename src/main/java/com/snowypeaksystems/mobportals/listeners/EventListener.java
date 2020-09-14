@@ -78,7 +78,7 @@ public class EventListener implements Listener {
 
         } else {
           player.setCreation(IMobPortalPlayer.Type.NONE, null);
-          player.getPlayer().sendMessage(gm("warp-missing-error", warp.getName()));
+          player.getPlayer().sendMessage(gm("warp-missing", warp.getName()));
         }
 
       } else if (player.getCreationType() == IMobPortalPlayer.Type.COMMAND) {
