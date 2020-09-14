@@ -57,9 +57,7 @@ public class PortalMob implements IPortalMob {
   public synchronized IWarp destroy() {
     IWarp warp = warps.get(entity.getPersistentDataContainer().get(key, PersistentDataType.STRING));
 
-    if (warp != null) {
-      entity.remove();
-    }
+    entity.remove();
 
     return warp;
   }
