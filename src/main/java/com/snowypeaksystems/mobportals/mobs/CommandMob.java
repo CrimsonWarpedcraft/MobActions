@@ -45,7 +45,7 @@ public class CommandMob implements ICommandMob {
   public void create(IMobCommand data) {
     entity.getPersistentDataContainer().set(nameKey, PersistentDataType.STRING, data.getName());
     entity.getPersistentDataContainer().set(commandKey, PersistentDataType.STRING, data.getKey());
-    entity.setCustomName(gm("command-portal-text", data.getName()));
+    entity.setCustomName(gm("nametag-command-text", data.getName()));
     entity.setCustomNameVisible(true);
     entity.setRemoveWhenFarAway(false);
   }
