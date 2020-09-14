@@ -117,7 +117,8 @@ public class EventListener implements Listener {
           warp(player, warp);
 
         } else {
-          player.getPlayer().sendMessage(gm("warp-missing", "DELETED"));
+          player.getPlayer().sendMessage(
+              gm("warp-missing", ((IPortalMob) mob).getWarpName()));
         }
       } else if (mob instanceof ICommandMob) {
         IMobCommand command = (IMobCommand) mob.getData();

@@ -76,4 +76,9 @@ public class PortalMob implements IPortalMob {
   public LivingEntity getLivingEntity() {
     return entity;
   }
+
+  @Override
+  public String getWarpName() {
+    return entity.getPersistentDataContainer().get(key, PersistentDataType.STRING);
+  }
 }

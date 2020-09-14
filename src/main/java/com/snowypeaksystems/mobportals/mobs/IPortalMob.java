@@ -13,4 +13,7 @@ public interface IPortalMob extends IMob<IWarp> {
   static NamespacedKey getKey(JavaPlugin plugin) {
     return new NamespacedKey(plugin, "portalDest");
   }
+
+  /** Returns the warp's name for this IPortalMob. */
+  String getWarpName();
 }
