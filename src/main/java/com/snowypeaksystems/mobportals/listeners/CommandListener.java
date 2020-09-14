@@ -64,6 +64,12 @@ public class CommandListener implements TabExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    if (args.length == 0) {
+      sender.sendMessage(HELP);
+
+      return true;
+    }
+
     if (args[0].equals("create") && args.length > 2) {
       if (args[1].equals("portal") && args.length == 3) {
         String perm = "mobportals.admin.createportal";
