@@ -45,8 +45,6 @@ public class EventListener implements Listener {
       return;
     }
 
-    event.setCancelled(true);
-
     IMob<? extends IMobWritable> mob;
     try {
       mob = mp.getMob((LivingEntity) event.getRightClicked());
@@ -58,6 +56,8 @@ public class EventListener implements Listener {
     IMobPortalPlayer player = mp.getPlayer(event.getPlayer());
 
     if (player.isCreating()) {
+      event.setCancelled(true);
+
       if (player.getCreationType() == IMobPortalPlayer.Type.PORTAL) {
         IWarp warp = (IWarp) player.getCreation();
         if (mp.getWarps().exists(warp.getName())) {
@@ -112,6 +112,8 @@ public class EventListener implements Listener {
       }
 
     } else if (player.isDestroying()) {
+      event.setCancelled(true);
+
       if (mob != null) {
         mob.destroy();
         player.setDestroying(false);
@@ -122,29 +124,28 @@ public class EventListener implements Listener {
         player.getPlayer().sendMessage(gm("edit-remove-error"));
       }
 
-    } else {
-      if (mob instanceof IPortalMob) {
-        IWarp warp = (IWarp) mob.getData();
+    } else if (mob instanceof IPortalMob) {
+      event.setCancelled(true);
 
-        if (warp != null) {
-          warp(player, warp);
+      IWarp warp = (IWarp) mob.getData();
 
-        } else {
-          player.getPlayer().sendMessage(
-              gm("warp-missing", ((IPortalMob) mob).getWarpName()));
-        }
-      } else if (mob instanceof ICommandMob) {
-        IMobCommand command = (IMobCommand) mob.getData();
-        command(player, command);
+      if (warp != null) {
+        warp(player, warp);
 
       } else {
-        event.setCancelled(false);
+        player.getPlayer().sendMessage(
+            gm("warp-missing", ((IPortalMob) mob).getWarpName()));
       }
+    } else if (mob instanceof ICommandMob) {
+      event.setCancelled(true);
+
+      IMobCommand command = (IMobCommand) mob.getData();
+      command(player, command);
     }
   }
 
   /** Handles when a mob is damaged, cancelling when necessary. */
-  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  @EventHandler(priority = EventPriority.HIGH)
   public void onMobDamage(EntityDamageEvent event) {
     if (!(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof Player) {
       return;
