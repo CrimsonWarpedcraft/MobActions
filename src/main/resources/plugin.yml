@@ -3,68 +3,67 @@ name: ${NAME}
 version: "${VERSION}"
 api-version: "1.16"
 author: Levi Muniz
-description: Allow players to teleport between locations by interacting with mobs
+description: Interact with mobs like never before
 
 commands:
-  mp:
-    description: Base command for MobPortals
-    usage: "For a list of commands, type /mp help"
-    aliases: mobportals,mportals
+  mact:
+    description: Base command for MobActions
+    usage: "For a list of commands, type /mact help"
+    aliases: mobactions,mactions
 
 permissions:
-  mobportals.warp.*:
+  mobactions.warp.*:
     description: Allows players to use all warps, or specify a warp name instead of *
     default: true
-  mobportals.command.*:
-    description: Allows players to use all command mobs, or specify a command mob name instead of *
+  mobactions.command.*:
+    description: Allows players to use all commands, or specify a command alias instead of *
     default: true
-  mobportals.warp:
+  mobactions.warp:
     description: Allows players to go to a warp using /mp warp
     default: op
-  mobportals.listwarps:
+  mobactions.listwarps:
     description: Allows players to list available warps
     default: op
-  mobportals.admin.createcommand:
+  mobactions.admin.createcommand:
     description: Allows players to create command mobs with /mp create command
     default: false
-  mobportals.admin.createportal:
-    description: Allows players to create mob portals with /mp create portal
+  mobactions.admin.createportal:
+    description: Allows players to create portal mobs with /mp create portal
     default: false
-  mobportals.admin.remove:
+  mobactions.admin.remove:
     description: Allows players to destroy mobs with /mp remove
     default: false
-  mobportals.admin.setwarp:
+  mobactions.admin.setwarp:
     description: Allows players to create a warp using /mp setwarp
     default: false
-  mobportals.admin.delwarp:
+  mobactions.admin.delwarp:
     description: Allows players to delete a warp using /mp delwarp
     default: false
-  mobportals.admin.reload:
+  mobactions.admin.reload:
     description: Allows players to reload the plugin configuration
     default: false
-  mobportals.*:
-    description: Grants access to all portals and all other permissions
+  mobactions.*:
+    description: Grants access to all mobs and all other permissions
     default: false
     children:
-      mobportals.warp: true
-      mobportals.warp.*: true
-      mobportals.command.*: true
-      mobportals.listwarps: true
-      mobportals.admin.createportal: true
-      mobportals.admin.createcommand: true
-      mobportals.admin.remove: true
-      mobportals.admin.setwarp: true
-      mobportals.admin.delwarp: true
-      mobportals.admin.reload: true
-  mobportals.admin.*:
-    description: Grants access to all portals and other admin permissions
+      mobactions.warp: true
+      mobactions.warp.*: true
+      mobactions.command.*: true
+      mobactions.listwarps: true
+      mobactions.admin.createportal: true
+      mobactions.admin.createcommand: true
+      mobactions.admin.remove: true
+      mobactions.admin.setwarp: true
+      mobactions.admin.delwarp: true
+      mobactions.admin.reload: true
+  mobactions.admin.*:
+    description: Grants access to all mobs and other admin permissions
     default: op
     children:
-      mobportals.warp.*: true
-      mobportals.admin.createportal: true
-      mobportals.admin.createcommand: true
-      mobportals.admin.remove: true
-      mobportals.admin.setwarp: true
-      mobportals.admin.delwarp: true
-      mobportals.admin.reload: true
-
+      mobactions.warp.*: true
+      mobactions.admin.createportal: true
+      mobactions.admin.createcommand: true
+      mobactions.admin.remove: true
+      mobactions.admin.setwarp: true
+      mobactions.admin.delwarp: true
+      mobactions.admin.reload: true
