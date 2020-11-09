@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
 
@@ -38,7 +39,7 @@ public class CommandListener implements ICommandListener {
 
   /** Handles tab completion of the remainder of the command. */
   @Override
-  public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command,
+  public List<String> onTabComplete(CommandSender sender, Command command,
                                     String alias, String[] args) {
     // TODO: Improve this
     List<String> completions = new ArrayList<>();
@@ -51,7 +52,7 @@ public class CommandListener implements ICommandListener {
   }
 
   @Override
-  public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label,
+  public boolean onCommand(CommandSender sender, Command command, String label,
                            String[] args) {
     if (args.length == 0) {
       sender.sendMessage(HELP);

@@ -1,10 +1,12 @@
 package com.snowypeaksystems.mobactions.mob.actions;
 
+import com.snowypeaksystems.mobactions.player.PlayerException;
+
 /**
- * Executable actions.
+ * Actions that can be run from Mobs.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface MobAction {
   /** Executes the action. */
-  void run();
+  void run() throws PlayerException;
 }

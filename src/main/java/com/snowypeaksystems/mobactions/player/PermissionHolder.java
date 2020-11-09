@@ -1,6 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.mob.data.command.ICommand;
+import com.snowypeaksystems.mobactions.mob.data.command.ICommandData;
 import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
 
 /**
@@ -10,7 +10,7 @@ import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
 public interface PermissionHolder {
   boolean canUseWarp(IWarp warp);
 
-  boolean canRunCommand(ICommand command);
+  boolean canRunCommand(ICommandData command);
 
   boolean canCreatePortal();
 

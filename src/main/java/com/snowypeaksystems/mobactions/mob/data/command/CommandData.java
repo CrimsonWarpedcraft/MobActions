@@ -4,14 +4,14 @@ package com.snowypeaksystems.mobactions.mob.data.command;
  * Stores a String command.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class Command implements ICommand {
+public class CommandData implements ICommandData {
   private final int tokens;
   private final String name;
   private final String command;
   private final String tokenStr;
 
   /** Constructs a command given a name and command to execute. */
-  public Command(String name, String command) {
+  public CommandData(String name, String command) {
     this.name = name;
     this.command = command;
     this.tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});

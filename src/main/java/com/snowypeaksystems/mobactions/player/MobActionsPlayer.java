@@ -1,7 +1,7 @@
 package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.mob.data.MobData;
-import com.snowypeaksystems.mobactions.mob.data.command.ICommand;
+import com.snowypeaksystems.mobactions.mob.data.command.ICommandData;
 import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
 import org.bukkit.entity.Player;
 
@@ -43,7 +43,7 @@ public class MobActionsPlayer implements IMobActionsPlayer {
   }
 
   @Override
-  public boolean canRunCommand(ICommand command) {
+  public boolean canRunCommand(ICommandData command) {
     return player.hasPermission("mobactions.command.*")
         || player.hasPermission("mobactions.command." + command.getAlias());
   }
