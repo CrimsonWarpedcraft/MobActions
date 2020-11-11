@@ -414,6 +414,11 @@ public class FakeServer implements Server {
   }
 
   @Override
+  public OfflinePlayer getOfflinePlayerIfCached(String name) {
+    return null;
+  }
+
+  @Override
   public Set<String> getIPBans() {
     return null;
   }

@@ -45,6 +45,7 @@ import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityCategory;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Pose;
@@ -180,6 +181,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public void sendRawMessage(UUID uuid, String s) {
+
+  }
+
+  @Override
   public void kickPlayer(String message) {
 
   }
@@ -311,6 +317,16 @@ public class FakePlayer implements Player {
 
   @Override
   public void sendMessage(String[] messages) {
+
+  }
+
+  @Override
+  public void sendMessage(UUID uuid, String s) {
+
+  }
+
+  @Override
+  public void sendMessage(UUID uuid, String[] strings) {
 
   }
 
@@ -1325,6 +1341,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public Firework boostElytra(ItemStack firework) {
+    return null;
+  }
+
+  @Override
   public String getClientBrandName() {
     return null;
   }
@@ -1386,6 +1407,11 @@ public class FakePlayer implements Player {
 
   @Override
   public boolean isInLava() {
+    return false;
+  }
+
+  @Override
+  public boolean isTicking() {
     return false;
   }
 
@@ -1887,6 +1913,16 @@ public class FakePlayer implements Player {
   @Override
   public EntityCategory getCategory() {
     return null;
+  }
+
+  @Override
+  public void setInvisible(boolean invisible) {
+
+  }
+
+  @Override
+  public boolean isInvisible() {
+    return false;
   }
 
   @Override
