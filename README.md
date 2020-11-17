@@ -14,7 +14,7 @@ Tested Minecraft Versions: **1.16**
 For a simple plugin, we pack a few powerful features!
 
 ### Commands
-`/mp create <warp>` - Create a portal to the specified warp  
+`/mp create warp <name>` - Create a portal to the specified warp 
 `/mp remove` - Remove a portal  
 `/mp warp <warp>` - Teleport to a warp  
 `/mp list` - Lists the available warps  
