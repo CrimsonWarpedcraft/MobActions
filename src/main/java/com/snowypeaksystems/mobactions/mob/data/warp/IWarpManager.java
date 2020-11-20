@@ -9,7 +9,7 @@ import org.bukkit.Location;
  */
 public interface IWarpManager {
   /** Create an IWarp with the provided name and destination. */
-  IWarp makeWarp(String name, Location destination);
+  void makeWarp(String name, Location destination);
 
   /** Returns the IWarp with the given name if present, or null otherwise. */
   IWarp getWarp(String name);
