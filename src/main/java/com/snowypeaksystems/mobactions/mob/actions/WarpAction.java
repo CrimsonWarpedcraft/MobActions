@@ -1,26 +1,34 @@
 package com.snowypeaksystems.mobactions.mob.actions;
 
+import com.snowypeaksystems.mobactions.mob.data.warp.IWarpManager;
 import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
-import io.papermc.lib.PaperLib;
+import com.snowypeaksystems.mobactions.player.PlayerException;
 import java.util.concurrent.CompletableFuture;
-import org.bukkit.Location;
 
 public class WarpAction implements IWarpAction {
-  private final Location dest;
-  private final IMobActionsPlayer player;
-  private final CompletableFuture<Boolean> future;
+  // private final String warp;
+  // private final IWarpManager warpManager;
+  // private final IMobActionsPlayer player;
+  // private final CompletableFuture<Boolean> future;
 
   /** Creates a warp action. */
-  public WarpAction(IMobActionsPlayer player, Location dest, CompletableFuture<Boolean> future) {
-    this.dest = dest;
-    this.player = player;
-    this.future = future;
+  public WarpAction(IMobActionsPlayer player, String warp, IWarpManager warpManager,
+                    CompletableFuture<Boolean> future) {
+    // this.warp = warp;
+    // this.player = player;
+    // this.future = future;
+    // this.warpManager = warpManager;
   }
 
   @Override
-  public void run() {
-    //TODO: Check permissions, throw error
-    PaperLib.getChunkAtAsync(dest).thenAccept(
-        chunk -> future.complete(player.getPlayer().teleport(dest)));
+  public void run() throws PlayerException {
+    //TODO Mason
+    /*
+    1. Check permissions, throw error if insufficient
+    2. Check if (lowercase) warp exists, throw error if not
+    3. Use code below to teleport the player to destination
+    PaperLib.getChunkAtAsync(warp.getDestination()).thenAccept(
+        chunk -> future.complete(player.getPlayer().teleport(warp.getDestination())));
+     */
   }
 }
