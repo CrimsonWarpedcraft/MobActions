@@ -27,7 +27,7 @@ public class MobActionsPlayer implements IMobActionsPlayer {
   }
 
   @Override
-  public Mode getStatus() {
+  public IStatus getStatus() {
     return null;
   }
 
