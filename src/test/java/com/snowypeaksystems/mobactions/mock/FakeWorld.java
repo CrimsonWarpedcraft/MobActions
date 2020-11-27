@@ -534,6 +534,21 @@ public class FakeWorld implements World {
   }
 
   @Override
+  public boolean isClearWeather() {
+    return false;
+  }
+
+  @Override
+  public void setClearWeatherDuration(int duration) {
+
+  }
+
+  @Override
+  public int getClearWeatherDuration() {
+    return 0;
+  }
+
+  @Override
   public boolean createExplosion(double x, double y, double z, float power) {
     return false;
   }
