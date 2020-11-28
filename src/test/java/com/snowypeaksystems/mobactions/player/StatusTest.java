@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class StatusTest {
 
   @Test
-  void setMode() {
+  void getMode() {
     IStatus status = new Status();
     assertEquals(status.getMode(), IStatus.Mode.NONE);
 
@@ -23,10 +23,13 @@ class StatusTest {
 
     status.setMode(IStatus.Mode.DESTROYING);
     assertEquals(status.getMode(), IStatus.Mode.DESTROYING);
+
+    status.setMode(IStatus.Mode.NONE);
+    assertEquals(status.getMode(), IStatus.Mode.NONE);
   }
 
   @Test
-  void setMobData() {
+  void getMobData() {
     ICommandData command = new CommandData("", "");
 
     IStatus status = new Status();
