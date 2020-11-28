@@ -7,12 +7,6 @@ import com.snowypeaksystems.mobactions.mob.data.MobData;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface Editor {
-  enum Mode {
-    CREATING,
-    DESTROYING,
-    NONE
-  }
-
   /** Stores the data and marks the player as creating, or not creating if null. */
   void setCreating(MobData data);
 
@@ -20,5 +14,5 @@ public interface Editor {
   void setDestroying(boolean value);
 
   /** Returns the status of the editor. */
-  Mode getStatus();
+  IStatus getStatus();
 }
