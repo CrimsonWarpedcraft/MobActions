@@ -46,12 +46,13 @@ public class CommandData implements ICommandData {
       }
 
       if (j == positions.length) {
-        String segment = command.substring(last, positions[0]);
-
-        newString.append(segment).append(args[tokens]);
+        if (args.length > tokens) {
+          String segment = command.substring(last, positions[0]);
+          newString.append(segment).append(args[tokens]);
+          last = i + 1;
+        }
 
         j = 0;
-        last = i + 1;
         tokens++;
       }
     }
