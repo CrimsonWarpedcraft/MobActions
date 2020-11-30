@@ -17,16 +17,16 @@ class StatusTest {
   @Test
   void getMode() {
     IStatus status = new Status();
-    assertEquals(status.getMode(), IStatus.Mode.NONE);
+    assertEquals(IStatus.Mode.NONE, status.getMode());
 
     status.setMode(IStatus.Mode.CREATING);
-    assertEquals(status.getMode(), IStatus.Mode.CREATING);
+    assertEquals(IStatus.Mode.CREATING, status.getMode());
 
     status.setMode(IStatus.Mode.DESTROYING);
-    assertEquals(status.getMode(), IStatus.Mode.DESTROYING);
+    assertEquals(IStatus.Mode.DESTROYING, status.getMode());
 
     status.setMode(IStatus.Mode.NONE);
-    assertEquals(status.getMode(), IStatus.Mode.NONE);
+    assertEquals(IStatus.Mode.NONE, status.getMode());
 
     try {
       status.setMode(null);
@@ -45,7 +45,7 @@ class StatusTest {
 
     status.setMode(IStatus.Mode.CREATING);
     status.setMobData(command);
-    assertEquals(status.getMobData(), command);
+    assertEquals(command, status.getMobData());
 
     status.setMode(IStatus.Mode.NONE);
     assertNull(status.getMobData());
