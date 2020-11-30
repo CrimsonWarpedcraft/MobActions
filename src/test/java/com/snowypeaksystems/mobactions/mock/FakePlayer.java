@@ -8,6 +8,7 @@ import com.destroystokyo.paper.profile.PlayerProfile;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.InetSocketAddress;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -84,6 +85,11 @@ import org.bukkit.util.Vector;
  */
 @SuppressFBWarnings
 public class FakePlayer implements Player {
+  HashMap<String, Boolean> perms = new HashMap<>();
+
+  public void setPermission(String name, boolean value) {
+    perms.put(name, value);
+  }
 
   @Override
   public String getDisplayName() {
@@ -2152,7 +2158,7 @@ public class FakePlayer implements Player {
 
   @Override
   public boolean hasPermission(String name) {
-    return false;
+    return perms.containsKey(name) && perms.get(name);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.mob.data.MobData;
 import com.snowypeaksystems.mobactions.mob.data.command.ICommandData;
 import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
 import org.bukkit.entity.Player;
@@ -11,24 +10,16 @@ import org.bukkit.entity.Player;
  */
 public class MobActionsPlayer implements IMobActionsPlayer {
   private final Player player;
+  private final IStatus status;
 
   public MobActionsPlayer(Player player) {
     this.player = player;
-  }
-
-  @Override
-  public void setCreating(MobData data) {
-
-  }
-
-  @Override
-  public void setDestroying(boolean value) {
-
+    this.status = new Status();
   }
 
   @Override
   public IStatus getStatus() {
-    return null;
+    return status;
   }
 
   @Override

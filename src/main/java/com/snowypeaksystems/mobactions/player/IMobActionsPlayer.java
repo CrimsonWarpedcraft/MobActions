@@ -6,7 +6,10 @@ import org.bukkit.entity.Player;
  * An object that represents a player interacting with the plugin.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public interface IMobActionsPlayer extends Editor, PermissionHolder {
+public interface IMobActionsPlayer extends PermissionHolder {
   /** Returns the player represented by the IMPPlayer. */
   Player getPlayer();
+
+  /** Returns the status of the Player. */
+  IStatus getStatus();
 }
