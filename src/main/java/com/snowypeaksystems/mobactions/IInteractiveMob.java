@@ -1,12 +1,12 @@
-package com.snowypeaksystems.mobactions.mob;
+package com.snowypeaksystems.mobactions;
 
 import org.bukkit.entity.LivingEntity;
 
 /**
- * Extends the Interactive interface by adding methods for mobs.
+ * A mob that can store MobData.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public interface IInteractiveMob extends Interactive {
+public interface IInteractiveMob {
   String DATA_KEY = "data";
 
   /** Stores data on the LivingEntity. */
@@ -18,6 +18,9 @@ public interface IInteractiveMob extends Interactive {
   /** Returns true if data is stored on this LivingEntity, false otherwise. */
   boolean exists();
 
-  /** Returns the LivingEntity instance associated with the Interactive. */
+  /** Returns the LivingEntity instance associated with the IInteractiveMob. */
   LivingEntity getLivingEntity();
+
+  /** Returns the key String for the action. */
+  String getActionType();
 }

@@ -1,8 +1,8 @@
-package com.snowypeaksystems.mobactions.mob.actions;
+package com.snowypeaksystems.mobactions.actions;
 
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarpManager;
 import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.warp.IWarpManager;
 import java.util.concurrent.CompletableFuture;
 
 public class WarpAction implements IWarpAction {

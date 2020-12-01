@@ -1,6 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.mob.data.MobData;
+import com.snowypeaksystems.mobactions.data.MobData;
 
 /**
  * Represents a user's state and creation.

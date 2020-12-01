@@ -1,6 +1,5 @@
-package com.snowypeaksystems.mobactions.mob.data.command;
+package com.snowypeaksystems.mobactions.data;
 
-import com.snowypeaksystems.mobactions.mob.data.MobData;
 import com.snowypeaksystems.mobactions.util.Substitutable;
 
 /**
@@ -8,5 +7,6 @@ import com.snowypeaksystems.mobactions.util.Substitutable;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface ICommandData extends Substitutable, MobData {
-  String NAME_KEY = "command-name";
+  String COMMAND_KEY = "command";
+  String COMMAND_ALIAS_KEY = "command-alias";
 }

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.snowypeaksystems.mobactions.mob.data.command.CommandData;
-import com.snowypeaksystems.mobactions.mob.data.command.ICommandData;
+import com.snowypeaksystems.mobactions.data.CommandData;
+import com.snowypeaksystems.mobactions.data.ICommandData;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -1,7 +1,9 @@
-package com.snowypeaksystems.mobactions.mob.data.command;
+package com.snowypeaksystems.mobactions.data.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.snowypeaksystems.mobactions.data.CommandData;
+import com.snowypeaksystems.mobactions.data.ICommandData;
 import org.junit.jupiter.api.Test;
 
 /**

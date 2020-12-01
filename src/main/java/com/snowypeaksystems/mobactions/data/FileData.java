@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobactions.mob.data;
+package com.snowypeaksystems.mobactions.data;
 
 import java.io.IOException;
 

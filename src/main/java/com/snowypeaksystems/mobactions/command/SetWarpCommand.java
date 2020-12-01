@@ -1,8 +1,8 @@
 package com.snowypeaksystems.mobactions.command;
 
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarpManager;
 import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.warp.IWarpManager;
 
 public class SetWarpCommand implements ISetWarpCommand {
   // private String name;

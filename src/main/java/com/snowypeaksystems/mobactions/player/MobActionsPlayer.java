@@ -1,7 +1,7 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.mob.data.command.ICommandData;
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
+import com.snowypeaksystems.mobactions.data.ICommandData;
+import com.snowypeaksystems.mobactions.warp.IWarp;
 import org.bukkit.entity.Player;
 
 /**

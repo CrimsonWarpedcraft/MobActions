@@ -1,6 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.mob.data.MobData;
+import com.snowypeaksystems.mobactions.data.MobData;
 
 public class Status implements IStatus {
   private MobData data;

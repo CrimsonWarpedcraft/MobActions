@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobactions.mob.actions;
+package com.snowypeaksystems.mobactions.actions;
 
 public class CommandAction implements ICommandAction {
   @Override

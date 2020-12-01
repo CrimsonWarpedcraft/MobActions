@@ -3,11 +3,11 @@ package com.snowypeaksystems.mobactions.player;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.snowypeaksystems.mobactions.mob.data.command.CommandData;
-import com.snowypeaksystems.mobactions.mob.data.command.ICommandData;
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
+import com.snowypeaksystems.mobactions.data.CommandData;
+import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.mock.FakePlayer;
 import com.snowypeaksystems.mobactions.mock.FakeWarp;
+import com.snowypeaksystems.mobactions.warp.IWarp;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -1,7 +1,8 @@
 package com.snowypeaksystems.mobactions;
 
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarpManager;
 import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
+import com.snowypeaksystems.mobactions.warp.IWarpManager;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,4 +15,7 @@ public interface IMobActions {
 
   /** Returns the IMobActionsPlayer object for the provided player. */
   IMobActionsPlayer getPlayer(Player player);
+
+  /** Returns the IInteractiveMob for this non-Player entity. */
+  IInteractiveMob getInteractiveMob(LivingEntity entity);
 }

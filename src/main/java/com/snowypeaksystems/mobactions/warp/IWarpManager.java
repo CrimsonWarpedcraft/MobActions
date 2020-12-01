@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobactions.mob.data.warp;
+package com.snowypeaksystems.mobactions.warp;
 
 import java.util.Set;
 import org.bukkit.Location;

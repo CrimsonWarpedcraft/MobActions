@@ -1,6 +1,6 @@
 package com.snowypeaksystems.mobactions.mock;
 
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarp;
+import com.snowypeaksystems.mobactions.warp.IWarp;
 import java.io.IOException;
 import org.bukkit.Location;
 

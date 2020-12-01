@@ -3,11 +3,11 @@ package com.snowypeaksystems.mobactions;
 import com.snowypeaksystems.mobactions.listener.CommandListener;
 import com.snowypeaksystems.mobactions.listener.EventListener;
 import com.snowypeaksystems.mobactions.listener.ICommandListener;
-import com.snowypeaksystems.mobactions.mob.data.warp.IWarpManager;
-import com.snowypeaksystems.mobactions.mob.data.warp.WarpManager;
 import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
 import com.snowypeaksystems.mobactions.player.MobActionsPlayer;
 import com.snowypeaksystems.mobactions.util.Messages;
+import com.snowypeaksystems.mobactions.warp.IWarpManager;
+import com.snowypeaksystems.mobactions.warp.WarpManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.papermc.lib.PaperLib;
 import java.io.File;
@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 /**
@@ -81,6 +82,11 @@ public class MobActions extends AMobActions {
     players.put(player, wrappedPlayer);
 
     return wrappedPlayer;
+  }
+
+  @Override
+  public IInteractiveMob getInteractiveMob(LivingEntity entity) {
+    return new InteractiveMob(entity, this);
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobactions.mob.data.warp;
+package com.snowypeaksystems.mobactions.warp;
 
 /**
  * Exception thrown when a warp is incorrectly configured.

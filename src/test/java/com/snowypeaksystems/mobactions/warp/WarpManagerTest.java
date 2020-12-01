@@ -1,4 +1,4 @@
-package com.snowypeaksystems.mobactions.mob.data.warp;
+package com.snowypeaksystems.mobactions.warp;
 
 import org.junit.jupiter.api.Test;
 
