@@ -46,9 +46,9 @@ public class MobActions extends AMobActions {
       return;
     }
 
-    PluginCommand cmd = getCommand("mp");
+    PluginCommand cmd = getCommand("mac");
     if (cmd == null) {
-      getLogger().severe("PluginCommand \"mp\" not found");
+      getLogger().severe("PluginCommand \"mac\" not found");
       setEnabled(false);
       return;
     }

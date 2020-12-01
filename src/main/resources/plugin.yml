@@ -8,7 +8,7 @@ description: Interact with mobs like never before
 commands:
   mact:
     description: Base command for MobActions
-    usage: "For a list of commands, type /mact help"
+    usage: "For a list of commands, type /mac help"
     aliases: mobactions,mactions
 
 permissions:
@@ -19,25 +19,25 @@ permissions:
     description: Allows players to use all commands, or specify a command alias instead of *
     default: true
   mobactions.warp:
-    description: Allows players to go to a warp using /mp warp
+    description: Allows players to go to a warp using /mac warp
     default: op
   mobactions.listwarps:
     description: Allows players to list available warps
     default: op
   mobactions.admin.createcommand:
-    description: Allows players to create command mobs with /mp create command
+    description: Allows players to create command mobs with /mac create command
     default: false
   mobactions.admin.createportal:
-    description: Allows players to create portal mobs with /mp create portal
+    description: Allows players to create portal mobs with /mac create portal
     default: false
   mobactions.admin.remove:
-    description: Allows players to destroy mobs with /mp remove
+    description: Allows players to destroy mobs with /mac remove
     default: false
   mobactions.admin.setwarp:
-    description: Allows players to create a warp using /mp setwarp
+    description: Allows players to create a warp using /mac setwarp
     default: false
   mobactions.admin.delwarp:
-    description: Allows players to delete a warp using /mp delwarp
+    description: Allows players to delete a warp using /mac delwarp
     default: false
   mobactions.admin.reload:
     description: Allows players to reload the plugin configuration

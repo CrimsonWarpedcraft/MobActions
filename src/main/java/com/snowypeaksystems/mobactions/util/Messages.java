@@ -27,7 +27,7 @@ public final class Messages {
         new Message("&cYou cannot execute commands from the console!"));
 
     // Cancel messages
-    messages.put("edit-cancel", new Message("&eUse /mp cancel to cancel"));
+    messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
     messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
     messages.put("edit-cancel-success", new Message("&eCancelled!"));
 
@@ -58,7 +58,7 @@ public final class Messages {
         new Message("&aPortal to {&c} created successfully!"));
 
     // Reload messages
-    messages.put("reload-success", new Message("&aMobPortals reload complete!"));
+    messages.put("reload-success", new Message("&aMobActions reload complete!"));
 
     // Warp messages
     messages.put("warp-create-error",
