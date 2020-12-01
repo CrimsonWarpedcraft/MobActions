@@ -21,39 +21,34 @@ public class WarpManager implements IWarpManager {
   /**
    * Construct a new WarpManager map from the specified dataDir and server.
    * @param dataDir folder for the map to write to
+   * @throws FileNotFoundException if dataDir does not exist
    */
   public WarpManager(File dataDir) throws FileNotFoundException {
-    this.storageDir = dataDir;
-    this.warps = new HashMap<>();
-
-    if (!storageDir.exists()) {
+    if (dataDir == null || !dataDir.exists()) {
       throw new FileNotFoundException("Warp directory not found");
     }
+
+    this.storageDir = dataDir;
+    this.warps = new HashMap<>();
 
     reload();
   }
 
   @Override
-  public void makeWarp(String name, Location destination) {
-    // TODO Mason
-    /*
-    1. create warp object with lowercase name, dest, and storageDir
-    2. add warp to warps hashmap with lowercase name as key
-     */
+  public IWarp makeWarp(String name, Location destination) {
+    IWarp warp = new Warp(name.toLowerCase(), destination, storageDir);
+    warps.put(warp.getAlias(), warp);
+    return warp;
   }
 
   @Override
   public IWarp getWarp(String name) {
-    // TODO Mason
-    // Return warp in warps hashmap with lowercase name
-    return null;
+    return warps.get(name.toLowerCase());
   }
 
   @Override
   public IWarp unregister(String name) {
-    // TODO Mason
-    // remove and return the warp with lowercase name or null
-    return null;
+    return warps.remove(name.toLowerCase());
   }
 
   @Override
