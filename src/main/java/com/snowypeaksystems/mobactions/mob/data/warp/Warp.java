@@ -75,7 +75,7 @@ public class Warp implements IWarp {
     String worldName = config.getString("world", "");
     World world = worldName != null ? Bukkit.getWorld(worldName) : null;
     if (world == null) {
-      throw new MissingWorldException(worldName);
+      throw new WarpConfigException("World not found!");
     }
 
     double x = config.getDouble("x");
