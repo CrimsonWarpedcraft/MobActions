@@ -49,7 +49,7 @@ public final class Messages {
 
     // Permission messages
     messages.put("permission-error",
-        new Message("&cYou need the {} permission node to do that!"));
+        new Message("&cYou do not have permission to do that!"));
 
     // Portal messages
     messages.put("portal-create",
