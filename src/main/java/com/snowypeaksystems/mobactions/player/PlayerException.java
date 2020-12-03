@@ -5,6 +5,12 @@ package com.snowypeaksystems.mobactions.player;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public abstract class PlayerException extends Exception {
+  private final String message;
+  public PlayerException(String message) {
+    this.message = message;
+  }
   /** Returns the String formatted to send to the Player. */
-  abstract String getPlayerFormattedString();
+  public String getPlayerFormattedString() {
+    return message;
+  }
 }
