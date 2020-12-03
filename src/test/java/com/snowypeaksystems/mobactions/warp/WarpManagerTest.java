@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import org.bukkit.Location;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -20,7 +21,11 @@ import org.junit.jupiter.api.Test;
  */
 class WarpManagerTest {
   static private File file;
-
+  private Location testLoc1;
+  private Location testLoc2;
+  private IWarpManager testWarpManager;
+  private IWarp testWarp1;
+  private IWarp testWarp2;
   @BeforeAll
   static void setUp() {
     file = new File("test");
@@ -35,93 +40,64 @@ class WarpManagerTest {
       fail();
     }
   }
-
-  @Test
-  void makeWarp() {
-    Location loc1 = new Location(new FakeWorld(), 0, 0, 0);
-    IWarpManager newWarpManager;
-
+  @BeforeEach
+  void start() {
+    testLoc1 = new Location(new FakeWorld(), 0, 0, 0);
+    testLoc2 = new Location(new FakeWorld(), 0, 0, 0);
     try {
-      newWarpManager = new WarpManager(file);
+      testWarpManager = new WarpManager(file);
 
-      IWarp newWarp1 = newWarpManager.makeWarp("name", loc1);
-      assertEquals(newWarp1.getAlias(), "name");
-      assertEquals(newWarp1.getDestination(), loc1);
-
-      Location loc2 = new Location(new FakeWorld(), 0, 0, 0);
-      IWarp newWarp2 = newWarpManager.makeWarp("name", loc2);
-      assertEquals(newWarp2.getAlias(), "name");
-      assertEquals(newWarp2.getDestination(), loc2);
-
-    } catch (FileNotFoundException e) {
+    }catch(FileNotFoundException e) {
       fail();
     }
+    testWarp1 = null;
+    testWarp2 = null;
+  }
+  @Test
+  void makeWarp() {
+    // had to make the expected lowercase ?? is that cool
+    testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
+    assertEquals("testwarp1", testWarp1.getAlias());
+    assertEquals(testLoc1, testWarp1.getDestination());
+
+    testWarp2 = testWarpManager.makeWarp("testWarp2", testLoc2);
+    assertEquals("testwarp2", testWarp2.getAlias());
+    assertEquals(testLoc2, testWarp2.getDestination());
+
   }
 
   @Test
   void getWarp() {
-    Location loc1 = new Location(new FakeWorld(), 0, 0, 0);
-
-    IWarpManager newWarpManager = null;
-    try {
-      newWarpManager = new WarpManager(file);
-    } catch (FileNotFoundException e) {
-      fail();
-    }
-    assertNull(newWarpManager.getWarp("name"));
-    IWarp newWarp1 = newWarpManager.makeWarp("name", loc1);
-    assertEquals(newWarpManager.getWarp("name"), newWarp1);
+    assertNull(testWarpManager.getWarp("testWarp1"));
+    testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
+    assertEquals(testWarp1, testWarpManager.getWarp("testWarp1"));
   }
 
   @Test
   void unregister() {
-    Location loc1 = new Location(new FakeWorld(), 0, 0, 0);
-    IWarpManager newWarpManager = null;
-    try {
-      newWarpManager = new WarpManager(file);
-    } catch (FileNotFoundException e) {
-      fail();
-    }
+    //is this part redundant
+    testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
+    assertEquals(testWarp1, testWarpManager.getWarp("testWarp1"));
 
-    IWarp newWarp1 = newWarpManager.makeWarp("name", loc1);
-    assertEquals(newWarp1, newWarpManager.getWarp("name"));
-
-    newWarpManager.unregister("name");
-    assertNull(newWarpManager.unregister("name"));
+    testWarpManager.unregister("testWarp1");
+    assertNull(testWarpManager.unregister("testWarp1"));
   }
 
   @Test
   void exists() {
-    Location loc1 = new Location(new FakeWorld(), 0, 0, 0);
-    IWarpManager newWarpManager = null;
-    try {
-      newWarpManager = new WarpManager(file);
-    } catch (FileNotFoundException e) {
-      fail();
-    }
-
-    assertFalse(newWarpManager.exists("name"));
-    newWarpManager.makeWarp("name", loc1);
-    assertTrue(newWarpManager.exists("name"));
+    assertFalse(testWarpManager.exists("testWarp"));
+    testWarpManager.makeWarp("testWarp", testLoc1);
+    assertTrue(testWarpManager.exists("testWarp"));
   }
 
   @Test
   void getLoadedWarpNames() {
-    Location loc1 = new Location(new FakeWorld(), 0, 0, 0);
-    IWarpManager newWarpManager = null;
-    try {
-      newWarpManager = new WarpManager(file);
-    } catch (FileNotFoundException e) {
-      fail();
-    }
+    assertEquals(0, testWarpManager.getLoadedWarpNames().size());
 
-    assertEquals(0, newWarpManager.getLoadedWarpNames().size());
-
-    Location loc2 = new Location(new FakeWorld(), 0, 0, 0);
-    newWarpManager.makeWarp("name1", loc1);
-    newWarpManager.makeWarp("name2", loc2);
-    assertTrue(newWarpManager.exists("name1"));
-    assertTrue(newWarpManager.exists("name2"));
+    testWarpManager.makeWarp("testWarp", testLoc1);
+    testWarpManager.makeWarp("testWarp", testLoc2);
+    assertTrue(testWarpManager.exists("testWarp"));
+    assertTrue(testWarpManager.exists("testWarp"));
 
   }
 }
