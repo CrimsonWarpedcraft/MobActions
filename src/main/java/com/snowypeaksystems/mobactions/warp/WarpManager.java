@@ -3,7 +3,6 @@ package com.snowypeaksystems.mobactions.warp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
@@ -58,13 +57,7 @@ public class WarpManager implements IWarpManager {
 
   @Override
   public Set<String> getLoadedWarpNames() {
-    Set<String> names = new HashSet<>();
-
-    for (IWarp warp : warps.values()) {
-      names.add(warp.getAlias());
-    }
-
-    return names;
+    return warps.keySet();
   }
 
   @Override
