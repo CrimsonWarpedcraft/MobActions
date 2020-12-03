@@ -29,7 +29,8 @@ public class CommandAction implements ICommandAction {
     if (!player.canRunCommand(command)) {
       throw new PermissionException();
     }
-      Player p = player.getPlayer();
-      future.complete(p.performCommand(command.replace(p.getDisplayName())));
+
+    Player p = player.getPlayer();
+    future.complete(p.performCommand(command.replace(p.getDisplayName())));
   }
 }
