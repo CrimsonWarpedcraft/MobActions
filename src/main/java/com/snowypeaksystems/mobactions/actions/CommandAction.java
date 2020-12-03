@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.actions;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
+import com.snowypeaksystems.mobactions.player.PermissionException;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.entity.Player;
 
@@ -24,10 +25,11 @@ public class CommandAction implements ICommandAction {
   }
 
   @Override
-  public void run() {
-    if (player.canRunCommand(command)) {
+  public void run() throws PermissionException {
+    if (!player.canRunCommand(command)) {
+      throw new PermissionException();
+    }
       Player p = player.getPlayer();
       future.complete(p.performCommand(command.replace(p.getDisplayName())));
-    }
   }
 }
