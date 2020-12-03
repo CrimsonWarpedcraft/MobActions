@@ -20,12 +20,13 @@ import org.junit.jupiter.api.Test;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class WarpManagerTest {
-  static private File file;
+  private static File file;
   private Location testLoc1;
   private Location testLoc2;
   private IWarpManager testWarpManager;
   private IWarp testWarp1;
   private IWarp testWarp2;
+
   @BeforeAll
   static void setUp() {
     file = new File("test");
@@ -44,12 +45,13 @@ class WarpManagerTest {
   void start() {
     testLoc1 = new Location(new FakeWorld(), 0, 0, 0);
     testLoc2 = new Location(new FakeWorld(), 0, 0, 0);
+
     try {
       testWarpManager = new WarpManager(file);
-
-    }catch(FileNotFoundException e) {
+    } catch (FileNotFoundException e) {
       fail();
     }
+
     testWarp1 = null;
     testWarp2 = null;
   }
@@ -63,7 +65,6 @@ class WarpManagerTest {
     testWarp2 = testWarpManager.makeWarp("testWarp2", testLoc2);
     assertEquals("testwarp2", testWarp2.getAlias());
     assertEquals(testLoc2, testWarp2.getDestination());
-
   }
 
   @Test
@@ -98,6 +99,5 @@ class WarpManagerTest {
     testWarpManager.makeWarp("testWarp", testLoc2);
     assertTrue(testWarpManager.exists("testWarp"));
     assertTrue(testWarpManager.exists("testWarp"));
-
   }
 }
