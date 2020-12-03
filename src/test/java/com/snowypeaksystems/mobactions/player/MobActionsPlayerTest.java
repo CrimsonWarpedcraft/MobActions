@@ -50,27 +50,15 @@ class MobActionsPlayerTest {
   }
 
   @Test
-  void canCreatePortal() {
+  void canCreate() {
     FakePlayer fake = new FakePlayer();
     IMobActionsPlayer player = new MobActionsPlayer(fake);
 
-    assertFalse(player.canCreatePortal());
+    assertFalse(player.canCreate());
 
-    fake.setPermission("mobactions.admin.createportal", true);
-    assertTrue(player.canCreatePortal());
-    fake.setPermission("mobactions.admin.createportal", false);
-  }
-
-  @Test
-  void canCreateCommand() {
-    FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
-
-    assertFalse(player.canCreateCommand());
-
-    fake.setPermission("mobactions.admin.createcommand", true);
-    assertTrue(player.canCreateCommand());
-    fake.setPermission("mobactions.admin.createcommand", false);
+    fake.setPermission("mobactions.admin.create", true);
+    assertTrue(player.canCreate());
+    fake.setPermission("mobactions.admin.create", false);
   }
 
   @Test

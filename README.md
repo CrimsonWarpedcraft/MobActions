@@ -31,8 +31,7 @@ For a simple plugin, we pack a few powerful features!
 `mobportals.listwarps` - Allows players to list warps that they have access to (Default: op)
   
 `mobportal.admin.*` - Grants access to all admin commands and warps (Default: op)  
-`mobportals.admin.createcommand` - Allows players to create command mobs with /mp create command (Default: false)  
-`mobportals.admin.createportal` - Allows players to create mob portals with /mp create (Default: false)  
+`mobportals.admin.create` - Allows players to create action mobs with /mp create (Default: false)  
 `mobportals.admin.remove` - Allows players to destroy mob portals with /mp remove (Default: false)  
 `mobportals.admin.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
 `mobportals.admin.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  

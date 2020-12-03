@@ -40,13 +40,8 @@ public class MobActionsPlayer implements IMobActionsPlayer {
   }
 
   @Override
-  public boolean canCreatePortal() {
-    return player.hasPermission("mobactions.admin.createportal");
-  }
-
-  @Override
-  public boolean canCreateCommand() {
-    return player.hasPermission("mobactions.admin.createcommand");
+  public boolean canCreate() {
+    return player.hasPermission("mobactions.admin.create");
   }
 
   @Override

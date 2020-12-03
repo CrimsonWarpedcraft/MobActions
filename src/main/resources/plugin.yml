@@ -24,11 +24,8 @@ permissions:
   mobactions.listwarps:
     description: Allows players to list available warps
     default: op
-  mobactions.admin.createcommand:
-    description: Allows players to create command mobs with /mac create command
-    default: false
-  mobactions.admin.createportal:
-    description: Allows players to create portal mobs with /mac create portal
+  mobactions.admin.create:
+    description: Allows players to create action mobs with /mac create
     default: false
   mobactions.admin.remove:
     description: Allows players to destroy mobs with /mac remove

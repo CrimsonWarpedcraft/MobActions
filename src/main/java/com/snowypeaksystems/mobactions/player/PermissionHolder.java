@@ -12,9 +12,7 @@ public interface PermissionHolder {
 
   boolean canRunCommand(ICommandData command);
 
-  boolean canCreatePortal();
-
-  boolean canCreateCommand();
+  boolean canCreate();
 
   boolean canRemove();
 
