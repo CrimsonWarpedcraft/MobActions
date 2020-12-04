@@ -41,6 +41,7 @@ class WarpManagerTest {
       fail();
     }
   }
+
   @BeforeEach
   void start() {
     testLoc1 = new Location(new FakeWorld(), 0, 0, 0);
@@ -55,15 +56,16 @@ class WarpManagerTest {
     testWarp1 = null;
     testWarp2 = null;
   }
+
   @Test
   void makeWarp() {
     // had to make the expected lowercase ?? is that cool
-    testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
+    testWarp1 = testWarpManager.makeWarp("TESTWARP1", testLoc1);
+
     assertEquals("testwarp1", testWarp1.getAlias());
     assertEquals(testLoc1, testWarp1.getDestination());
 
-    testWarp2 = testWarpManager.makeWarp("testWarp2", testLoc2);
-    assertEquals("testwarp2", testWarp2.getAlias());
+    testWarp2 = testWarpManager.makeWarp("testWarp1", testLoc2);
     assertEquals(testLoc2, testWarp2.getDestination());
   }
 
