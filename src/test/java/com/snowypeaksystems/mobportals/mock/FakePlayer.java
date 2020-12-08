@@ -1951,6 +1951,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public void clearActiveItem() {
+    
+  }
+
+  @Override
   public int getItemUseRemainingTime() {
     return 0;
   }
