@@ -1,16 +1,16 @@
 package com.snowypeaksystems.mobactions.command;
 
-import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
+import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 
 public class SetWarpCommand implements ISetWarpCommand {
   // private String name;
   // private IWarpManager warpManager;
-  // private IMobActionsPlayer player;
+  // private MobActionsUser player;
 
   /** Creates a SetWarpCommand object. */
-  public SetWarpCommand(IMobActionsPlayer player, String name, IWarpManager warpManager) {
+  public SetWarpCommand(MobActionsUser player, String name, IWarpManager warpManager) {
     // this.name = name;
     // this.player = player;
     // this.warpManager = warpManager;

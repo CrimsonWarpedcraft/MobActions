@@ -18,7 +18,7 @@ class MobActionsPlayerTest {
   @Test
   void canUseWarp() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
     IWarp warp = new FakeWarp("test1");
 
     assertFalse(player.canUseWarp(warp));
@@ -35,7 +35,7 @@ class MobActionsPlayerTest {
   @Test
   void canRunCommand() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
     ICommandData command = new CommandData("test1", "");
 
     assertFalse(player.canRunCommand(command));
@@ -52,7 +52,7 @@ class MobActionsPlayerTest {
   @Test
   void canCreate() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
 
     assertFalse(player.canCreate());
 
@@ -64,7 +64,7 @@ class MobActionsPlayerTest {
   @Test
   void canRemove() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
 
     assertFalse(player.canRemove());
 
@@ -76,7 +76,7 @@ class MobActionsPlayerTest {
   @Test
   void canUseWarpCommand() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
 
     assertFalse(player.canUseWarpCommand());
 
@@ -88,7 +88,7 @@ class MobActionsPlayerTest {
   @Test
   void canSetWarp() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
 
     assertFalse(player.canSetWarp());
 
@@ -100,7 +100,7 @@ class MobActionsPlayerTest {
   @Test
   void canRemoveWarp() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
 
     assertFalse(player.canRemoveWarp());
 
@@ -112,7 +112,7 @@ class MobActionsPlayerTest {
   @Test
   void canReload() {
     FakePlayer fake = new FakePlayer();
-    IMobActionsPlayer player = new MobActionsPlayer(fake);
+    MobActionsUser player = new MobActionsPlayer(fake);
 
     assertFalse(player.canReload());
 

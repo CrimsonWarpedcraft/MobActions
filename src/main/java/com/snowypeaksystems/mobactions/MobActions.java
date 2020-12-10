@@ -3,8 +3,9 @@ package com.snowypeaksystems.mobactions;
 import com.snowypeaksystems.mobactions.listener.CommandListener;
 import com.snowypeaksystems.mobactions.listener.EventListener;
 import com.snowypeaksystems.mobactions.listener.ICommandListener;
-import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
+import com.snowypeaksystems.mobactions.player.ConsoleUser;
 import com.snowypeaksystems.mobactions.player.MobActionsPlayer;
+import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.util.Messages;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 import com.snowypeaksystems.mobactions.warp.WarpManager;
@@ -14,6 +15,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.logging.Level;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -25,7 +28,7 @@ import org.bukkit.entity.Player;
  */
 public class MobActions extends AMobActions {
   private IWarpManager warps;
-  private HashMap<Player, IMobActionsPlayer> players;
+  private HashMap<Player, MobActionsUser> players;
 
   @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
   @Override
@@ -72,16 +75,25 @@ public class MobActions extends AMobActions {
   }
 
   @Override
-  public IMobActionsPlayer getPlayer(Player player) {
+  public MobActionsUser getPlayer(Player player) {
     if (players.containsKey(player)) {
       return players.get(player);
     }
 
-    IMobActionsPlayer wrappedPlayer = new MobActionsPlayer(player);
+    MobActionsUser wrappedPlayer = new MobActionsPlayer(player);
 
     players.put(player, wrappedPlayer);
 
     return wrappedPlayer;
+  }
+
+  @Override
+  public MobActionsUser getPlayer(CommandSender sender) {
+    if (sender instanceof Player) {
+      return getPlayer((Player) sender);
+    }
+
+    return new ConsoleUser((ConsoleCommandSender) sender);
   }
 
   @Override

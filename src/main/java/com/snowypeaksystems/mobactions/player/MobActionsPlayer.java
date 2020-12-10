@@ -2,13 +2,14 @@ package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.warp.IWarp;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
- * Implementation of IMPPlayer.
+ * Player based implementation of MobActionsUser.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class MobActionsPlayer implements IMobActionsPlayer {
+public class MobActionsPlayer implements MobActionsUser {
   private final Player player;
   private final IStatus status;
 
@@ -23,8 +24,23 @@ public class MobActionsPlayer implements IMobActionsPlayer {
   }
 
   @Override
-  public Player getPlayer() {
-    return player;
+  public void teleport(Location location) {
+    player.teleport(location);
+  }
+
+  @Override
+  public void sendMessage(String... messages) {
+    player.sendMessage(messages);
+  }
+
+  @Override
+  public boolean performCommand(String command) {
+    return false;
+  }
+
+  @Override
+  public String getDisplayName() {
+    return player.getDisplayName();
   }
 
   @Override

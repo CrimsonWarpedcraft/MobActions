@@ -1,16 +1,16 @@
 package com.snowypeaksystems.mobactions.command;
 
-import com.snowypeaksystems.mobactions.player.IMobActionsPlayer;
+import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 
 public class DelWarpCommand implements IDelWarpCommand {
   // private String name;
   // private IWarpManager warpManager;
-  // private IMobActionsPlayer player;
+  // private MobActionsUser player;
 
-  /** Creates a DelWarpCommand object. */
-  public DelWarpCommand(IMobActionsPlayer player, String name, IWarpManager warpManager) {
+  /** Creates a DelWarpCommand object. Can be performed by the console. */
+  public DelWarpCommand(MobActionsUser player, String name, IWarpManager warpManager) {
     // this.name = name;
     // this.player = player;
     // this.warpManager = warpManager;
