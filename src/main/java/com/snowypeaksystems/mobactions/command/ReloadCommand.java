@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.command;
 
 import com.snowypeaksystems.mobactions.MobActions;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
+import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
@@ -19,8 +20,10 @@ public class ReloadCommand implements IReloadCommand {
 
   @Override
   public void run() throws PlayerException {
-    if (player.canReload()) {
-      ma.reloadConfig();
+    if (!player.canReload()) {
+      throw new PermissionException();
     }
+
+    ma.reloadConfig();
   }
 }
