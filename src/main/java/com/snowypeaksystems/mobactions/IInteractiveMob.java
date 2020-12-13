@@ -9,6 +9,7 @@ import org.bukkit.entity.LivingEntity;
  */
 public interface IInteractiveMob {
   String DATA_KEY = "data";
+  String REMOVE_DEFAULT_KEY = "remove-default";
 
   /** Stores data on the LivingEntity. */
   void store();

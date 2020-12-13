@@ -40,15 +40,35 @@ public class InteractiveMob implements IInteractiveMob {
 
   @Override
   public void store() {
+    if (!exists()) {
+      entity.getPersistentDataContainer()
+          .set(new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER,
+              entity.getRemoveWhenFarAway() ? 1 : 0);
+    }
+
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING, data.getKeyString());
 
     data.store(entity, plugin);
+
+    entity.setRemoveWhenFarAway(false);
+    entity.setCustomNameVisible(true);
+    entity.setCustomName(data.getNametagString());
   }
 
   @Override
   public void purge() {
+    Integer removeDefault = entity.getPersistentDataContainer().get(
+        new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER);
+    if (removeDefault != null) {
+      entity.setRemoveWhenFarAway(removeDefault == 1);
+    }
+
+    entity.setCustomNameVisible(false);
+    entity.setCustomName(null);
+
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, DATA_KEY));
+    entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, REMOVE_DEFAULT_KEY));
 
     data.purge(entity, plugin);
   }
