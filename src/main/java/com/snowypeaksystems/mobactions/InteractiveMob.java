@@ -65,8 +65,7 @@ public class InteractiveMob implements IInteractiveMob {
   }
 
   @Override
-  public String getActionType() {
-    return entity.getPersistentDataContainer()
-        .get(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING);
+  public MobData getData() {
+    return data;
   }
 }

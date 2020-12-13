@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobactions;
 
+import com.snowypeaksystems.mobactions.data.MobData;
 import org.bukkit.entity.LivingEntity;
 
 /**
@@ -22,5 +23,5 @@ public interface IInteractiveMob {
   LivingEntity getLivingEntity();
 
   /** Returns the key String for the action. */
-  String getActionType();
+  MobData getData();
 }
