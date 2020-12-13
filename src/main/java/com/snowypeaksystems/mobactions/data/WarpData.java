@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.data;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.persistence.PersistentDataType;
@@ -40,5 +42,10 @@ public class WarpData implements IWarpData {
   @Override
   public String getAlias() {
     return name;
+  }
+
+  @Override
+  public String getNametagString() {
+    return gm("nametag-portal-text", name);
   }
 }

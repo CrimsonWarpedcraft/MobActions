@@ -27,7 +27,7 @@ class ConsoleUserTest {
   @Test
   void canRunCommand() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    assertFalse(console.canRunCommand(new CommandData("", "")));
+    assertFalse(console.canRunCommand(new CommandData("", "", "")));
   }
 
   @Test

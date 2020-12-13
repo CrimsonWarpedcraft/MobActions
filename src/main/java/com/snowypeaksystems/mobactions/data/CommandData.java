@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.data;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -14,6 +16,7 @@ public class CommandData implements ICommandData {
   private final int tokens;
   private final String name;
   private final String command;
+  private final String description;
   private final String tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});
 
   /** Constructs CommandData from an entity. */
@@ -23,14 +26,16 @@ public class CommandData implements ICommandData {
     this.name = container.get(
         new NamespacedKey(plugin, COMMAND_ALIAS_KEY), PersistentDataType.STRING);
     this.command = container.get(new NamespacedKey(plugin, COMMAND_KEY), PersistentDataType.STRING);
+    this.description = container.get(
+        new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY), PersistentDataType.STRING);
     this.tokens = countTokens();
   }
 
   /** Constructs a command given a name and command to execute. */
-  public CommandData(String name, String command) {
+  public CommandData(String name, String command, String description) {
     this.name = name;
     this.command = command;
-
+    this.description = description;
     this.tokens = countTokens();
   }
 
@@ -91,6 +96,11 @@ public class CommandData implements ICommandData {
   @Override
   public String getKeyString() {
     return COMMAND_KEY;
+  }
+
+  @Override
+  public String getNametagString() {
+    return gm("nametag-command-text", description);
   }
 
   private int countTokens() {

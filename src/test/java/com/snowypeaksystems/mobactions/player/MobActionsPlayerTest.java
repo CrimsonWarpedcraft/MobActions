@@ -36,7 +36,7 @@ class MobActionsPlayerTest {
   void canRunCommand() {
     FakePlayer fake = new FakePlayer();
     MobActionsUser player = new MobActionsPlayer(fake);
-    ICommandData command = new CommandData("test1", "");
+    ICommandData command = new CommandData("test1", "", "");
 
     assertFalse(player.canRunCommand(command));
 

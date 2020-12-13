@@ -9,4 +9,5 @@ import com.snowypeaksystems.mobactions.util.Substitutable;
 public interface ICommandData extends Substitutable, MobData {
   String COMMAND_KEY = "command";
   String COMMAND_ALIAS_KEY = "command-alias";
+  String COMMAND_DESCRIPTION_KEY = "command-description";
 }

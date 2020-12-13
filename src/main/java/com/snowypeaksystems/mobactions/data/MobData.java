@@ -16,4 +16,7 @@ public interface MobData extends AliasedData {
 
   /** Returns the key String for the type of data. */
   String getKeyString();
+
+  /** Returns the String to be used as instructions for this data. */
+  String getNametagString();
 }
