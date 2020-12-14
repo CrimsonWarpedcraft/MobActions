@@ -88,4 +88,9 @@ public class InteractiveMob implements IInteractiveMob {
   public MobData getData() {
     return data;
   }
+
+  @Override
+  public void setData(MobData data) {
+    this.data = data;
+  }
 }

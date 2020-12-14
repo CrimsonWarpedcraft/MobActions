@@ -23,6 +23,9 @@ public interface IInteractiveMob {
   /** Returns the LivingEntity instance associated with the IInteractiveMob. */
   LivingEntity getLivingEntity();
 
-  /** Returns the key String for the action. */
+  /** Returns the MobData for the mob. */
   MobData getData();
+
+  /** Sets the mob's MobData. */
+  void setData(MobData data);
 }
