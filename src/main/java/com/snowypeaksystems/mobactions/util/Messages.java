@@ -41,7 +41,8 @@ public final class Messages {
     messages.put("list-empty-message", new Message("&eNo warps available!"));
 
     // Mob exists message
-    messages.put("mob-exists-error", new Message("&cAvailable warps:"));
+    messages.put("mob-exists-error",
+        new Message("&cA MobAction already exists here! Delete it to recreate."));
 
     // Nametag messages
     messages.put("nametag-command-text", new Message("&6Click to {&c}!"));
