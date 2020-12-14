@@ -46,14 +46,16 @@ public class InteractiveMob implements IInteractiveMob {
               entity.getRemoveWhenFarAway() ? 1 : 0);
     }
 
-    entity.getPersistentDataContainer()
-        .set(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING, data.getKeyString());
+    if (data != null) {
+      entity.getPersistentDataContainer()
+          .set(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING, data.getKeyString());
 
-    data.store(entity, plugin);
+      data.store(entity, plugin);
 
-    entity.setRemoveWhenFarAway(false);
-    entity.setCustomNameVisible(true);
-    entity.setCustomName(data.getNametagString());
+      entity.setRemoveWhenFarAway(false);
+      entity.setCustomNameVisible(true);
+      entity.setCustomName(data.getNametagString());
+    }
   }
 
   @Override
@@ -70,7 +72,9 @@ public class InteractiveMob implements IInteractiveMob {
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, DATA_KEY));
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, REMOVE_DEFAULT_KEY));
 
-    data.purge(entity, plugin);
+    if (data != null) {
+      data.purge(entity, plugin);
+    }
   }
 
   @Override
