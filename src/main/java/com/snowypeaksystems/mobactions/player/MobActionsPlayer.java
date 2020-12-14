@@ -24,8 +24,8 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public void teleport(Location location) {
-    player.teleport(location);
+  public boolean teleport(Location location) {
+    return player.teleport(location);
   }
 
   @Override

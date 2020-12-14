@@ -12,8 +12,8 @@ public interface MobActionsUser {
   /** Returns the status of the user. */
   IStatus getStatus();
 
-  /** Teleports the user to the location. */
-  void teleport(Location location);
+  /** Teleports the user to the location. Returns true on success. */
+  boolean teleport(Location location);
 
   /** Sends a message to the user. */
   void sendMessage(String... messages);
