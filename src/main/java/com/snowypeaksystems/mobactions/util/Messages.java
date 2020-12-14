@@ -68,6 +68,8 @@ public final class Messages {
     messages.put("warp-delete-success",
         new Message("&aWarp {&c} deleted successfully!"));
     messages.put("warp-missing", new Message("&cWarp \"{}\" not found!"));
+    messages.put("warp-already-exists",
+        new Message("&cWarp \"{}\" already exists! Please remove it to recreate it."));
     messages.put("warp-save-error", new Message("&cCouldn't save warp \"{}\"!"));
     messages.put("warp-success", new Message("&6Welcome to {&c}!"));
   }
