@@ -62,8 +62,8 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
-  public void teleport(Location location) {
-    throw new UnsupportedOperationException();
+  public boolean teleport(Location location) {
+    return false;
   }
 
   @Override

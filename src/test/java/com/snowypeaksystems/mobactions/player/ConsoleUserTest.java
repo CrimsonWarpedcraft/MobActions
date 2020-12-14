@@ -82,24 +82,14 @@ class ConsoleUserTest {
   void teleport() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
 
-    try {
-      console.teleport(new Location(new FakeWorld(""), 0, 0, 0));
-      fail();
-    } catch (UnsupportedOperationException e) {
-      e.printStackTrace();
-    }
+    assertFalse(console.teleport(new Location(new FakeWorld(""), 0, 0, 0)));
   }
 
   @Test
   void performCommand() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
 
-    try {
-      console.teleport(new Location(new FakeWorld(""), 0, 0, 0));
-      fail();
-    } catch (UnsupportedOperationException e) {
-      e.printStackTrace();
-    }
+    assertFalse(console.performCommand(""));
   }
 
   @Test
