@@ -9,7 +9,6 @@ import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.util.Messages;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 import com.snowypeaksystems.mobactions.warp.WarpManager;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +29,6 @@ public class MobActions extends AMobActions {
   private IWarpManager warps;
   private HashMap<Player, MobActionsUser> players;
 
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
   @Override
   public void onEnable() {
     PaperLib.suggestPaper(this);
@@ -38,8 +36,10 @@ public class MobActions extends AMobActions {
     saveDefaultConfig();
 
     File warpDir = new File(getDataFolder(), "warps");
-    if (!warpDir.exists()) {
-      warpDir.mkdirs(); // If false, will be caught below
+    if (!warpDir.exists() && !warpDir.mkdirs()) {
+      getLogger().log(Level.SEVERE, "Could not create warp data folder! Aborting!");
+      setEnabled(false);
+      return;
     }
 
     try {
@@ -57,13 +57,13 @@ public class MobActions extends AMobActions {
       return;
     }
 
-    players = new HashMap<>();
-
     ICommandListener cl = new CommandListener(this);
     cmd.setExecutor(cl);
     cmd.setTabCompleter(cl);
 
     getServer().getPluginManager().registerEvents(new EventListener(this), this);
+
+    players = new HashMap<>();
 
     getLogger().info("Rise and shine, MobActions is ready to go!");
     getLogger().info("Please consider donating at https://github.com/sponsors/leviem1/");
