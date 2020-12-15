@@ -1,6 +1,9 @@
 package com.snowypeaksystems.mobactions.listener;
 
 import com.snowypeaksystems.mobactions.AMobActions;
+import com.snowypeaksystems.mobactions.IInteractiveMob;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.world.WorldLoadEvent;
@@ -18,7 +21,7 @@ public class EventListener implements IEventListener {
 
   @Override
   public void onMobInteract(PlayerInteractEntityEvent event) {
-    /*
+    /*\\
     if (event.getHand().equals(EquipmentSlot.OFF_HAND)
         || !(event.getRightClicked() instanceof LivingEntity)
         || event.getRightClicked() instanceof Player) {
@@ -31,14 +34,14 @@ public class EventListener implements IEventListener {
 
   @Override
   public void onMobDamage(EntityDamageEvent event) {
-    /*
     if (!(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof Player) {
       return;
     }
-    */
 
-
-    //TODO: The rest
+    IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
+    if (mob.exists()) {
+      event.setCancelled(true);
+    }
   }
 
   @Override
