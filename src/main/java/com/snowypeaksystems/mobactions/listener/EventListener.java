@@ -10,7 +10,6 @@ import com.snowypeaksystems.mobactions.actions.RemoveAction;
 import com.snowypeaksystems.mobactions.actions.WarpAction;
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.data.IWarpData;
-import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
@@ -49,10 +48,9 @@ public class EventListener implements IEventListener {
     IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getRightClicked());
     if (player.getStatus().getMode() == IStatus.Mode.CREATING) {
       event.setCancelled(true);
-      MobData data = player.getStatus().getMobData();
 
       try {
-        (new CreateAction(player, mob, data)).run();
+        (new CreateAction(player, mob)).run();
       } catch (PlayerException e) {
         player.sendMessage(e.getMessage());
       }
