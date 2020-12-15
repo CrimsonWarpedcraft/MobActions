@@ -15,12 +15,16 @@ public final class Messages {
     messages.clear();
 
     // Command messages
-    messages.put("command-create",
-        new Message("&bRight click on a mob to bind the command {&c}"));
-    messages.put("command-create-success",
-        new Message("&aCommand {&c} bound successfully!"));
-    messages.put("command-remove-success",
-        new Message("&aCommand {&c} successfully removed!"));
+    messages.put("create-command",
+        new Message("&bRight click on a mob to bind the command!"));
+    messages.put("create-portal",
+        new Message("&bRight click on a mob to create a warp to {&c}"));
+
+    // Mob messages
+    messages.put("action-create-success",
+        new Message("&aMobAction created successfully!"));
+    messages.put("action-remove-success",
+        new Message("&MobAction removed"));
 
     // Console messages
     messages.put("console-command-error",
@@ -51,12 +55,6 @@ public final class Messages {
     // Permission messages
     messages.put("permission-error",
         new Message("&cYou do not have permission to do that!"));
-
-    // Portal messages
-    messages.put("portal-create",
-        new Message("&bRight click on a mob to create a portal to {&c}"));
-    messages.put("portal-create-success",
-        new Message("&aPortal to {&c} created successfully!"));
 
     // Reload messages
     messages.put("reload-success", new Message("&aMobActions reload complete!"));

@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.actions;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.InteractiveMobAlreadyExistsException;
@@ -31,5 +33,7 @@ public class CreateAction implements ICreateAction {
 
     mob.setData(data);
     mob.store();
+
+    player.sendMessage(gm("action-create-success"));
   }
 }

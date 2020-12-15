@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.actions;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.InteractiveMobNotFoundException;
@@ -24,10 +26,11 @@ public class RemoveAction implements IRemoveAction {
       throw new PermissionException();
     }
 
-    if (mob.exists()) {
-      mob.purge();
-    } else {
+    if (!mob.exists()) {
       throw new InteractiveMobNotFoundException();
     }
+
+    mob.purge();
+    player.sendMessage(gm("action-remove-success"));
   }
 }
