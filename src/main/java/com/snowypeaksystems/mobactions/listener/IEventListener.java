@@ -5,6 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
 /**
@@ -24,5 +25,7 @@ public interface IEventListener extends Listener {
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   void onWorldLoad(WorldLoadEvent event);
 
-  // TODO: On player logout, remove from player list
+  /** Removes the player from the player list upon logout (mostly to conserve memory). */
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  void onPlayerLogout(PlayerQuitEvent event);
 }

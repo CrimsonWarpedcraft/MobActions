@@ -61,9 +61,9 @@ public class MobActions extends AMobActions {
     cmd.setExecutor(cl);
     cmd.setTabCompleter(cl);
 
-    getServer().getPluginManager().registerEvents(new EventListener(this), this);
-
     players = new HashMap<>();
+
+    getServer().getPluginManager().registerEvents(new EventListener(this, players), this);
 
     getLogger().info("Rise and shine, MobActions is ready to go!");
     getLogger().info("Please consider donating at https://github.com/sponsors/leviem1/");
