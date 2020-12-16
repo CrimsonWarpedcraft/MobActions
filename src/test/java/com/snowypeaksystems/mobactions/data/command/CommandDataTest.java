@@ -20,6 +20,10 @@ class CommandDataTest {
     data = new CommandData("", "{}st te{}", "");
     assertEquals("test test", data.replace("te", "st"));
     assertEquals("test te{}", data.replace("te"));
+
+    data = new CommandData("", "te{st te}st", "");
+    assertEquals("te{st te}st", data.replace());
+    assertEquals("test test", data.replace("st te"));
   }
 
   @Test
