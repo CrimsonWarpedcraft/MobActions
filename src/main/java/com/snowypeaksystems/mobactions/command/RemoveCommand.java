@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.command;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
@@ -19,5 +21,6 @@ public class RemoveCommand implements IRemoveCommand {
     }
 
     player.getStatus().setMode(IStatus.Mode.DESTROYING);
+    player.sendMessage(gm("remove-command"), gm("edit-cancel"));
   }
 }

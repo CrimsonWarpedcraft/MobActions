@@ -16,6 +16,7 @@ public final class Messages {
 
     // Command messages
     messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
+    messages.put("remove-command", new Message("&bRight click on a mob to remove it"));
 
     // Mob messages
     messages.put("action-create-success",
@@ -31,7 +32,6 @@ public final class Messages {
     messages.put("edit-cancel-success", new Message("&eCancelled!"));
 
     // Remove messages
-    messages.put("edit-remove", new Message("&bRight click on a mob to remove it"));
     messages.put("remove-error", new Message("&cNo active mob found!"));
     messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
 
