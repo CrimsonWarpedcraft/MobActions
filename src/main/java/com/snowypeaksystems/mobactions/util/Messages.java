@@ -15,10 +15,7 @@ public final class Messages {
     messages.clear();
 
     // Command messages
-    messages.put("create-command",
-        new Message("&bRight click on a mob to bind the command!"));
-    messages.put("create-portal",
-        new Message("&bRight click on a mob to create a warp to {&c}"));
+    messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
 
     // Mob messages
     messages.put("action-create-success",
