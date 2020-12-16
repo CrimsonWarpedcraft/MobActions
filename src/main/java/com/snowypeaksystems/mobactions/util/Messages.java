@@ -73,7 +73,7 @@ public final class Messages {
    * @param key the identifier of the message
    * @param args list of strings to replace tokens with in messages
    * @return Returns the message for the key
-   * @throws RuntimeException If a message is not found for the provided key
+   * @throws IllegalArgumentException If a message is not found for the provided key
    */
   public static String gm(String key, String... args) {
     if (messages.size() == 0) {
@@ -81,10 +81,17 @@ public final class Messages {
     }
 
     if (!messages.containsKey(key)) {
-      throw new RuntimeException("Message for " + key + " not found");
+      throw new IllegalArgumentException("Message for " + key + " not found");
     }
 
-    return messages.get(key).replace(args);
+    IMessage message = messages.get(key);
+    int expected = message.getTokenCount();
+    int found = args.length;
+    if (message.getTokenCount() != args.length) {
+      throw new IllegalArgumentException("Expected " + expected + " arguments, but found " + found);
+    }
+
+    return message.replace(args);
   }
 
   /** Returns true if the message key is present, false otherwise. */
