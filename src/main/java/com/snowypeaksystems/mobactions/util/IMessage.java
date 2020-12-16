@@ -6,7 +6,7 @@ package com.snowypeaksystems.mobactions.util;
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public interface Substitutable {
+public interface IMessage {
   char TOKEN_PREFIX = '{';
   char TOKEN_SUFFIX = '}';
 

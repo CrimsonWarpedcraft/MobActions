@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
  * Implementation of IMessage.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class Message implements Substitutable {
+public class Message implements IMessage {
   private final String message;
   private final int tokens;
   private final String tokenStr;
