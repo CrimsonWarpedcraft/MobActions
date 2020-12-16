@@ -39,6 +39,11 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
+  public Location getLocation() {
+    return player.getLocation();
+  }
+
+  @Override
   public String getDisplayName() {
     return player.getDisplayName();
   }

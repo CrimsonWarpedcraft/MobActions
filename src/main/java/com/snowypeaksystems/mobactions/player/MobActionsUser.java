@@ -21,6 +21,9 @@ public interface MobActionsUser {
   /** Performs a command as the and returns true on success, false otherwise.*/
   boolean performCommand(String command);
 
+  /** Returns the location of the user. */
+  Location getLocation();
+
   /** Returns the display name for this user. */
   String getDisplayName();
 

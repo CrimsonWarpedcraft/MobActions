@@ -77,6 +77,11 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
+  public Location getLocation() {
+    return null;
+  }
+
+  @Override
   public String getDisplayName() {
     return "Console";
   }
