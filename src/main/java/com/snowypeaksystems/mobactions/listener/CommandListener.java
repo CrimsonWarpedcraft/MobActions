@@ -16,7 +16,7 @@ import org.bukkit.util.StringUtil;
 public class CommandListener implements ICommandListener {
   private final AMobActions ma;
   // TODO: Add to Messages class
-  private static final String[] HELP = {
+  private final String[] help = {
       "Usage: /mac <subcommand>",
       "/mac warp <warp> - Teleport to a warp",
       "/mac list - List available warps",
@@ -30,23 +30,29 @@ public class CommandListener implements ICommandListener {
       "/mac help - Shows this message"
   };
 
-  private static final String[] SUBCOMMANDS =
-      {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "list", "cancel"};
+  private final String[] subcommands =
+      {"create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "cancel"};
+  private final String[] createcommands = {"portal", "warp"};
 
   public CommandListener(AMobActions parent) {
     this.ma = parent;
   }
 
-  /** Handles tab completion of the remainder of the command. */
   @Override
   public List<String> onTabComplete(CommandSender sender, Command command,
                                     String alias, String[] args) {
-    // TODO: Improve this
     List<String> completions = new ArrayList<>();
-    if (command.getName().equals("mac") && args.length == 1) {
-      StringUtil.copyPartialMatches(args[0], Arrays.asList(SUBCOMMANDS), completions);
-      Collections.sort(completions);
+    if (command.getName().equalsIgnoreCase("mac")) {
+      if (args.length == 1) {
+        StringUtil.copyPartialMatches(args[0], Arrays.asList(subcommands), completions);
+      } else if (args.length == 2) {
+        if (args[0].equalsIgnoreCase("create")) {
+          StringUtil.copyPartialMatches(args[1], Arrays.asList(createcommands), completions);
+        }
+      }
     }
+
+    Collections.sort(completions);
 
     return completions;
   }
@@ -55,7 +61,7 @@ public class CommandListener implements ICommandListener {
   public boolean onCommand(CommandSender sender, Command command, String label,
                            String[] args) {
     if (args.length == 0) {
-      sender.sendMessage(HELP);
+      sender.sendMessage(help);
 
       return true;
     }
