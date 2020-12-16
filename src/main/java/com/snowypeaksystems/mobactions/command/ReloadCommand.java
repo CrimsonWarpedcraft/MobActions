@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.command;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.MobActions;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
@@ -25,5 +27,6 @@ public class ReloadCommand implements IReloadCommand {
     }
 
     ma.reloadConfig();
+    player.sendMessage(gm("reload-success"));
   }
 }
