@@ -14,45 +14,33 @@ public final class Messages {
     // TODO: Load other language translations if available in data folder and store in 2D map
     messages.clear();
 
-    // Command messages
-    messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
-    messages.put("remove-command", new Message("&bRight click on a mob to remove it"));
-
-    // Mob messages
-    messages.put("action-create-success",
-        new Message("&aMobAction created successfully!"));
-    messages.put("action-remove-success",
-        new Message("&MobAction removed"));
-    messages.put("command-error",
-        new Message("&cThere was a problem running this MobAction command!"));
-
-    // Cancel messages
-    messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
-    messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
-    messages.put("edit-cancel-success", new Message("&eCancelled!"));
-
-    // Remove messages
-    messages.put("remove-error", new Message("&cNo active mob found!"));
-    messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
-
-    // List messages
-    messages.put("list-message", new Message("&aAvailable warps:"));
-    messages.put("list-empty-message", new Message("&eNo warps available!"));
-
-    // Mob exists message
-    messages.put("mob-exists-error",
-        new Message("&cA MobAction already exists here! Delete it to recreate."));
-
-    // Nametag messages
-    messages.put("nametag-command-text", new Message("&6Click to {&c}!"));
-    messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
-
-    // Permission messages
+    // General messages/errors
     messages.put("permission-error",
         new Message("&cYou do not have permission to do that!"));
 
-    // Reload messages
+    // Command messages
+    messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
+    messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
+    messages.put("edit-cancel-success", new Message("&eCancelled!"));
+    messages.put("remove-command", new Message("&bRight click on a mob to remove it"));
+
+    // Command errors
+    messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
     messages.put("reload-success", new Message("&aMobActions reload complete!"));
+
+    // Mob messages
+    messages.put("action-create-success", new Message("&aMobAction created successfully!"));
+    messages.put("action-remove-success", new Message("&MobAction removed"));
+    messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
+    messages.put("nametag-command-text", new Message("&6Click to {&c}!"));
+    messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
+
+    // Mob errors
+    messages.put("mob-exists-error",
+        new Message("&cA MobAction already exists here! Delete it to recreate."));
+    messages.put("remove-error", new Message("&cNo active mob found!"));
+    messages.put("command-error",
+        new Message("&cThere was a problem running this MobAction command!"));
 
     // Warp messages
     messages.put("warp-create-error",
@@ -66,6 +54,8 @@ public final class Messages {
         new Message("&cWarp \"{}\" already exists! Please remove it to recreate it."));
     messages.put("warp-save-error", new Message("&cCouldn't save warp \"{}\"!"));
     messages.put("warp-success", new Message("&6Welcome to {&c}!"));
+    messages.put("list-message", new Message("&aAvailable warps:"));
+    messages.put("list-empty-message", new Message("&eNo warps available!"));
   }
 
   /**
@@ -92,14 +82,5 @@ public final class Messages {
     }
 
     return message.replace(args);
-  }
-
-  /** Returns true if the message key is present, false otherwise. */
-  public static boolean contains(String key) {
-    return messages.containsKey(key);
-  }
-
-  static void put(String key, String value) {
-    messages.put(key, new Message(value));
   }
 }
