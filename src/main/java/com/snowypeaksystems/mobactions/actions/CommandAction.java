@@ -1,6 +1,7 @@
 package com.snowypeaksystems.mobactions.actions;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
+import com.snowypeaksystems.mobactions.player.CommandActionException;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
@@ -25,6 +26,8 @@ public class CommandAction implements ICommandAction {
       throw new PermissionException();
     }
 
-    command.replace(player.getDisplayName());
+    if (!player.performCommand(command.getCommand(player.getDisplayName()))) {
+      throw new CommandActionException();
+    }
   }
 }

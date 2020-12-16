@@ -22,10 +22,8 @@ public final class Messages {
         new Message("&aMobAction created successfully!"));
     messages.put("action-remove-success",
         new Message("&MobAction removed"));
-
-    // Console messages
-    messages.put("console-command-error",
-        new Message("&cYou cannot execute commands from the console!"));
+    messages.put("command-error",
+        new Message("&cThere was a problem running this MobAction command!"));
 
     // Cancel messages
     messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
