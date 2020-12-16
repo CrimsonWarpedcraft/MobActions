@@ -41,16 +41,10 @@ public class Message implements Substitutable {
   }
 
   private String replaceAndColorize(String... args) {
-    if (tokens > args.length) {
-      throw new IllegalArgumentException(
-          "Expected at least" + tokens + " arguments, " + args.length + " found");
-    }
-
     int last = 0;
     int tokens = 0;
     int[] positions = new int[2];
     StringBuilder newString = new StringBuilder();
-    StringBuilder colors = new StringBuilder();
     for (int i = 0, j = 0; i < message.length(); i++) {
       if (message.charAt(i) == tokenStr.charAt(j)) {
         positions[j] = i;
@@ -58,18 +52,16 @@ public class Message implements Substitutable {
       }
 
       if (j == positions.length) {
-        String segment = message.substring(last, positions[0]);
-        colors.append(ChatColor.getLastColors(segment));
-
-        String newColors = ChatColor.getLastColors(
-            message.substring(positions[0] + 1, positions[1]));
-
-        newString.append(segment).append(ChatColor.RESET)
-            .append(newColors).append(args[tokens])
-            .append(ChatColor.RESET).append(colors.toString());
+        if (args.length > tokens) {
+          String tokenFormat = message.substring(positions[0] + 1, positions[1]);
+          String segment = message.substring(last, positions[0]);
+          String previousFormat = ChatColor.getLastColors(segment);
+          newString.append(segment).append(ChatColor.RESET).append(tokenFormat).append(args[tokens])
+              .append(ChatColor.RESET).append(previousFormat);
+          last = i + 1;
+        }
 
         j = 0;
-        last = i + 1;
         tokens++;
       }
     }
