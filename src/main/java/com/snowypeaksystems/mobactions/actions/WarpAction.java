@@ -2,34 +2,41 @@ package com.snowypeaksystems.mobactions.actions;
 
 import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
+import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.player.WarpNotFoundException;
+import com.snowypeaksystems.mobactions.warp.IWarp;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
+import io.papermc.lib.PaperLib;
 import java.util.concurrent.CompletableFuture;
 
 public class WarpAction implements IWarpAction {
-  // private final WarpData warp;
-  // private final IWarpManager warpManager;
-  // private final MobActionsUser player;
-  // private final CompletableFuture<Boolean> future;
+  private final IWarpData warpData;
+  private final IWarpManager warpManager;
+  private final MobActionsUser player;
+  private final CompletableFuture<Boolean> future;
 
   /** Creates a warp action. */
   public WarpAction(MobActionsUser player, IWarpData warp, IWarpManager warpManager,
                     CompletableFuture<Boolean> future) {
-    // this.warp = warp;
-    // this.player = player;
-    // this.future = future;
-    // this.warpManager = warpManager;
+    this.warpData = warp;
+    this.player = player;
+    this.future = future;
+    this.warpManager = warpManager;
   }
 
   @Override
   public void run() throws PlayerException {
-    //TODO Mason
-    /*
-    1. Check permissions, throw error if insufficient
-    2. Check if (lowercase) warp exists, throw error if not
-    3. Use code below to teleport the player to destination
+    String warpName = warpData.getNametagString();
+    IWarp warp = warpManager.getWarp(warpName);
+    if (!player.canUseWarp(warp)) {
+      throw new PermissionException();
+    }
+    if (warpManager.exists(warpName)) {
+      throw new WarpNotFoundException(warpName);
+    }
+
     PaperLib.getChunkAtAsync(warp.getDestination()).thenAccept(
-        chunk -> future.complete(player.getPlayer().teleport(warp.getDestination())));
-     */
+        chunk -> future.complete(player.teleport(warp.getDestination())));
   }
 }
