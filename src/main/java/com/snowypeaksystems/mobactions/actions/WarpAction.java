@@ -27,8 +27,9 @@ public class WarpAction implements IWarpAction {
 
   @Override
   public void run() throws PlayerException {
-    String warpName = warpData.getNametagString();
+    String warpName = warpData.getAlias();
     IWarp warp = warpManager.getWarp(warpName);
+
     if (!player.canUseWarp(warp)) {
       throw new PermissionException();
     }
