@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.warp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
@@ -29,14 +30,15 @@ public class WarpManager implements IWarpManager {
 
     this.storageDir = dataDir;
     this.warps = new HashMap<>();
-
-    reload();
   }
 
   @Override
-  public IWarp makeWarp(String name, Location destination) {
+  public IWarp makeWarp(String name, Location destination) throws IOException {
     IWarp warp = new Warp(name.toLowerCase(), destination, storageDir);
+
+    warp.save();
     warps.put(warp.getAlias(), warp);
+
     return warp;
   }
 
@@ -47,7 +49,13 @@ public class WarpManager implements IWarpManager {
 
   @Override
   public IWarp unregister(String name) {
-    return warps.remove(name.toLowerCase());
+    IWarp warp = warps.remove(name.toLowerCase());
+
+    if (warp != null) {
+      warp.delete();
+    }
+
+    return warp;
   }
 
   @Override

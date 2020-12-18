@@ -44,7 +44,7 @@ public final class Messages {
 
     // Warp messages
     messages.put("warp-create-error",
-        new Message("&cCouldn't save warp! See console!"));
+        new Message("&cCouldn't save warp!"));
     messages.put("warp-create-success",
         new Message("&aWarp {&c} created successfully!"));
     messages.put("warp-delete-success",

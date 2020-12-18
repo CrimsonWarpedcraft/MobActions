@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import com.snowypeaksystems.mobactions.mock.FakeWorld;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.bukkit.Location;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,7 +26,6 @@ class WarpManagerTest {
   private Location testLoc2;
   private IWarpManager testWarpManager;
   private IWarp testWarp1;
-  private IWarp testWarp2;
 
   @BeforeAll
   static void setUp() {
@@ -43,62 +43,59 @@ class WarpManagerTest {
   }
 
   @BeforeEach
-  void start() {
+  void start() throws FileNotFoundException {
     testLoc1 = new Location(new FakeWorld(), 0, 0, 0);
     testLoc2 = new Location(new FakeWorld(), 0, 0, 0);
 
-    try {
-      testWarpManager = new WarpManager(file);
-    } catch (FileNotFoundException e) {
-      fail();
-    }
-
-    testWarp1 = null;
-    testWarp2 = null;
+    testWarpManager = new WarpManager(file);
   }
 
   @Test
-  void makeWarp() {
-    // had to make the expected lowercase ?? is that cool
+  void makeWarp() throws IOException {
     testWarp1 = testWarpManager.makeWarp("TESTWARP1", testLoc1);
 
     assertEquals("testwarp1", testWarp1.getAlias());
     assertEquals(testLoc1, testWarp1.getDestination());
 
-    testWarp2 = testWarpManager.makeWarp("testWarp1", testLoc2);
+    IWarp testWarp2 = testWarpManager.makeWarp("testWarp1", testLoc2);
     assertEquals(testLoc2, testWarp2.getDestination());
+
+    testWarp1.delete();
+    testWarp2.delete();
   }
 
   @Test
-  void getWarp() {
+  void getWarp() throws IOException {
     assertNull(testWarpManager.getWarp("testWarp1"));
     testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
+
     assertEquals(testWarp1, testWarpManager.getWarp("testWarp1"));
+
+    testWarp1.delete();
   }
 
   @Test
-  void unregister() {
-    //is this part redundant
+  void unregister() throws IOException {
     testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
-    assertEquals(testWarp1, testWarpManager.getWarp("testWarp1"));
+    assertTrue(testWarpManager.exists("testWarp1"));
 
     testWarpManager.unregister("testWarp1");
-    assertNull(testWarpManager.unregister("testWarp1"));
+    assertFalse(testWarpManager.exists("testWarp1"));
   }
 
   @Test
-  void exists() {
+  void exists() throws IOException {
     assertFalse(testWarpManager.exists("testWarp"));
-    testWarpManager.makeWarp("testWarp", testLoc1);
+    testWarpManager.makeWarp("testWarp", testLoc1).delete();
     assertTrue(testWarpManager.exists("testWarp"));
   }
 
   @Test
-  void getLoadedWarpNames() {
+  void getLoadedWarpNames() throws IOException {
     assertEquals(0, testWarpManager.getLoadedWarpNames().size());
 
-    testWarpManager.makeWarp("testWarp", testLoc1);
-    testWarpManager.makeWarp("testWarp", testLoc2);
+    testWarpManager.makeWarp("testWarp", testLoc1).delete();
+    testWarpManager.makeWarp("testWarp", testLoc2).delete();
     assertTrue(testWarpManager.exists("testWarp"));
     assertTrue(testWarpManager.exists("testWarp"));
   }

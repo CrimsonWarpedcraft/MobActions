@@ -41,53 +41,45 @@ class WarpTest {
   }
 
   @BeforeEach
-   void setUpTest() {
-    try {
-      wm = new WarpManager(file);
-    } catch (FileNotFoundException e) {
-      fail();
-    }
+  void setUpTest() throws FileNotFoundException {
+    wm = new WarpManager(file);
   }
 
   @Test
-  void getAlias() {
+  void getAlias() throws IOException {
     IWarp warp = wm.makeWarp("test", new Location(new FakeWorld(), 0, 0, 0));
     assertEquals("test", warp.getAlias());
+    warp.delete();
   }
 
   @Test
-  void save() {
+  void save() throws IOException {
     IWarp warp = wm.makeWarp("", new Location(new FakeWorld(), 0, 0, 0));
+    warp.delete();
+    assertFalse(new File(file, "0").exists());
 
-    try {
-      warp.save();
-    } catch (IOException e) {
-      fail();
-    }
+    warp.save();
     assertTrue(new File(file, "0").exists());
 
     warp.delete();
   }
 
   @Test
-  void delete() {
+  void delete() throws IOException {
     IWarp warp = wm.makeWarp("", new Location(new FakeWorld(), 0, 0, 0));
 
-    assertFalse(warp.delete());
-    try {
-      warp.save();
-    } catch (IOException e) {
-      fail();
-    }
+    warp.save();
     assertTrue(warp.delete());
+
     assertFalse(new File(file, "0").exists());
   }
 
   @Test
-  void getDestination() {
+  void getDestination() throws IOException {
     Location loc = new Location(new FakeWorld(), 0, 0, 0);
     IWarp warp = wm.makeWarp("", loc);
 
     assertEquals(loc, warp.getDestination());
+    warp.delete();
   }
 }

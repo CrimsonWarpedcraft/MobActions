@@ -44,6 +44,7 @@ public class MobActions extends AMobActions {
 
     try {
       warps = new WarpManager(warpDir);
+      warps.reload();
     } catch (FileNotFoundException e) {
       getLogger().log(Level.SEVERE, e.getMessage(), e);
       setEnabled(false);

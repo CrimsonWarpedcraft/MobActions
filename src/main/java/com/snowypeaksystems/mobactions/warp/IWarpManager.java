@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobactions.warp;
 
+import java.io.IOException;
 import java.util.Set;
 import org.bukkit.Location;
 
@@ -9,7 +10,7 @@ import org.bukkit.Location;
  */
 public interface IWarpManager {
   /** Create an IWarp with the provided name and destination. */
-  IWarp makeWarp(String name, Location destination);
+  IWarp makeWarp(String name, Location destination) throws IOException;
 
   /** Returns the IWarp with the given name if present, or null otherwise. */
   IWarp getWarp(String name);
