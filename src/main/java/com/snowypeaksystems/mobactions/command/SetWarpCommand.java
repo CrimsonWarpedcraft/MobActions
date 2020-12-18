@@ -7,9 +7,9 @@ import com.snowypeaksystems.mobactions.player.WarpExistsException;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 
 public class SetWarpCommand implements ISetWarpCommand {
-  private String name;
-  private IWarpManager warpManager;
-  private MobActionsUser player;
+  private final String name;
+  private final IWarpManager warpManager;
+  private final MobActionsUser player;
 
   /** Creates a SetWarpCommand object. */
   public SetWarpCommand(MobActionsUser player, String name, IWarpManager warpManager) {
@@ -20,15 +20,13 @@ public class SetWarpCommand implements ISetWarpCommand {
 
   @Override
   public void run() throws PlayerException {
-
     if (!player.canSetWarp()) {
       throw new PermissionException();
     }
-    if (warpManager.exists(name.toLowerCase())) {
+    if (warpManager.exists(name)) {
       throw new WarpExistsException();
     }
 
     warpManager.makeWarp(name, player.getLocation());
-
   }
 }
