@@ -12,7 +12,7 @@ import org.bukkit.Location;
 public class WarpCommand implements IWarpCommand {
   private final String warp;
   private final IWarpManager warpManager;
-  private final MobActionsUser player; // Why does the MobActionsUser interface not start with I
+  private final MobActionsUser player;
   private final CompletableFuture<Boolean> future;
 
   /** Creates a warp command. */
@@ -30,13 +30,11 @@ public class WarpCommand implements IWarpCommand {
       throw new PermissionException();
     }
 
-    String warpToLower = warp.toLowerCase();
-
-    if (!warpManager.exists(warpToLower)) {
-      throw new WarpNotFoundException(warpToLower);
+    if (!warpManager.exists(warp)) {
+      throw new WarpNotFoundException(warp);
     }
 
-    Location location = warpManager.getWarp(warpToLower).getDestination();
+    Location location = warpManager.getWarp(warp).getDestination();
     PaperLib.getChunkAtAsync(location).thenAccept(
         chunk -> future.complete(player.teleport(location)));
   }
