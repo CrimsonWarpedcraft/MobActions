@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.command;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
@@ -28,5 +30,6 @@ public class SetWarpCommand implements ISetWarpCommand {
     }
 
     warpManager.makeWarp(name, player.getLocation());
+    player.sendMessage(gm("warp-create-success", name));
   }
 }

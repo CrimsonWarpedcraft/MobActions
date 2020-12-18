@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.command;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
@@ -29,5 +31,6 @@ public class DelWarpCommand implements IDelWarpCommand {
     }
 
     warpManager.unregister(name);
+    player.sendMessage(gm("warp-delete-success", name));
   }
 }
