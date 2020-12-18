@@ -32,12 +32,12 @@ public class Message implements IMessage {
 
   @Override
   public String replace(String... args) {
-    return replaceAndColorize(args);
-  }
+    if (args.length < tokens) {
+      throw new IllegalArgumentException(
+          "Expected " + tokens + " arguments, but found " + args.length);
+    }
 
-  @Override
-  public int getTokenCount() {
-    return tokens;
+    return replaceAndColorize(args);
   }
 
   private String replaceAndColorize(String... args) {

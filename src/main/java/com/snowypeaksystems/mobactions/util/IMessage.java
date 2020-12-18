@@ -14,9 +14,7 @@ public interface IMessage {
    * Gets the message, replacing IMessage.TOKEN with any specified args.
    * @param args List of arguments to replace in the message
    * @return Returns the String form of the message
+   * @throws IllegalArgumentException If the number of arguments does not match the number of tokens
    */
   String replace(String... args);
-
-  /** Returns the number of tokens present in the string. */
-  int getTokenCount();
 }

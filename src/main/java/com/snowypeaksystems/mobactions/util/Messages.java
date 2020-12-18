@@ -74,13 +74,6 @@ public final class Messages {
       throw new IllegalArgumentException("Message for " + key + " not found");
     }
 
-    IMessage message = messages.get(key);
-    int expected = message.getTokenCount();
-    int found = args.length;
-    if (message.getTokenCount() != args.length) {
-      throw new IllegalArgumentException("Expected " + expected + " arguments, but found " + found);
-    }
-
-    return message.replace(args);
+    return messages.get(key).replace(args);
   }
 }
