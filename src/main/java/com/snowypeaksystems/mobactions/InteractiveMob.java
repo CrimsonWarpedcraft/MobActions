@@ -84,11 +84,6 @@ public class InteractiveMob implements IInteractiveMob {
   }
 
   @Override
-  public LivingEntity getLivingEntity() {
-    return entity;
-  }
-
-  @Override
   public MobData getData() {
     return data;
   }

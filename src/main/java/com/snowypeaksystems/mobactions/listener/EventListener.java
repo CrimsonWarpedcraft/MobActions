@@ -45,7 +45,7 @@ public class EventListener implements IEventListener {
     MobAction action = null;
     MobActionsUser player = ma.getPlayer(event.getPlayer());
     IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getRightClicked());
-    
+
     if (player.getStatus().getMode() == IStatus.Mode.CREATING) {
       action = new CreateAction(player, mob);
     } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {

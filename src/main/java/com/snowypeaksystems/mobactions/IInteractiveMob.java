@@ -1,7 +1,6 @@
 package com.snowypeaksystems.mobactions;
 
 import com.snowypeaksystems.mobactions.data.MobData;
-import org.bukkit.entity.LivingEntity;
 
 /**
  * A mob that can store MobData.
@@ -19,9 +18,6 @@ public interface IInteractiveMob {
 
   /** Returns true if data is stored on this LivingEntity, false otherwise. */
   boolean exists();
-
-  /** Returns the LivingEntity instance associated with the IInteractiveMob. */
-  LivingEntity getLivingEntity();
 
   /** Returns the MobData for the mob. */
   MobData getData();
