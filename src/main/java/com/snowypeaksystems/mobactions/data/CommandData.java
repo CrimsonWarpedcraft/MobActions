@@ -72,12 +72,16 @@ public class CommandData implements ICommandData {
         .set(new NamespacedKey(plugin, COMMAND_KEY), PersistentDataType.STRING, command);
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, COMMAND_ALIAS_KEY), PersistentDataType.STRING, name);
+    entity.getPersistentDataContainer()
+        .set(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY),
+            PersistentDataType.STRING, description);
   }
 
   @Override
   public void purge(LivingEntity entity, JavaPlugin plugin) {
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_KEY));
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_ALIAS_KEY));
+    entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY));
   }
 
   @Override
