@@ -22,7 +22,7 @@ public class DelWarpCommand implements IDelWarpCommand {
 
   @Override
   public void run() throws PlayerException {
-    if (!player.canCreate()) {
+    if (!player.canRemoveWarp()) {
       throw new PermissionException();
     }
 
