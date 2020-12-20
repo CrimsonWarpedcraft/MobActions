@@ -4,6 +4,7 @@ import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.actions.CommandAction;
 import com.snowypeaksystems.mobactions.actions.CreateAction;
+import com.snowypeaksystems.mobactions.actions.MobAction;
 import com.snowypeaksystems.mobactions.actions.RemoveAction;
 import com.snowypeaksystems.mobactions.actions.WarpAction;
 import com.snowypeaksystems.mobactions.data.ICommandData;
@@ -41,41 +42,24 @@ public class EventListener implements IEventListener {
       return;
     }
 
+    MobAction action = null;
     MobActionsUser player = ma.getPlayer(event.getPlayer());
     IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getRightClicked());
+    
     if (player.getStatus().getMode() == IStatus.Mode.CREATING) {
-      event.setCancelled(true);
-
-      try {
-        (new CreateAction(player, mob)).run();
-      } catch (PlayerException e) {
-        player.sendMessage(e.getMessage());
-      }
-
+      action = new CreateAction(player, mob);
     } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {
-      event.setCancelled(true);
-
-      try {
-        (new RemoveAction(player, mob)).run();
-      } catch (PlayerException e) {
-        player.sendMessage(e.getMessage());
-      }
-
+      action = new RemoveAction(player, mob);
     } else if (mob.getData() instanceof ICommandData) {
-      event.setCancelled(true);
-
-      try {
-        (new CommandAction(player, (ICommandData) mob.getData())).run();
-      } catch (PlayerException e) {
-        player.sendMessage(e.getMessage());
-      }
-
+      action = new CommandAction(player, (ICommandData) mob.getData());
     } else if (mob.getData() instanceof IWarpData) {
+      action = new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager());
+    }
+
+    if (action != null) {
       event.setCancelled(true);
-
-
       try {
-        (new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager())).run();
+        action.run();
       } catch (PlayerException e) {
         player.sendMessage(e.getMessage());
       }
