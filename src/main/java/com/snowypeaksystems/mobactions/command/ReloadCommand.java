@@ -2,7 +2,7 @@ package com.snowypeaksystems.mobactions.command;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
-import com.snowypeaksystems.mobactions.MobActions;
+import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
@@ -13,9 +13,9 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
  */
 public class ReloadCommand implements IReloadCommand {
   private final MobActionsUser player;
-  private final MobActions ma;
+  private final AMobActions ma;
 
-  public ReloadCommand(MobActionsUser player, MobActions ma) {
+  public ReloadCommand(MobActionsUser player, AMobActions ma) {
     this.player = player;
     this.ma = ma;
   }
