@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.warp.IWarp;
+import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
 
 /**
@@ -12,8 +13,8 @@ public interface MobActionsUser {
   /** Returns the status of the user. */
   IStatus getStatus();
 
-  /** Teleports the user to the location. Returns true on success. */
-  boolean teleport(Location location);
+  /** Teleports the user to the location. Returns a CompletableFuture for async behavior. */
+  CompletableFuture<Boolean> teleport(Location location);
 
   /** Sends a message to the user. */
   void sendMessage(String... messages);

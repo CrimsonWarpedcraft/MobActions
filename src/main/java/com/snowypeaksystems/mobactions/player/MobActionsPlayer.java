@@ -2,6 +2,8 @@ package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.warp.IWarp;
+import io.papermc.lib.PaperLib;
+import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -24,8 +26,8 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public boolean teleport(Location location) {
-    return player.teleport(location);
+  public CompletableFuture<Boolean> teleport(Location location) {
+    return PaperLib.teleportAsync(player, location);
   }
 
   @Override
