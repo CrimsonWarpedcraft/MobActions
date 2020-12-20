@@ -1,7 +1,5 @@
 package com.snowypeaksystems.mobactions.listener;
 
-import static com.snowypeaksystems.mobactions.util.Messages.gm;
-
 import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.actions.CommandAction;
@@ -14,7 +12,6 @@ import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import java.util.HashMap;
-import java.util.concurrent.CompletableFuture;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -76,16 +73,9 @@ public class EventListener implements IEventListener {
     } else if (mob.getData() instanceof IWarpData) {
       event.setCancelled(true);
 
-      CompletableFuture<Boolean> future = new CompletableFuture<>();
-      future.thenAccept(success -> {
-        if (success) {
-          player.sendMessage(gm("warp-success", mob.getData().getAlias()));
-        }
-      });
-
 
       try {
-        (new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager(), future)).run();
+        (new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager())).run();
       } catch (PlayerException e) {
         player.sendMessage(e.getMessage());
       }

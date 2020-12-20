@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.actions;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
@@ -17,12 +19,17 @@ public class WarpAction implements IWarpAction {
   private final CompletableFuture<Boolean> future;
 
   /** Creates a warp action. */
-  public WarpAction(MobActionsUser player, IWarpData warp, IWarpManager warpManager,
-                    CompletableFuture<Boolean> future) {
+  public WarpAction(MobActionsUser player, IWarpData warp, IWarpManager warpManager) {
     this.warpData = warp;
     this.player = player;
-    this.future = future;
     this.warpManager = warpManager;
+    this.future = new CompletableFuture<>();
+
+    future.thenAccept(success -> {
+      if (success) {
+        player.sendMessage(gm("warp-success", warp.getAlias()));
+      }
+    });
   }
 
   @Override
