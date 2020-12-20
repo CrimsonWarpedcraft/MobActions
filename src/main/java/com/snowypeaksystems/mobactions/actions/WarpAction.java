@@ -26,19 +26,19 @@ public class WarpAction implements IWarpAction {
   public void run() throws PlayerException {
     String warpName = warpData.getAlias();
 
+    if (!player.canUseWarp(warpName)) {
+      throw new PermissionException();
+    }
+
     if (!warpManager.exists(warpName)) {
       throw new WarpNotFoundException(warpName);
     }
 
     IWarp warp = warpManager.getWarp(warpName);
 
-    if (!player.canUseWarp(warp)) {
-      throw new PermissionException();
-    }
-
     player.teleport(warp.getDestination()).thenAccept(success -> {
       if (success) {
-        player.sendMessage(gm("warp-success", warp.getAlias()));
+        player.sendMessage(gm("warp-success", warpName));
       }
     });
   }

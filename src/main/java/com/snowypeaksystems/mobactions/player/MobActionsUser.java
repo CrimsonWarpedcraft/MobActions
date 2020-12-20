@@ -1,7 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
-import com.snowypeaksystems.mobactions.warp.IWarp;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
 
@@ -28,7 +27,7 @@ public interface MobActionsUser {
   /** Returns the display name for this user. */
   String getDisplayName();
 
-  boolean canUseWarp(IWarp warp);
+  boolean canUseWarp(String warp);
 
   boolean canRunCommand(ICommandData command);
 

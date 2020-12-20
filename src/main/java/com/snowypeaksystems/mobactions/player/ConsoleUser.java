@@ -1,7 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
-import com.snowypeaksystems.mobactions.warp.IWarp;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
 import org.bukkit.command.ConsoleCommandSender;
@@ -18,7 +17,7 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
-  public boolean canUseWarp(IWarp warp) {
+  public boolean canUseWarp(String warp) {
     return false;
   }
 

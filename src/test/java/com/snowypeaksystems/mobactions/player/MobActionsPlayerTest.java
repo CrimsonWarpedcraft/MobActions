@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.mock.FakePlayer;
-import com.snowypeaksystems.mobactions.mock.FakeWarp;
-import com.snowypeaksystems.mobactions.warp.IWarp;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,16 +17,15 @@ class MobActionsPlayerTest {
   void canUseWarp() {
     FakePlayer fake = new FakePlayer();
     MobActionsUser player = new MobActionsPlayer(fake);
-    IWarp warp = new FakeWarp("test1");
 
-    assertFalse(player.canUseWarp(warp));
+    assertFalse(player.canUseWarp("test1"));
 
     fake.setPermission("mobactions.warp.test1", true);
-    assertTrue(player.canUseWarp(warp));
+    assertTrue(player.canUseWarp("test1"));
     fake.setPermission("mobactions.warp.test1", false);
 
     fake.setPermission("mobactions.warp.*", true);
-    assertTrue(player.canUseWarp(warp));
+    assertTrue(player.canUseWarp("test1"));
     fake.setPermission("mobactions.warp.*", false);
   }
 

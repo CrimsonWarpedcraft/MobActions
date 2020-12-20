@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.mock.FakeConsoleCommandSender;
-import com.snowypeaksystems.mobactions.mock.FakeWarp;
 import com.snowypeaksystems.mobactions.mock.FakeWorld;
 import org.bukkit.Location;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ class ConsoleUserTest {
   @Test
   void canUseWarp() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    assertFalse(console.canUseWarp(new FakeWarp("")));
+    assertFalse(console.canUseWarp(""));
   }
 
   @Test

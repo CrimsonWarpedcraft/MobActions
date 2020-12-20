@@ -1,7 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
 import com.snowypeaksystems.mobactions.data.ICommandData;
-import com.snowypeaksystems.mobactions.warp.IWarp;
 import io.papermc.lib.PaperLib;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
@@ -51,9 +50,9 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public boolean canUseWarp(IWarp warp) {
+  public boolean canUseWarp(String warp) {
     return player.hasPermission("mobactions.warp.*")
-        || player.hasPermission("mobactions.warp." + warp.getAlias());
+        || player.hasPermission("mobactions.warp." + warp);
   }
 
   @Override
