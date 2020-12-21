@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
  */
 class WarpManagerTest {
   private static File file;
-  private static World world;
+  private static World world; //Need to keep a reference ourselves or gc will set to null
   private Location testLoc1;
   private Location testLoc2;
   private IWarpManager testWarpManager;

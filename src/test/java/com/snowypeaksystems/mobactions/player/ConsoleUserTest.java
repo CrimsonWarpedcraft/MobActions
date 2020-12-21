@@ -75,7 +75,7 @@ class ConsoleUserTest {
   @Test
   void teleport() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    World world = new FakeWorld();
+    World world = new FakeWorld(); //Need to keep a reference or otherwise gc will set to null
     assertThrows(UnsupportedOperationException.class,
         () -> console.teleport(new Location(world, 0, 0, 0)));
   }
