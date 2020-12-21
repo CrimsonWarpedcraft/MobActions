@@ -31,7 +31,7 @@ public class Message implements IMessage {
   }
 
   @Override
-  public String replace(String... args) throws IllegalArgumentException {
+  public String replace(String... args) {
     if (args.length < tokens) {
       throw new IllegalArgumentException(
           "Expected " + tokens + " arguments, but found " + args.length);

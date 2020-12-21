@@ -28,7 +28,6 @@ class StatusTest {
     status.setMode(IStatus.Mode.NONE);
     assertEquals(IStatus.Mode.NONE, status.getMode());
 
-    status.setMode(null);
     assertThrows(NullPointerException.class, () -> status.setMode(null));
   }
 
