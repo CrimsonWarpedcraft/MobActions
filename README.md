@@ -1,6 +1,6 @@
-# MobPortals
+# MobActions
 
-Welcome to MobPortals! A simple way to turn any mob into a portal players can click on to use!
+Welcome to MobActions! A simple way to turn any mob into actions players can click to use!
 
 ## Simple and Stable
 Works with Paper, Spigot, and Bukkit servers!
@@ -14,34 +14,37 @@ Tested Minecraft Versions: **1.16**
 For a simple plugin, we pack a few powerful features!
 
 ### Commands
-`/mp create warp <name>` - Create a portal to the specified warp 
-`/mp remove` - Remove a portal  
-`/mp warp <warp>` - Teleport to a warp  
-`/mp list` - Lists the available warps  
-`/mp setwarp <name>` - Create a warp at the player's location  
-`/mp delwarp <name>` - Delete a warp  
-`/mp reload` - Reload the configuration
+`/mac create command <name> "command" "description"` - Create a new command mob  
+`/mac create portal <warp>` - Create a new mob portal  
+`/mac remove` - Remove a mob's action  
+`/mac cancel` - Cancels the current operation  
+`/mac warp <warp>` - Teleport to a warp  
+`/mac warps` - List available warps  
+`/mac setwarp <name>` - Create a warp  
+`/mac delwarp <name>` - Delete a warp  
+`/mac reload` - Reloads the plugin's configuration  
+`/mac` - Shows this message
 
 ### Permissions
-`mobportals.*` - Grants access to all warps and all other permissions (Default: disabled)  
-`mobportals.command.*` - Allows players to use all command mobs, or specify a command mob name instead of * (Default: enabled)  
-`mobportals.warp` - Allows players to go to a warp using /mp warp. Also needed for /mp list (Default: op)  
-`mobportals.warp.*` - Allows players to use all mob portals (Default: enabled)  
-`mobportals.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)  
-`mobportals.listwarps` - Allows players to list warps that they have access to (Default: op)
-  
-`mobportal.admin.*` - Grants access to all admin commands and warps (Default: op)  
-`mobportals.admin.create` - Allows players to create action mobs with /mp create (Default: false)  
-`mobportals.admin.remove` - Allows players to destroy mob portals with /mp remove (Default: false)  
-`mobportals.admin.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
-`mobportals.admin.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  
-`mobportals.admin.reload` - Allows players to reload the plugin configuration (Default: op)  
+`mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
+`mobactions.command.*` - Allows players to use all command mobs (Default: enabled)  
+`mobactions.command.[command]` - Allows players to use specific command mobs (Default: disabled)
+`mobactions.warp` - Allows players to go to a warp using /mp warp. Also needed for /mp list (Default: op)  
+`mobactions.warp.*` - Allows players to use all mob portals (Default: enabled)  
+`mobactions.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)
+
+`mobactions.admin.*` - Grants access to all admin commands and warps (Default: op)  
+`mobactions.admin.create` - Allows players to create action mobs with /mp create (Default: false)  
+`mobactions.admin.remove` - Allows players to destroy mob portals with /mp remove (Default: false)  
+`mobactions.admin.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
+`mobactions.admin.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  
+`mobactions.admin.reload` - Allows players to reload the plugin configuration (Default: op)  
 
 ### Configuration
 For now, enjoy a simple, empty config. :)
 
 ## Installation
-Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/mp reload` to load any changes you make or messages you add!
+Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/mac reload` to load any changes you make or messages you add!
 
 ## Building From Source
 You can build from source by running the following command.
