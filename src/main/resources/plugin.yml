@@ -21,9 +21,6 @@ permissions:
   mobactions.warp:
     description: Allows players to go to a warp using /mac warp
     default: op
-  mobactions.listwarps:
-    description: Allows players to list available warps
-    default: op
   mobactions.admin.create:
     description: Allows players to create action mobs with /mac create
     default: false
@@ -46,7 +43,6 @@ permissions:
       mobactions.warp: true
       mobactions.warp.*: true
       mobactions.command.*: true
-      mobactions.listwarps: true
       mobactions.admin.createportal: true
       mobactions.admin.createcommand: true
       mobactions.admin.remove: true
