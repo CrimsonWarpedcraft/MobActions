@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Test;
  */
 class WarpTest {
   private static File file;
+  private static World world;
   private IWarpManager wm;
 
   @BeforeAll
@@ -29,6 +31,8 @@ class WarpTest {
     if (file.exists() || !file.mkdirs()) {
       fail();
     }
+
+    world = new FakeWorld();
   }
 
   @AfterAll
@@ -47,14 +51,14 @@ class WarpTest {
 
   @Test
   void getAlias() throws IOException {
-    IWarp warp = wm.makeWarp("test", new Location(new FakeWorld(), 0, 0, 0));
+    IWarp warp = wm.makeWarp("test", new Location(world, 0, 0, 0));
     assertEquals("test", warp.getAlias());
     warp.delete();
   }
 
   @Test
   void save() throws IOException {
-    IWarp warp = wm.makeWarp("test1", new Location(new FakeWorld(), 0, 0, 0));
+    IWarp warp = wm.makeWarp("test1", new Location(world, 0, 0, 0));
     warp.delete();
     assertFalse(new File(file, "110251487").exists());
 
@@ -66,7 +70,7 @@ class WarpTest {
 
   @Test
   void delete() throws IOException {
-    IWarp warp = wm.makeWarp("test2", new Location(new FakeWorld(), 0, 0, 0));
+    IWarp warp = wm.makeWarp("test2", new Location(world, 0, 0, 0));
 
     warp.save();
     assertTrue(warp.delete());
@@ -76,7 +80,7 @@ class WarpTest {
 
   @Test
   void getDestination() throws IOException {
-    Location loc = new Location(new FakeWorld(), 0, 0, 0);
+    Location loc = new Location(world, 0, 0, 0);
     IWarp warp = wm.makeWarp("", loc);
 
     assertEquals(loc, warp.getDestination());

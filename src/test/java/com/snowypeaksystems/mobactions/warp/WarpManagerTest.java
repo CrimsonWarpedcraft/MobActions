@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test;
  */
 class WarpManagerTest {
   private static File file;
+  private static World world;
   private Location testLoc1;
   private Location testLoc2;
   private IWarpManager testWarpManager;
@@ -33,6 +35,8 @@ class WarpManagerTest {
     if (!file.mkdirs()) {
       fail();
     }
+
+    world = new FakeWorld();
   }
 
   @AfterAll
@@ -44,8 +48,8 @@ class WarpManagerTest {
 
   @BeforeEach
   void start() throws FileNotFoundException {
-    testLoc1 = new Location(new FakeWorld(), 0, 0, 0);
-    testLoc2 = new Location(new FakeWorld(), 0, 0, 0);
+    testLoc1 = new Location(world, 0, 0, 0);
+    testLoc2 = new Location(world, 0, 0, 0);
 
     testWarpManager = new WarpManager(file);
   }

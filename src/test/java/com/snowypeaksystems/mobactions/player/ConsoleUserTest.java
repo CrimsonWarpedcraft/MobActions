@@ -9,6 +9,7 @@ import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.mock.FakeConsoleCommandSender;
 import com.snowypeaksystems.mobactions.mock.FakeWorld;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -74,8 +75,9 @@ class ConsoleUserTest {
   @Test
   void teleport() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    World world = new FakeWorld();
     assertThrows(UnsupportedOperationException.class,
-        () -> console.teleport(new Location(new FakeWorld(), 0, 0, 0)));
+        () -> console.teleport(new Location(world, 0, 0, 0)));
   }
 
   @Test
