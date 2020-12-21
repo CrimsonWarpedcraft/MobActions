@@ -28,7 +28,7 @@ public class SetWarpCommand implements ISetWarpCommand {
       throw new PermissionException();
     }
     if (warpManager.exists(name)) {
-      throw new WarpExistsException();
+      throw new WarpExistsException(name);
     }
 
     try {
