@@ -75,7 +75,7 @@ class ConsoleUserTest {
   void teleport() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
     assertThrows(UnsupportedOperationException.class,
-        () -> console.teleport(new Location(new FakeWorld(""), 0, 0, 0)));
+        () -> console.teleport(new Location(new FakeWorld(), 0, 0, 0)));
   }
 
   @Test
