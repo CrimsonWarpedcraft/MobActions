@@ -31,7 +31,7 @@ public class Message implements IMessage {
   }
 
   @Override
-  public String replace(String... args) {
+  public String replace(String... args) throws IllegalArgumentException {
     if (args.length < tokens) {
       throw new IllegalArgumentException(
           "Expected " + tokens + " arguments, but found " + args.length);
@@ -45,6 +45,7 @@ public class Message implements IMessage {
     int tokens = 0;
     int[] positions = new int[2];
     StringBuilder newString = new StringBuilder();
+    StringBuilder formatCodes = new StringBuilder();
     for (int i = 0, j = 0; i < message.length(); i++) {
       if (message.charAt(i) == tokenStr.charAt(j)) {
         positions[j] = i;
@@ -56,8 +57,9 @@ public class Message implements IMessage {
           String tokenFormat = message.substring(positions[0] + 1, positions[1]);
           String segment = message.substring(last, positions[0]);
           String previousFormat = ChatColor.getLastColors(segment);
+          formatCodes.append(previousFormat);
           newString.append(segment).append(ChatColor.RESET).append(tokenFormat).append(args[tokens])
-              .append(ChatColor.RESET).append(previousFormat);
+              .append(ChatColor.RESET).append(formatCodes.toString());
           last = i + 1;
         }
 
