@@ -24,4 +24,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Check with Gradle
-        run: ./gradlew check --debug
+        run: ./gradlew check --info
