@@ -2,7 +2,7 @@ package com.snowypeaksystems.mobactions.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.data.ICommandData;
@@ -28,12 +28,8 @@ class StatusTest {
     status.setMode(IStatus.Mode.NONE);
     assertEquals(IStatus.Mode.NONE, status.getMode());
 
-    try {
-      status.setMode(null);
-      fail();
-    } catch (NullPointerException e) {
-      e.printStackTrace();
-    }
+    status.setMode(null);
+    assertThrows(NullPointerException.class, () -> status.setMode(null));
   }
 
   @Test

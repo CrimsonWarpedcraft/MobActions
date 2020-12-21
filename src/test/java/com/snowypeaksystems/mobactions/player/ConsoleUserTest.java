@@ -2,8 +2,8 @@ package com.snowypeaksystems.mobactions.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.mock.FakeConsoleCommandSender;
@@ -68,55 +68,31 @@ class ConsoleUserTest {
   @Test
   void getStatus() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-
-    try {
-      console.getStatus();
-      fail();
-    } catch (UnsupportedOperationException e) {
-      e.printStackTrace();
-    }
+    assertThrows(UnsupportedOperationException.class, console::getStatus);
   }
 
   @Test
   void teleport() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-
-    try {
-      console.teleport(new Location(new FakeWorld(""), 0, 0, 0));
-      fail();
-    } catch (UnsupportedOperationException e) {
-      e.printStackTrace();
-    }
+    assertThrows(UnsupportedOperationException.class,
+        () -> console.teleport(new Location(new FakeWorld(""), 0, 0, 0)));
   }
 
   @Test
   void performCommand() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-
-    try {
-      console.performCommand("");
-      fail();
-    } catch (UnsupportedOperationException e) {
-      e.printStackTrace();
-    }
+    assertThrows(UnsupportedOperationException.class, () -> console.performCommand(""));
   }
 
   @Test
   void getDisplayName() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-
     assertEquals("Console", console.getDisplayName());
   }
 
   @Test
   void getLocation() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-
-    try {
-      console.getLocation();
-      fail();
-    } catch (UnsupportedOperationException e) {
-      e.printStackTrace();
-    }
+    assertThrows(UnsupportedOperationException.class, console::getLocation);
   }
 }

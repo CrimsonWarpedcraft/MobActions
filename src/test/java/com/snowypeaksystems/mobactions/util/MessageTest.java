@@ -12,15 +12,6 @@ import org.junit.jupiter.api.Test;
 class MessageTest {
   @Test
   void replace() {
-    /*
-    1) "&ctest".replace() "§ctest"
-    2) "test {} test".replace("test") "test §rtest§r test"
-    3) "&ctest {} test".replace("test") "§ctest §rtest§r§c test"
-    4) "&ctest {&d} test".replace("test") "§ctest §r§dtest§r§c test"
-    5) "&ctest {&d} §n {&e} test".replace("test", "test") "§ctest §r§dtest§r§c §n §r§etest§r§c§n test"
-    6) "test {} test".replace() "fail"
-    7) "test {} test".replace("test", "test") "fail"
-     */
     IMessage message = new Message("&ctest");
     assertEquals("§ctest", message.replace());
 
