@@ -42,7 +42,6 @@ public class Warp implements IWarp {
   @Override
   public void save() throws IOException {
     YamlConfiguration config = toYamlConfiguration();
-    config.set("name", name);
 
     // TODO: Async?
     config.save(save);
@@ -56,6 +55,7 @@ public class Warp implements IWarp {
 
   private YamlConfiguration toYamlConfiguration() {
     YamlConfiguration config = new YamlConfiguration();
+    config.set("name", name);
     config.set("world", dest.getWorld().getName());
     config.set("x", dest.getX());
     config.set("y", dest.getY());
