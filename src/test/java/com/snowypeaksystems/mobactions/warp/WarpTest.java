@@ -54,24 +54,24 @@ class WarpTest {
 
   @Test
   void save() throws IOException {
-    IWarp warp = wm.makeWarp("", new Location(new FakeWorld(), 0, 0, 0));
+    IWarp warp = wm.makeWarp("test1", new Location(new FakeWorld(), 0, 0, 0));
     warp.delete();
-    assertFalse(new File(file, "0").exists());
+    assertFalse(new File(file, "110251487").exists());
 
     warp.save();
-    assertTrue(new File(file, "0").exists());
+    assertTrue(new File(file, "110251487").exists());
 
     warp.delete();
   }
 
   @Test
   void delete() throws IOException {
-    IWarp warp = wm.makeWarp("", new Location(new FakeWorld(), 0, 0, 0));
+    IWarp warp = wm.makeWarp("test2", new Location(new FakeWorld(), 0, 0, 0));
 
     warp.save();
     assertTrue(warp.delete());
 
-    assertFalse(new File(file, "0").exists());
+    assertFalse(new File(file, "110251488").exists());
   }
 
   @Test
