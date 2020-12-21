@@ -66,7 +66,7 @@ public class FakeWorld implements World {
   public FakeWorld() {
     this.name = String.valueOf(System.currentTimeMillis());
   }
-  
+
   @Override
   public int getEntityCount() {
     return 0;
