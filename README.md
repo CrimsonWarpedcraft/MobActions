@@ -29,16 +29,16 @@ For a simple plugin, we pack a few powerful features!
 `mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
 `mobactions.command.*` - Allows players to use all command mobs (Default: enabled)  
 `mobactions.command.[command]` - Allows players to use specific command mobs (Default: disabled)
-`mobactions.warp` - Allows players to go to a warp using /mp warp. Also needed for /mp list (Default: op)  
+`mobactions.warp` - Allows players to go to a warp using /mac warp. Also needed for /mac warps (Default: op)  
 `mobactions.warp.*` - Allows players to use all mob portals (Default: enabled)  
 `mobactions.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)
 
 `mobactions.admin.*` - Grants access to all admin commands and warps (Default: op)  
-`mobactions.admin.create` - Allows players to create action mobs with /mp create (Default: false)  
-`mobactions.admin.remove` - Allows players to destroy mob portals with /mp remove (Default: false)  
-`mobactions.admin.setwarp` - Allows players to create a warp using /mp setwarp (Default: op)  
-`mobactions.admin.delwarp` - Allows players to delete a warp using /mp delwarp (Default: op)  
-`mobactions.admin.reload` - Allows players to reload the plugin configuration (Default: op)  
+`mobactions.admin.create` - Allows players to create action mobs with /mac create (Default: op)  
+`mobactions.admin.remove` - Allows players to destroy mob portals with /mac remove (Default: op)  
+`mobactions.admin.setwarp` - Allows players to create a warp using /mac setwarp (Default: op)  
+`mobactions.admin.delwarp` - Allows players to delete a warp using /mac delwarp (Default: op)  
+`mobactions.admin.reload` - Allows players to reload the plugin configuration using /mac reload (Default: op)  
 
 ### Configuration
 For now, enjoy a simple, empty config. :)
