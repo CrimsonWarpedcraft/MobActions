@@ -28,7 +28,7 @@ For a simple plugin, we pack a few powerful features!
 ### Permissions
 `mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
 `mobactions.command.*` - Allows players to use all command mobs (Default: enabled)  
-`mobactions.command.[command]` - Allows players to use specific command mobs (Default: disabled)
+`mobactions.command.[command]` - Allows players to use specific command mobs (Default: disabled)  
 `mobactions.warp` - Allows players to go to a warp using /mac warp. Also needed for /mac warps (Default: op)  
 `mobactions.warp.*` - Allows players to use all mob portals (Default: enabled)  
 `mobactions.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)
