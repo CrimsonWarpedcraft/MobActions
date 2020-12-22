@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -54,6 +55,7 @@ public class CommandListener implements ICommandListener {
   @Override
   public List<String> onTabComplete(CommandSender sender, Command command,
                                     String alias, String[] args) {
+    MobActionsUser user = ma.getPlayer(sender);
     List<String> completions = new ArrayList<>();
     if (command.getName().equalsIgnoreCase("mac")) {
       if (args.length == 1) {
@@ -61,6 +63,12 @@ public class CommandListener implements ICommandListener {
       } else if (args.length == 2) {
         if (args[0].equalsIgnoreCase("create")) {
           StringUtil.copyPartialMatches(args[1], Arrays.asList(createcommands), completions);
+        } else if (args[0].equalsIgnoreCase("warp")) {
+          Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
+
+          warps.removeIf(warp -> !user.canUseWarp(warp));
+
+          StringUtil.copyPartialMatches(args[1], new ArrayList<>(warps), completions);
         }
       }
     }
