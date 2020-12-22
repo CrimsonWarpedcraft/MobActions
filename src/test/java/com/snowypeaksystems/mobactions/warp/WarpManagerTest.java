@@ -62,7 +62,7 @@ class WarpManagerTest {
     assertEquals(testLoc1, testWarp1.getDestination());
 
     IWarp testWarp2 = testWarpManager.makeWarp("testWarp1", testLoc2);
-    assertEquals(testLoc2, testWarp2.getDestination());
+    assertEquals(testWarp2, testWarpManager.getWarp("testwarp1"));
 
     assertTrue(testWarp1.delete());
     assertFalse(testWarp2.delete());
@@ -73,7 +73,7 @@ class WarpManagerTest {
     assertNull(testWarpManager.getWarp("testWarp1"));
     testWarp1 = testWarpManager.makeWarp("testWarp1", testLoc1);
 
-    assertEquals(testWarp1, testWarpManager.getWarp("testWarp1"));
+    assertEquals(testWarp1, testWarpManager.getWarp("testwarp1"));
 
     testWarp1.delete();
   }
@@ -101,8 +101,14 @@ class WarpManagerTest {
     assertEquals(0, testWarpManager.getLoadedWarpNames().size());
 
     testWarpManager.makeWarp("testWarp", testLoc1).delete();
-    testWarpManager.makeWarp("testWarp", testLoc2).delete();
-    assertTrue(testWarpManager.exists("testWarp"));
-    assertTrue(testWarpManager.exists("testWarp"));
+    assertEquals(1, testWarpManager.getLoadedWarpNames().size());
+    testWarpManager.makeWarp("testwarp", testLoc2).delete();
+    assertEquals(1, testWarpManager.getLoadedWarpNames().size());
+
+    testWarpManager.makeWarp("testWarp2", testLoc1).delete();
+    assertEquals(2, testWarpManager.getLoadedWarpNames().size());
+
+    assertTrue(testWarpManager.exists("testwarp"));
+    assertTrue(testWarpManager.exists("testwarp2"));
   }
 }
