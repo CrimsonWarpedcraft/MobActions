@@ -6,7 +6,7 @@ author: Levi Muniz
 description: Interact with mobs like never before
 
 commands:
-  mact:
+  mac:
     description: Base command for MobActions
     usage: "For a list of commands, type /mac help"
     aliases: mobactions,mactions
