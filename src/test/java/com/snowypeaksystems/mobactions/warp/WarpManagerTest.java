@@ -64,8 +64,8 @@ class WarpManagerTest {
     IWarp testWarp2 = testWarpManager.makeWarp("testWarp1", testLoc2);
     assertEquals(testLoc2, testWarp2.getDestination());
 
-    testWarp1.delete();
-    testWarp2.delete();
+    assertTrue(testWarp1.delete());
+    assertFalse(testWarp2.delete());
   }
 
   @Test
@@ -85,6 +85,8 @@ class WarpManagerTest {
 
     testWarpManager.unregister("testWarp1");
     assertFalse(testWarpManager.exists("testWarp1"));
+
+    assertFalse(testWarp1.delete());
   }
 
   @Test

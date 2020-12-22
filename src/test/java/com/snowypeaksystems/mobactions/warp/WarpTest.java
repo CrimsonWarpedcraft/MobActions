@@ -72,7 +72,8 @@ class WarpTest {
   void delete() throws IOException {
     IWarp warp = wm.makeWarp("test2", new Location(world, 0, 0, 0));
 
-    warp.save();
+    assertTrue(new File(file, "110251488").exists());
+
     assertTrue(warp.delete());
 
     assertFalse(new File(file, "110251488").exists());
