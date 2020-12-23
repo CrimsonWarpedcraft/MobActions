@@ -81,7 +81,7 @@ public class CommandListener implements ICommandListener {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label,
                            String[] args) {
-    if (label.equalsIgnoreCase("mac")) {
+    if (command.getName().equalsIgnoreCase("mac")) {
       MobActionsUser user = ma.getPlayer(sender);
       PlayerCommand cmd = null;
 
