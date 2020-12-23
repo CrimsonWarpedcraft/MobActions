@@ -8,6 +8,6 @@ import static com.snowypeaksystems.mobactions.util.Messages.gm;
  */
 public class PermissionException extends PlayerException {
   public PermissionException() {
-    super(gm("permission-exception"));
+    super(gm("permission-error"));
   }
 }
