@@ -1986,6 +1986,16 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public float getHurtDirection() {
+    return 0;
+  }
+
+  @Override
+  public void setHurtDirection(float hurtDirection) {
+
+  }
+
+  @Override
   public int getExpToLevel() {
     return 0;
   }
