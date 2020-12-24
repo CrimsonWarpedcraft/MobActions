@@ -36,7 +36,7 @@ public class MobActionsPlayer implements MobActionsUser {
 
   @Override
   public boolean performCommand(String command) {
-    return false;
+    return player.performCommand(command);
   }
 
   @Override
