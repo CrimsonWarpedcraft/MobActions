@@ -89,9 +89,9 @@ class MobActionsPlayerTest {
 
     assertFalse(player.canSetWarp());
 
-    fake.setPermission("mobactions.admin.setwarp", true);
+    fake.setPermission("mobactions.admin.warps.set", true);
     assertTrue(player.canSetWarp());
-    fake.setPermission("mobactions.admin.setwarp", false);
+    fake.setPermission("mobactions.admin.warps.set", false);
   }
 
   @Test
@@ -101,9 +101,9 @@ class MobActionsPlayerTest {
 
     assertFalse(player.canRemoveWarp());
 
-    fake.setPermission("mobactions.admin.delwarp", true);
+    fake.setPermission("mobactions.admin.warps.remove", true);
     assertTrue(player.canRemoveWarp());
-    fake.setPermission("mobactions.admin.delwarp", false);
+    fake.setPermission("mobactions.admin.warps.remove", false);
   }
 
   @Test
