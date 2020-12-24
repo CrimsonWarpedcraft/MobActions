@@ -47,7 +47,7 @@ public class CommandListener implements ICommandListener {
 
   private final String[] subcommands =
       {"cancel", "create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "warps"};
-  private final String[] createcommands = {"command", "portal"};
+  private final String[] createcommands = {"command", "warp"};
 
   public CommandListener(AMobActions parent) {
     this.ma = parent;
