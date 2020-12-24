@@ -1,6 +1,5 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.data.ICommandData;
 import io.papermc.lib.PaperLib;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
@@ -56,9 +55,9 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public boolean canRunCommand(ICommandData command) {
+  public boolean canRunCommand(String command) {
     return player.hasPermission("mobactions.command.*")
-        || player.hasPermission("mobactions.command." + command.getAlias());
+        || player.hasPermission("mobactions.command." + command);
   }
 
   @Override

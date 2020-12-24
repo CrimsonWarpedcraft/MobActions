@@ -24,7 +24,7 @@ public class CommandAction implements ICommandAction {
   @Override
   public void run() throws PlayerException {
     DebugLogger.getLogger().log("Executing command");
-    if (!player.canRunCommand(command)) {
+    if (!player.canRunCommand(command.getAlias())) {
       DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }

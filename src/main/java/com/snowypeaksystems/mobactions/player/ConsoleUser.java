@@ -1,6 +1,5 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.data.ICommandData;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
 import org.bukkit.command.ConsoleCommandSender;
@@ -22,7 +21,7 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
-  public boolean canRunCommand(ICommandData command) {
+  public boolean canRunCommand(String command) {
     return false;
   }
 

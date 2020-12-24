@@ -1,6 +1,5 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.data.ICommandData;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
 
@@ -29,7 +28,7 @@ public interface MobActionsUser {
 
   boolean canUseWarp(String warp);
 
-  boolean canRunCommand(ICommandData command);
+  boolean canRunCommand(String command);
 
   boolean canCreate();
 

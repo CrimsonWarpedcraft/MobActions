@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.mock.FakeConsoleCommandSender;
 import com.snowypeaksystems.mobactions.mock.FakeWorld;
 import org.bukkit.Location;
@@ -27,7 +26,7 @@ class ConsoleUserTest {
   @Test
   void canRunCommand() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    assertFalse(console.canRunCommand(new CommandData("", "", "")));
+    assertFalse(console.canRunCommand(""));
   }
 
   @Test

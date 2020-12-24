@@ -35,14 +35,14 @@ class MobActionsPlayerTest {
     MobActionsUser player = new MobActionsPlayer(fake);
     ICommandData command = new CommandData("test1", "", "");
 
-    assertFalse(player.canRunCommand(command));
+    assertFalse(player.canRunCommand(command.getAlias()));
 
     fake.setPermission("mobactions.command.test1", true);
-    assertTrue(player.canRunCommand(command));
+    assertTrue(player.canRunCommand(command.getAlias()));
     fake.setPermission("mobactions.command.test1", false);
 
     fake.setPermission("mobactions.command.*", true);
-    assertTrue(player.canRunCommand(command));
+    assertTrue(player.canRunCommand(command.getAlias()));
     fake.setPermission("mobactions.command.*", false);
   }
 
