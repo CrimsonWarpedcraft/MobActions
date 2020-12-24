@@ -16,6 +16,8 @@ import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.HashMap;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -36,6 +38,7 @@ public class EventListener implements IEventListener {
   }
 
   @Override
+  @EventHandler(priority = EventPriority.HIGH)
   public void onMobInteract(PlayerInteractEntityEvent event) {
     DebugLogger.getLogger().log("Mob interaction event");
     if (event.getHand().equals(EquipmentSlot.OFF_HAND)
@@ -74,6 +77,7 @@ public class EventListener implements IEventListener {
   }
 
   @Override
+  @EventHandler(priority = EventPriority.HIGH)
   public void onMobDamage(EntityDamageEvent event) {
     if (!(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof Player) {
       return;
