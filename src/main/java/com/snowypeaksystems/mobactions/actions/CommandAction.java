@@ -5,6 +5,7 @@ import com.snowypeaksystems.mobactions.player.CommandActionException;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 
 public class CommandAction implements ICommandAction {
   private final ICommandData command;
@@ -22,12 +23,17 @@ public class CommandAction implements ICommandAction {
 
   @Override
   public void run() throws PlayerException {
+    DebugLogger.getLogger().log("Executing command");
     if (!player.canRunCommand(command)) {
+      DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }
 
     if (!player.performCommand(command.getCommand(player.getDisplayName()))) {
+      DebugLogger.getLogger().log("Command execution failed");
       throw new CommandActionException();
     }
+
+    DebugLogger.getLogger().log("Command executed");
   }
 }

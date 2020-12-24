@@ -12,6 +12,7 @@ import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.HashMap;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -36,9 +37,11 @@ public class EventListener implements IEventListener {
 
   @Override
   public void onMobInteract(PlayerInteractEntityEvent event) {
+    DebugLogger.getLogger().log("Mob interaction event");
     if (event.getHand().equals(EquipmentSlot.OFF_HAND)
         || !(event.getRightClicked() instanceof LivingEntity)
         || event.getRightClicked() instanceof Player) {
+      DebugLogger.getLogger().log("Cancelled interact event");
       return;
     }
 
@@ -58,11 +61,15 @@ public class EventListener implements IEventListener {
 
     if (action != null) {
       event.setCancelled(true);
+      DebugLogger.getLogger().log("Cancelled event");
       try {
         action.run();
       } catch (PlayerException e) {
         player.sendMessage(e.getMessage());
+        DebugLogger.getLogger().log("Error: " + e.getMessage());
       }
+    } else {
+      DebugLogger.getLogger().log("No applicable actions found");
     }
   }
 

@@ -6,6 +6,7 @@ import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.player.WarpNotFoundException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 
 public class DelWarpCommand implements IDelWarpCommand {
@@ -22,15 +23,19 @@ public class DelWarpCommand implements IDelWarpCommand {
 
   @Override
   public void run() throws PlayerException {
+    DebugLogger.getLogger().log("Deleting warp");
     if (!player.canRemoveWarp()) {
+      DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }
 
     if (!warpManager.exists(name)) {
+      DebugLogger.getLogger().log("Warp not found");
       throw new WarpNotFoundException(name);
     }
 
     warpManager.unregister(name);
     player.sendMessage(gm("warp-delete-success", name));
+    DebugLogger.getLogger().log("Warp deleted");
   }
 }

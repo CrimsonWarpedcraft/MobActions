@@ -9,6 +9,7 @@ import com.snowypeaksystems.mobactions.player.InteractiveMobAlreadyExistsExcepti
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 
 public class CreateAction implements ICreateAction {
   private final IInteractiveMob mob;
@@ -22,14 +23,17 @@ public class CreateAction implements ICreateAction {
 
   @Override
   public void run() throws PlayerException {
+    DebugLogger.getLogger().log("Creating mob");
     final MobData data = player.getStatus().getMobData();
     player.getStatus().setMode(IStatus.Mode.NONE);
 
     if (!player.canCreate()) {
+      DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }
 
     if (mob.exists()) {
+      DebugLogger.getLogger().log("Found existing mob");
       throw new InteractiveMobAlreadyExistsException();
     }
 
@@ -37,5 +41,6 @@ public class CreateAction implements ICreateAction {
     mob.store();
 
     player.sendMessage(gm("action-create-success"));
+    DebugLogger.getLogger().log("Mob created");
   }
 }

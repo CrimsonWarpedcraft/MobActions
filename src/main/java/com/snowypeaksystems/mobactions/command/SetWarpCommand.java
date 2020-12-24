@@ -7,6 +7,7 @@ import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.player.WarpCreateException;
 import com.snowypeaksystems.mobactions.player.WarpExistsException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 import java.io.IOException;
 
@@ -24,10 +25,14 @@ public class SetWarpCommand implements ISetWarpCommand {
 
   @Override
   public void run() throws PlayerException {
+    DebugLogger.getLogger().log("Setting warp");
     if (!player.canSetWarp()) {
+      DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }
+
     if (warpManager.exists(name)) {
+      DebugLogger.getLogger().log("Warp already exists");
       throw new WarpExistsException(name);
     }
 
@@ -35,7 +40,9 @@ public class SetWarpCommand implements ISetWarpCommand {
       warpManager.makeWarp(name, player.getLocation());
       player.sendMessage(gm("warp-create-success", name));
     } catch (IOException e) {
+      DebugLogger.getLogger().log("Warp save error");
       throw new WarpCreateException();
     }
+    DebugLogger.getLogger().log("Warp set");
   }
 }

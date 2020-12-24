@@ -14,6 +14,7 @@ import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.data.WarpData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -81,7 +82,9 @@ public class CommandListener implements ICommandListener {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label,
                            String[] args) {
+    DebugLogger.getLogger().log("Processing command");
     if (command.getName().equalsIgnoreCase("mac")) {
+      DebugLogger.getLogger().log("Arguments: " + Arrays.toString(args));
       MobActionsUser user = ma.getPlayer(sender);
       PlayerCommand cmd = null;
 
@@ -113,12 +116,15 @@ public class CommandListener implements ICommandListener {
       }
 
       if (cmd != null) {
+        DebugLogger.getLogger().log("Running command");
         try {
           cmd.run();
         } catch (PlayerException e) {
+          DebugLogger.getLogger().log("Command error");
           user.sendMessage(e.getPlayerFormattedString());
         }
       } else {
+        DebugLogger.getLogger().log("Command not found");
         user.sendMessage(help);
       }
 

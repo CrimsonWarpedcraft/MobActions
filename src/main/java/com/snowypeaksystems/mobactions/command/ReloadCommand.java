@@ -6,6 +6,7 @@ import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 
 /**
  * Implementation of IReloadCommand.
@@ -22,11 +23,14 @@ public class ReloadCommand implements IReloadCommand {
 
   @Override
   public void run() throws PlayerException {
+    DebugLogger.getLogger().log("Reloading plugin");
     if (!player.canReload()) {
+      DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }
 
     ma.reloadConfig();
     player.sendMessage(gm("reload-success"));
+    DebugLogger.getLogger().log("Plugin reloaded");
   }
 }
