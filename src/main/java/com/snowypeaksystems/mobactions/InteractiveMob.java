@@ -5,6 +5,7 @@ import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.data.WarpData;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -40,13 +41,14 @@ public class InteractiveMob implements IInteractiveMob {
 
   @Override
   public void store() {
-    if (!exists()) {
-      entity.getPersistentDataContainer()
-          .set(new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER,
-              entity.getRemoveWhenFarAway() ? 1 : 0);
-    }
-
     if (data != null) {
+      if (!exists()) {
+        int doRemove = entity.getRemoveWhenFarAway() ? 1 : 0;
+        entity.getPersistentDataContainer()
+            .set(new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER, doRemove);
+        DebugLogger.getLogger().log("Original despawn setting: " + (doRemove == 1));
+      }
+
       entity.getPersistentDataContainer()
           .set(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING, data.getKeyString());
 
@@ -63,7 +65,9 @@ public class InteractiveMob implements IInteractiveMob {
     Integer removeDefault = entity.getPersistentDataContainer().get(
         new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER);
     if (removeDefault != null) {
-      entity.setRemoveWhenFarAway(removeDefault == 1);
+      boolean original = removeDefault == 1;
+      entity.setRemoveWhenFarAway(original);
+      DebugLogger.getLogger().log("Reset original depspawn setting: " + original);
     }
 
     entity.setCustomNameVisible(false);
