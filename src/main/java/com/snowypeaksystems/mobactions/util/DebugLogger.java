@@ -30,7 +30,7 @@ public class DebugLogger {
   public void log(String message) {
     String doLog = System.getenv("MA_DEBUG");
     if (doLog != null && doLog.equalsIgnoreCase("true")) {
-      logger.log(Level.WARNING, "[DEBUG]" + message);
+      logger.log(Level.WARNING, "[DEBUG] " + message);
     }
   }
 }
