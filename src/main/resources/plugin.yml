@@ -27,11 +27,11 @@ permissions:
   mobactions.admin.remove:
     description: Allows players to destroy mobs with /mac remove
     default: false
-  mobactions.admin.setwarp:
-    description: Allows players to create a warp using /mac setwarp
+  mobactions.admin.warps.set:
+    description: Allows players to create a warp using /mac warps set
     default: false
-  mobactions.admin.delwarp:
-    description: Allows players to delete a warp using /mac delwarp
+  mobactions.admin.warps.remove:
+    description: Allows players to delete a warp using /mac warps remove
     default: false
   mobactions.admin.reload:
     description: Allows players to reload the plugin configuration
@@ -42,14 +42,14 @@ permissions:
     children:
       mobactions.admin.create: true
       mobactions.admin.remove: true
-      mobactions.admin.setwarp: true
-      mobactions.admin.delwarp: true
+      mobactions.admin.warps.set: true
+      mobactions.admin.warps.remove: true
       mobactions.admin.reload: true
   mobactions.*:
     description: Grants access to all mobs and all other permissions
     default: false
     children:
+      mobactions.warp: true
       mobactions.admin.*: true
       mobactions.command.*: true
-      mobactions.warp: true
       mobactions.warp.*: true

@@ -20,8 +20,8 @@ For a simple plugin, we pack a few powerful features!
 `/mac cancel` - Cancels the current operation  
 `/mac warp <warp>` - Teleport to a warp  
 `/mac warps` - List available warps  
-`/mac setwarp <name>` - Create a warp  
-`/mac delwarp <name>` - Delete a warp  
+`/mac warps set <name>` - Create a warp  
+`/mac warps remove <name>` - Delete a warp  
 `/mac reload` - Reloads the plugin's configuration  
 `/mac` - Shows this message
 
@@ -36,9 +36,9 @@ For a simple plugin, we pack a few powerful features!
 `mobactions.admin.*` - Grants access to all admin commands and warps (Default: op)  
 `mobactions.admin.create` - Allows players to create action mobs with /mac create (Default: op)  
 `mobactions.admin.remove` - Allows players to destroy mob portals with /mac remove (Default: op)  
-`mobactions.admin.setwarp` - Allows players to create a warp using /mac setwarp (Default: op)  
-`mobactions.admin.delwarp` - Allows players to delete a warp using /mac delwarp (Default: op)  
 `mobactions.admin.reload` - Allows players to reload the plugin configuration using /mac reload (Default: op)  
+`mobactions.admin.warps.set` - Allows players to create a warp using /mac setwarp (Default: op)  
+`mobactions.admin.warps.remove` - Allows players to delete a warp using /mac delwarp (Default: op)
 
 ### Configuration
 For now, enjoy a simple, empty config. :)

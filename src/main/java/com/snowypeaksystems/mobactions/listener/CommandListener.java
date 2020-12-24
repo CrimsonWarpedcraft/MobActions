@@ -39,15 +39,16 @@ public class CommandListener implements ICommandListener {
       "/mac cancel - Cancels the current operation",
       "/mac warp <warp> - Teleport to a warp",
       "/mac warps - List available warps",
-      "/mac setwarp <name> - Create a warp",
-      "/mac delwarp <name> - Delete a warp",
+      "/mac warps set <name> - Create a warp",
+      "/mac warps remove <name> - Delete a warp",
       "/mac reload - Reloads the plugin's configuration",
       "/mac - Shows this message"
   };
 
   private final String[] subcommands =
-      {"cancel", "create", "delwarp", "help", "reload", "remove", "setwarp", "warp", "warps"};
-  private final String[] createcommands = {"command", "warp"};
+      {"cancel", "create", "help", "reload", "remove", "warp", "warps"};
+  private final String[] createCommands = {"command", "warp"};
+  private final String[] warpCommands = {"set", "remove"};
 
   public CommandListener(AMobActions parent) {
     this.ma = parent;
@@ -63,7 +64,9 @@ public class CommandListener implements ICommandListener {
         StringUtil.copyPartialMatches(args[0], Arrays.asList(subcommands), completions);
       } else if (args.length == 2) {
         if (args[0].equalsIgnoreCase("create")) {
-          StringUtil.copyPartialMatches(args[1], Arrays.asList(createcommands), completions);
+          StringUtil.copyPartialMatches(args[1], Arrays.asList(createCommands), completions);
+        } else if (args[0].equalsIgnoreCase("warps")) {
+          StringUtil.copyPartialMatches(args[1], Arrays.asList(warpCommands), completions);
         } else if (args[0].equalsIgnoreCase("warp")) {
           Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
 
@@ -100,12 +103,14 @@ public class CommandListener implements ICommandListener {
       } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("warp")) {
         cmd = new CreateCommand(user, new WarpData(args[2]));
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
+          && args[1].equalsIgnoreCase("set")) {
+        cmd = new SetWarpCommand(user, args[2], ma.getWarpManager());
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
+          && args[1].equalsIgnoreCase("remove")) {
+        cmd = new DelWarpCommand(user, args[2], ma.getWarpManager());
       } else if (args.length == 2 && args[0].equalsIgnoreCase("warp")) {
         cmd = new WarpCommand(user, args[1], ma.getWarpManager());
-      } else if (args.length == 2 && args[0].equalsIgnoreCase("setwarp")) {
-        cmd = new SetWarpCommand(user, args[1], ma.getWarpManager());
-      } else if (args.length == 2 && args[0].equalsIgnoreCase("delwarp")) {
-        cmd = new DelWarpCommand(user, args[1], ma.getWarpManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("warps")) {
         cmd = new ListWarpsCommand(user, ma.getWarpManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("remove")) {

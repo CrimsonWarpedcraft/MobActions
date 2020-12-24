@@ -77,12 +77,12 @@ public class MobActionsPlayer implements MobActionsUser {
 
   @Override
   public boolean canSetWarp() {
-    return player.hasPermission("mobactions.admin.setwarp");
+    return player.hasPermission("mobactions.admin.warps.set");
   }
 
   @Override
   public boolean canRemoveWarp() {
-    return player.hasPermission("mobactions.admin.delwarp");
+    return player.hasPermission("mobactions.admin.warps.remove");
   }
 
   @Override
