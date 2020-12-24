@@ -16,8 +16,10 @@ import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.HashMap;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -44,36 +46,12 @@ public class EventListener implements IEventListener {
     if (event.getHand().equals(EquipmentSlot.OFF_HAND)
         || !(event.getRightClicked() instanceof LivingEntity)
         || event.getRightClicked() instanceof Player) {
-      DebugLogger.getLogger().log("Cancelled interact event");
       return;
     }
 
-    MobAction action = null;
-    MobActionsUser player = ma.getPlayer(event.getPlayer());
     IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getRightClicked());
-
-    if (player.getStatus().getMode() == IStatus.Mode.CREATING) {
-      action = new CreateAction(player, mob);
-    } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {
-      action = new RemoveAction(player, mob);
-    } else if (mob.getData() instanceof ICommandData) {
-      action = new CommandAction(player, (ICommandData) mob.getData());
-    } else if (mob.getData() instanceof IWarpData) {
-      action = new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager());
-    }
-
-    if (action != null) {
-      event.setCancelled(true);
-      DebugLogger.getLogger().log("Cancelled event");
-      try {
-        action.run();
-      } catch (PlayerException e) {
-        player.sendMessage(e.getPlayerFormattedString());
-        DebugLogger.getLogger().log("Error: " + e.getPlayerFormattedString());
-      }
-    } else {
-      DebugLogger.getLogger().log("No applicable actions found");
-    }
+    MobActionsUser user = ma.getPlayer(event.getPlayer());
+    processEvent(user, mob, event);
   }
 
   @Override
@@ -84,7 +62,11 @@ public class EventListener implements IEventListener {
     }
 
     IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
-    if (mob.exists()) {
+    if (event instanceof EntityDamageByEntityEvent
+        && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
+      MobActionsUser user = ma.getPlayer((Player) ((EntityDamageByEntityEvent) event).getDamager());
+      processEvent(user, mob, event);
+    } else if (mob.exists()) {
       event.setCancelled(true);
     }
   }
@@ -97,5 +79,31 @@ public class EventListener implements IEventListener {
   @Override
   public void onPlayerLogout(PlayerQuitEvent event) {
     players.remove(event.getPlayer());
+  }
+
+  private void processEvent(MobActionsUser player, IInteractiveMob mob, Cancellable event) {
+    MobAction action = null;
+    if (player.getStatus().getMode() == IStatus.Mode.CREATING) {
+      action = new CreateAction(player, mob);
+    } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {
+      action = new RemoveAction(player, mob);
+    } else if (mob.getData() instanceof ICommandData) {
+      action = new CommandAction(player, (ICommandData) mob.getData());
+    } else if (mob.getData() instanceof IWarpData) {
+      action = new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager());
+    }
+
+    if (action != null) {
+      try {
+        action.run();
+      } catch (PlayerException e) {
+        player.sendMessage(e.getPlayerFormattedString());
+        DebugLogger.getLogger().log("Error: " + e.getPlayerFormattedString());
+      }
+      event.setCancelled(true);
+      DebugLogger.getLogger().log("Cancelled event");
+    }
+
+    DebugLogger.getLogger().log("No applicable actions found");
   }
 }
