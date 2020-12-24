@@ -16,12 +16,12 @@ class MessageTest {
     assertEquals("§ctest", message.replace());
 
     message = new Message("test {} test");
-    assertEquals("test §rtest§r test", message.replace("test"));
+    assertEquals("test test test", message.replace("test"));
     assertThrows(IllegalArgumentException.class, message::replace);
     assertThrows(IllegalArgumentException.class, message::replace);
 
     message = new Message("&ctest {} test");
-    assertEquals("§ctest §rtest§r§c test", message.replace("test"));
+    assertEquals("§ctest test test", message.replace("test"));
 
     message = new Message("&ctest {&d} test");
     assertEquals("§ctest §r§dtest§r§c test", message.replace("test"));

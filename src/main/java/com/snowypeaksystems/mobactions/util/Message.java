@@ -58,8 +58,15 @@ public class Message implements IMessage {
           String segment = message.substring(last, positions[0]);
           String previousFormat = ChatColor.getLastColors(segment);
           formatCodes.append(previousFormat);
-          newString.append(segment).append(ChatColor.RESET).append(tokenFormat).append(args[tokens])
-              .append(ChatColor.RESET).append(formatCodes.toString());
+          newString.append(segment);
+
+          if (tokenFormat.length() > 0) {
+            newString.append(ChatColor.RESET).append(tokenFormat).append(args[tokens])
+                .append(ChatColor.RESET).append(formatCodes.toString());
+          } else {
+            newString.append(args[tokens]);
+          }
+
           last = i + 1;
         }
 
