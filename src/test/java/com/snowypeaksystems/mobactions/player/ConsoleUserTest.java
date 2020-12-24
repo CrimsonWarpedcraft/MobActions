@@ -88,7 +88,7 @@ class ConsoleUserTest {
   @Test
   void getDisplayName() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    assertEquals("Console", console.getDisplayName());
+    assertEquals("Console", console.getName());
   }
 
   @Test

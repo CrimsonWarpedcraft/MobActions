@@ -81,7 +81,7 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
-  public String getDisplayName() {
+  public String getName() {
     return "Console";
   }
 }

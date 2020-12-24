@@ -44,8 +44,8 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public String getDisplayName() {
-    return player.getDisplayName();
+  public String getName() {
+    return player.getName();
   }
 
   @Override

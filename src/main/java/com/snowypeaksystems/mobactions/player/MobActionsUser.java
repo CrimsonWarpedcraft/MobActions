@@ -24,7 +24,7 @@ public interface MobActionsUser {
   Location getLocation();
 
   /** Returns the display name for this user. */
-  String getDisplayName();
+  String getName();
 
   boolean canUseWarp(String warp);
 
