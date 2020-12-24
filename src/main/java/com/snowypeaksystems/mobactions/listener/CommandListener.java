@@ -93,6 +93,7 @@ public class CommandListener implements ICommandListener {
         String[] sublist = Arrays.asList(args).subList(4, args.length).toArray(new String[]{});
         List<String> strArgs = parseForStrings(sublist);
 
+        DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
         if (strArgs.size() == 2) {
           cmd = new CreateCommand(user, new CommandData(args[3], strArgs.get(0), strArgs.get(1)));
         }
