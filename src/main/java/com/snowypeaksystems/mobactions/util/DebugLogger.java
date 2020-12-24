@@ -28,7 +28,7 @@ public class DebugLogger {
 
   /** Logs the message to the console as a warning message. */
   public void log(String message) {
-    String doLog = System.getenv("MA-DEBUG");
+    String doLog = System.getenv("MA_DEBUG");
     if (doLog != null && doLog.equalsIgnoreCase("true")) {
       logger.log(Level.WARNING, "[DEBUG]" + message);
     }
