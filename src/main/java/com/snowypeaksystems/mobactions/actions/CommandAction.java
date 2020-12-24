@@ -29,7 +29,9 @@ public class CommandAction implements ICommandAction {
       throw new PermissionException();
     }
 
-    if (!player.performCommand(command.getCommand(player.getDisplayName()))) {
+    String commandStr = command.getCommand(player.getDisplayName());
+    DebugLogger.getLogger().log("Command: " + commandStr);
+    if (!player.performCommand(commandStr)) {
       DebugLogger.getLogger().log("Command execution failed");
       throw new CommandActionException();
     }
