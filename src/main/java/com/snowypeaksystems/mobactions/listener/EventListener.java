@@ -68,8 +68,8 @@ public class EventListener implements IEventListener {
       try {
         action.run();
       } catch (PlayerException e) {
-        player.sendMessage(e.getMessage());
-        DebugLogger.getLogger().log("Error: " + e.getMessage());
+        player.sendMessage(e.getPlayerFormattedString());
+        DebugLogger.getLogger().log("Error: " + e.getPlayerFormattedString());
       }
     } else {
       DebugLogger.getLogger().log("No applicable actions found");

@@ -120,7 +120,7 @@ public class CommandListener implements ICommandListener {
         try {
           cmd.run();
         } catch (PlayerException e) {
-          DebugLogger.getLogger().log("Command error");
+          DebugLogger.getLogger().log("Error: " + e.getPlayerFormattedString());
           user.sendMessage(e.getPlayerFormattedString());
         }
       } else {
