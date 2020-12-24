@@ -30,8 +30,7 @@ public final class Messages {
 
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
-    messages.put("action-remove-success", new Message("&MobAction removed"));
-    messages.put("edit-remove-success", new Message("&aMob successfully removed!"));
+    messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
     messages.put("nametag-command-text", new Message("&6{}!"));
     messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
 
