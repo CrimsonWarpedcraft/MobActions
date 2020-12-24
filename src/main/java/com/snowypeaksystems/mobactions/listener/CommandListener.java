@@ -90,7 +90,7 @@ public class CommandListener implements ICommandListener {
 
       if (args.length > 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("command")) {
-        String[] sublist = Arrays.asList(args).subList(4, args.length).toArray(new String[]{});
+        String[] sublist = Arrays.asList(args).subList(3, args.length).toArray(new String[]{});
         List<String> strArgs = parseForStrings(sublist);
 
         DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
