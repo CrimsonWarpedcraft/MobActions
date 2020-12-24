@@ -44,8 +44,8 @@ public class InteractiveMob implements IInteractiveMob {
     if (data != null) {
       if (!exists()) {
         int doRemove = entity.getRemoveWhenFarAway() ? 1 : 0;
-        entity.getPersistentDataContainer()
-            .set(new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER, doRemove);
+        entity.getPersistentDataContainer().set(
+            new NamespacedKey(plugin, REMOVE_DEFAULT_KEY), PersistentDataType.INTEGER, doRemove);
         DebugLogger.getLogger().log("Original despawn setting: " + (doRemove == 1));
       }
 
