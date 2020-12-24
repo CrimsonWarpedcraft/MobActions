@@ -68,7 +68,7 @@ public class CommandListener implements ICommandListener {
         } else if (args[0].equalsIgnoreCase("warps")) {
           StringUtil.copyPartialMatches(args[1], Arrays.asList(warpCommands), completions);
         } else if (args[0].equalsIgnoreCase("warp")) {
-           Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
+          Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
 
           warps.removeIf(warp -> !user.canUseWarp(warp));
 
