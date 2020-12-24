@@ -67,7 +67,7 @@ public class InteractiveMob implements IInteractiveMob {
     if (removeDefault != null) {
       boolean original = removeDefault == 1;
       entity.setRemoveWhenFarAway(original);
-      DebugLogger.getLogger().log("Reset original depspawn setting: " + original);
+      DebugLogger.getLogger().log("Reset original despawn setting: " + original);
     }
 
     entity.setCustomNameVisible(false);
