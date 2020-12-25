@@ -4,12 +4,14 @@ import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.data.MobData;
+import com.snowypeaksystems.mobactions.event.CreateIInteractiveMobEvent;
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.InteractiveMobAlreadyExistsException;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
+import org.bukkit.Bukkit;
 
 public class CreateAction implements ICreateAction {
   private final IInteractiveMob mob;
@@ -37,10 +39,16 @@ public class CreateAction implements ICreateAction {
       throw new InteractiveMobAlreadyExistsException();
     }
 
-    mob.setData(data);
-    mob.store();
+    CreateIInteractiveMobEvent event = new CreateIInteractiveMobEvent(player, mob);
+    Bukkit.getPluginManager().callEvent(event);
+    if (!event.isCancelled()) {
+      mob.setData(data);
+      mob.store();
 
-    player.sendMessage(gm("action-create-success"));
-    DebugLogger.getLogger().log("Mob created");
+      player.sendMessage(gm("action-create-success"));
+      DebugLogger.getLogger().log("Mob created");
+    } else {
+      DebugLogger.getLogger().log("Event cancelled");
+    }
   }
 }
