@@ -34,7 +34,7 @@ public class CommandListener implements ICommandListener {
   private final String[] help = {
       "Usage: /mac <subcommand>",
       "/mac create command <name> \"command\" \"description\" - Create a new command mob",
-      "/mac create portal <warp> - Create a new mob portal",
+      "/mac create warp <warp> - Create a new mob portal",
       "/mac remove - Remove a mob's action",
       "/mac cancel - Cancels the current operation",
       "/mac warp <warp> - Teleport to a warp",
@@ -74,9 +74,15 @@ public class CommandListener implements ICommandListener {
             StringUtil.copyPartialMatches(args[1], new ArrayList<>(warps), completions);
           }
         }
-      } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
-          && args[1].equalsIgnoreCase("remove")) {
-        if (user.canRemoveWarp()) {
+      } else if (args.length == 3) {
+        if (args[0].equalsIgnoreCase("warps")
+            && args[1].equalsIgnoreCase("remove")) {
+          if (user.canRemoveWarp()) {
+            Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
+            StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
+          }
+        } else if (args[0].equalsIgnoreCase("create")
+            && args[1].equalsIgnoreCase("warp")) {
           Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
           StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
         }
