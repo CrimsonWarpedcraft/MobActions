@@ -117,4 +117,16 @@ class MobActionsPlayerTest {
     assertTrue(player.canReload());
     fake.setPermission("mobactions.admin.reload", false);
   }
+
+  @Test
+  void canUseWarpsCommand() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canReload());
+
+    fake.setPermission("mobactions.warp", true);
+    assertTrue(player.canUseWarpsCommand());
+    fake.setPermission("mobactions.warp", false);
+  }
 }

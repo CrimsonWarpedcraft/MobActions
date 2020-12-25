@@ -36,6 +36,8 @@ public interface MobActionsUser {
 
   boolean canUseWarpCommand();
 
+  boolean canUseWarpsCommand();
+
   boolean canSetWarp();
 
   boolean canRemoveWarp();

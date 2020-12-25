@@ -41,6 +41,11 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
+  public boolean canUseWarpsCommand() {
+    return true;
+  }
+
+  @Override
   public boolean canSetWarp() {
     return false;
   }

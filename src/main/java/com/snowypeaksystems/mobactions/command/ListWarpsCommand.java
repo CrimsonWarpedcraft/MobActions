@@ -21,7 +21,7 @@ public class ListWarpsCommand implements IListWarpsCommand {
   @Override
   public void run() throws PlayerException {
     DebugLogger.getLogger().log("Listing warps");
-    if (!player.canUseWarpCommand()) {
+    if (!player.canUseWarpsCommand()) {
       DebugLogger.getLogger().log("Permission error");
       throw new PermissionException();
     }

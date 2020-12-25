@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class ConsoleUserTest {
-
   @Test
   void canUseWarp() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
@@ -63,6 +62,12 @@ class ConsoleUserTest {
   void canReload() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
     assertTrue(console.canReload());
+  }
+
+  @Test
+  void canUseWarpsCommand() {
+    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    assertTrue(console.canUseWarpsCommand());
   }
 
   @Test
