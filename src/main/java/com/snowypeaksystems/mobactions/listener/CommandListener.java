@@ -83,8 +83,10 @@ public class CommandListener implements ICommandListener {
           }
         } else if (args[0].equalsIgnoreCase("create")
             && args[1].equalsIgnoreCase("warp")) {
-          Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
-          StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
+          if (user.canCreate()) {
+            Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
+            StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
+          }
         }
       }
     }
