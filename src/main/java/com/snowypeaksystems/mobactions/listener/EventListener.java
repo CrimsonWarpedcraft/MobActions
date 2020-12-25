@@ -72,11 +72,13 @@ public class EventListener implements IEventListener {
   }
 
   @Override
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onWorldLoad(WorldLoadEvent event) {
     ma.getWarpManager().reload();
   }
 
   @Override
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onPlayerLogout(PlayerQuitEvent event) {
     players.remove(event.getPlayer());
   }
