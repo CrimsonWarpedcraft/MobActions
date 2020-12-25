@@ -104,8 +104,8 @@ public class EventListener implements IEventListener {
       }
       event.setCancelled(true);
       DebugLogger.getLogger().log("Cancelled event");
+    } else {
+      DebugLogger.getLogger().log("No applicable actions found");
     }
-
-    DebugLogger.getLogger().log("No applicable actions found");
   }
 }

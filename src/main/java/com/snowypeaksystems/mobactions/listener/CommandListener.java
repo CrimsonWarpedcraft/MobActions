@@ -34,7 +34,7 @@ public class CommandListener implements ICommandListener {
   private final String[] help = {
       "Usage: /mac <subcommand>",
       "/mac create command <name> \"command\" \"description\" - Create a new command mob",
-      "/mac create warp <warp> - Create a new mob portal",
+      "/mac create warp <warp> - Create a new warp mob",
       "/mac remove - Remove a mob's action",
       "/mac cancel - Cancels the current operation",
       "/mac warp <warp> - Teleport to a warp",
