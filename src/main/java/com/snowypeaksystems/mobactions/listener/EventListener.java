@@ -88,9 +88,9 @@ public class EventListener implements IEventListener {
     } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {
       action = new RemoveAction(player, mob);
     } else if (mob.getData() instanceof ICommandData) {
-      action = new CommandAction(player, (ICommandData) mob.getData());
+      action = new CommandAction(player, mob);
     } else if (mob.getData() instanceof IWarpData) {
-      action = new WarpAction(player, (IWarpData) mob.getData(), ma.getWarpManager());
+      action = new WarpAction(player, mob, ma.getWarpManager());
     }
 
     if (action != null) {
