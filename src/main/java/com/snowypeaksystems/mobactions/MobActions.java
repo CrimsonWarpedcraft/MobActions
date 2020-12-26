@@ -107,7 +107,7 @@ public class MobActions extends AMobActions {
     super.reloadConfig();
     Messages.initialize();
     warps.reload();
-    players = new HashMap<>();
+    players.clear();
 
     getLogger().info("MobActions reloaded successfully!");
   }
