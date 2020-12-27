@@ -14,6 +14,7 @@ import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.HashMap;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -61,14 +62,21 @@ public class EventListener implements IEventListener {
       return;
     }
 
-    IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
-    if (event instanceof EntityDamageByEntityEvent
-        && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
-      MobActionsUser user = ma.getPlayer((Player) ((EntityDamageByEntityEvent) event).getDamager());
-      processEvent(user, mob, event);
-    } else if (mob.exists()) {
-      event.setCancelled(true);
+
+
+    if (event instanceof EntityDamageByEntityEvent) {
+      IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
+      Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
+
+      if (damager instanceof Player) {
+        MobActionsUser user = ma.getPlayer((Player) damager);
+        processEvent(user, mob, event);
+      } else if (mob.exists() || ma.getInteractiveMob((LivingEntity) damager).exists()
+          && event.getEntity() instanceof Player) {
+        event.setCancelled(true);
+      }
     }
+
   }
 
   @Override
