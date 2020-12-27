@@ -43,13 +43,11 @@ public class Warp implements IWarp {
   public void save() throws IOException {
     YamlConfiguration config = toYamlConfiguration();
 
-    // TODO: Async?
     config.save(save);
   }
 
   @Override
   public boolean delete() {
-    // TODO: Async?
     return save.delete();
   }
 
