@@ -13,7 +13,7 @@ import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
-import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -32,9 +32,9 @@ import org.bukkit.inventory.EquipmentSlot;
  */
 public class EventListener implements IEventListener {
   private final AMobActions ma;
-  private final HashMap<Player, MobActionsUser> players;
+  private final Map<Player, MobActionsUser> players;
 
-  public EventListener(AMobActions ma, HashMap<Player, MobActionsUser> players) {
+  public EventListener(AMobActions ma, Map<Player, MobActionsUser> players) {
     this.ma = ma;
     this.players = players;
   }

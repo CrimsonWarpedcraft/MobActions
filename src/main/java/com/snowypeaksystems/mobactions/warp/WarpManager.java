@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
@@ -16,7 +17,7 @@ import org.bukkit.Location;
  */
 public class WarpManager implements IWarpManager {
   private final File storageDir;
-  private HashMap<String, IWarp> warps;
+  private Map<String, IWarp> warps;
 
   /**
    * Construct a new WarpManager map from the specified dataDir and server.
