@@ -73,7 +73,6 @@ public class WarpManager implements IWarpManager {
     warps = new HashMap<>();
     File[] files = storageDir.listFiles();
 
-    // TODO: Maybe async this?
     if (files != null) {
       for (File f : files) {
         if (f.getName().startsWith(".")) {
