@@ -15,16 +15,14 @@ import org.bukkit.Bukkit;
 
 public class CreateAction implements ICreateAction {
   private final IInteractiveMob mob;
-  private final MobActionsUser player;
 
   /** Create an action to run when a player creates a MobAction mob with the given data. */
-  public CreateAction(MobActionsUser player, IInteractiveMob mob) {
-    this.player = player;
+  public CreateAction(IInteractiveMob mob) {
     this.mob = mob;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Creating mob");
     final MobData data = player.getStatus().getMobData();
     player.getStatus().setMode(IStatus.Mode.NONE);

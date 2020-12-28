@@ -13,20 +13,15 @@ import org.bukkit.Bukkit;
 public class CommandAction implements ICommandAction {
   private final ICommandData command;
   private final IInteractiveMob mob;
-  private final MobActionsUser player;
 
-  /**
-   * Creates a CommandAction for a command to be ran by a player.
-   * @param player the player running the command
-   */
-  public CommandAction(MobActionsUser player, IInteractiveMob mob) {
-    this.player = player;
+  /** Creates a CommandAction for a command to be ran by a player. */
+  public CommandAction(IInteractiveMob mob, ICommandData data) {
     this.mob = mob;
-    this.command = (ICommandData) mob.getData();
+    this.command = data;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Executing command");
     if (!player.canRunCommand(command.getAlias())) {
       DebugLogger.getLogger().log("Permission error");

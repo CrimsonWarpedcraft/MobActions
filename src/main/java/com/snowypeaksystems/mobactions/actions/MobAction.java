@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobactions.actions;
 
+import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
@@ -8,5 +9,5 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
  */
 public interface MobAction {
   /** Executes the action. */
-  void run() throws PlayerException;
+  void run(MobActionsUser player) throws PlayerException;
 }

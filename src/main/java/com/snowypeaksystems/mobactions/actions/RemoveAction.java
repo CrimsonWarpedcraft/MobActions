@@ -13,16 +13,14 @@ import com.snowypeaksystems.mobactions.util.DebugLogger;
 import org.bukkit.Bukkit;
 
 public class RemoveAction implements IRemoveAction {
-  private final MobActionsUser player;
   private final IInteractiveMob mob;
 
-  public RemoveAction(MobActionsUser player, IInteractiveMob mob) {
-    this.player = player;
+  public RemoveAction(IInteractiveMob mob) {
     this.mob = mob;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Removing mob");
     player.getStatus().setMode(IStatus.Mode.NONE);
 
