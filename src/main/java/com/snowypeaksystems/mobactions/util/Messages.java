@@ -1,13 +1,14 @@
 package com.snowypeaksystems.mobactions.util;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Collection of messages to be used throughout the project.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public final class Messages {
-  private static final HashMap<String, Message> messages = new HashMap<>();
+  private static final Map<String, Message> messages = new HashMap<>();
 
   /** Loads message data. */
   public static void initialize() {

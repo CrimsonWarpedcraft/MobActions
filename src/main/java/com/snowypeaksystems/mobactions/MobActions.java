@@ -13,6 +13,7 @@ import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -27,7 +28,7 @@ import org.bukkit.entity.Player;
  */
 public class MobActions extends AMobActions {
   private IWarpManager warps;
-  private HashMap<Player, MobActionsUser> players;
+  private Map<Player, MobActionsUser> players;
 
   @Override
   public void onEnable() {
