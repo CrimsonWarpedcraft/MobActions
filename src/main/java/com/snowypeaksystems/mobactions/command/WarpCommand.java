@@ -15,17 +15,15 @@ import org.bukkit.Bukkit;
 public class WarpCommand implements IWarpCommand {
   private final String warpName;
   private final IWarpManager warpManager;
-  private final MobActionsUser player;
 
   /** Creates a warp command. */
-  public WarpCommand(MobActionsUser player, String warp, IWarpManager warpManager) {
+  public WarpCommand(String warp, IWarpManager warpManager) {
     this.warpName = warp;
-    this.player = player;
     this.warpManager = warpManager;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Warping player");
     if (!player.canUseWarpCommand() || !player.canUseWarp(warpName)) {
       DebugLogger.getLogger().log("Permission error");

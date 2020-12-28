@@ -112,33 +112,33 @@ public class CommandListener implements ICommandListener {
 
         DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
         if (strArgs.size() == 2) {
-          cmd = new CreateCommand(user, new CommandData(args[2], strArgs.get(0), strArgs.get(1)));
+          cmd = new CreateCommand(new CommandData(args[2], strArgs.get(0), strArgs.get(1)));
         }
       } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("warp")) {
-        cmd = new CreateCommand(user, new WarpData(args[2]));
+        cmd = new CreateCommand(new WarpData(args[2]));
       } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
           && args[1].equalsIgnoreCase("set")) {
-        cmd = new SetWarpCommand(user, args[2], ma.getWarpManager());
+        cmd = new SetWarpCommand(args[2], ma.getWarpManager());
       } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
           && args[1].equalsIgnoreCase("remove")) {
-        cmd = new DelWarpCommand(user, args[2], ma.getWarpManager());
+        cmd = new DelWarpCommand(args[2], ma.getWarpManager());
       } else if (args.length == 2 && args[0].equalsIgnoreCase("warp")) {
-        cmd = new WarpCommand(user, args[1], ma.getWarpManager());
+        cmd = new WarpCommand(args[1], ma.getWarpManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("warps")) {
-        cmd = new ListWarpsCommand(user, ma.getWarpManager());
+        cmd = new ListWarpsCommand(ma.getWarpManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("remove")) {
-        cmd = new RemoveCommand(user);
+        cmd = new RemoveCommand();
       } else if (args.length == 1 && args[0].equalsIgnoreCase("cancel")) {
-        cmd = new CancelCommand(user);
+        cmd = new CancelCommand();
       } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-        cmd = new ReloadCommand(user, ma);
+        cmd = new ReloadCommand(ma);
       }
 
       if (cmd != null) {
         DebugLogger.getLogger().log("Running command");
         try {
-          cmd.run();
+          cmd.run(user);
         } catch (PlayerException e) {
           DebugLogger.getLogger().log("Error: " + e.getPlayerFormattedString());
           user.sendMessage(e.getPlayerFormattedString());

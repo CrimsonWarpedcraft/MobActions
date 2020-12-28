@@ -11,15 +11,13 @@ import java.util.Set;
 
 public class ListWarpsCommand implements IListWarpsCommand {
   private final IWarpManager wm;
-  private final MobActionsUser player;
 
-  public ListWarpsCommand(MobActionsUser player, IWarpManager wm) {
-    this.player = player;
+  public ListWarpsCommand(IWarpManager wm) {
     this.wm = wm;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Listing warps");
     if (!player.canUseWarpsCommand()) {
       DebugLogger.getLogger().log("Permission error");

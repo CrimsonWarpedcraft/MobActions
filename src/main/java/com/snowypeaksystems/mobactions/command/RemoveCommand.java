@@ -9,14 +9,8 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 
 public class RemoveCommand implements IRemoveCommand {
-  private final MobActionsUser player;
-
-  public RemoveCommand(MobActionsUser player) {
-    this.player = player;
-  }
-
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Setting remove mode");
     if (!player.canRemove()) {
       DebugLogger.getLogger().log("Permission error");

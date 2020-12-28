@@ -14,17 +14,15 @@ import org.bukkit.Bukkit;
 public class DelWarpCommand implements IDelWarpCommand {
   private final String name;
   private final IWarpManager warpManager;
-  private final MobActionsUser player;
 
   /** Creates a DelWarpCommand object. Can be performed by the console. */
-  public DelWarpCommand(MobActionsUser player, String name, IWarpManager warpManager) {
+  public DelWarpCommand(String name, IWarpManager warpManager) {
     this.name = name;
-    this.player = player;
     this.warpManager = warpManager;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Deleting warp");
     if (!player.canRemoveWarp()) {
       DebugLogger.getLogger().log("Permission error");
