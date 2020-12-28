@@ -3,6 +3,7 @@ package com.snowypeaksystems.mobactions.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.bukkit.ChatColor;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,7 +14,7 @@ class MessageTest {
   @Test
   void replace() {
     IMessage message = new Message("&ctest");
-    assertEquals("§ctest", message.replace());
+    assertEquals(ChatColor.translateAlternateColorCodes('&', "&ctest"), message.replace());
 
     message = new Message("test {} test");
     assertEquals("test test test", message.replace("test"));
@@ -21,13 +22,18 @@ class MessageTest {
     assertThrows(IllegalArgumentException.class, message::replace);
 
     message = new Message("&ctest {} test");
-    assertEquals("§ctest test test", message.replace("test"));
+    assertEquals(
+        ChatColor.translateAlternateColorCodes('&', "&ctest test test"),
+        message.replace("test"));
 
     message = new Message("&ctest {&d} test");
-    assertEquals("§ctest §r§dtest§r§c test", message.replace("test"));
+    assertEquals(
+        ChatColor.translateAlternateColorCodes('&', "&ctest &r&dtest&r&c test"),
+        message.replace("test"));
 
-    message = new Message("&ctest {&d} §n {&e} test");
-    assertEquals("§ctest §r§dtest§r§c §n §r§etest§r§c§n test",
+    message = new Message("&ctest {&d} &n {&e} test");
+    assertEquals(
+        ChatColor.translateAlternateColorCodes('&', "&ctest &r&dtest&r&c &n &r&etest&r&c&n test"),
         message.replace("test", "test"));
   }
 }
