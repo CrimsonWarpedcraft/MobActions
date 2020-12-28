@@ -1,11 +1,11 @@
 package com.snowypeaksystems.mobactions;
 
-import com.snowypeaksystems.mobactions.data.CommandData;
-import com.snowypeaksystems.mobactions.data.ICommandData;
-import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.data.MobData;
-import com.snowypeaksystems.mobactions.data.WarpData;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -25,15 +25,19 @@ public class InteractiveMob implements IInteractiveMob {
     this.entity = entity;
     this.plugin = plugin;
 
-    if (exists()) {
-      String key = entity.getPersistentDataContainer()
-          .get(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING);
+    String key = entity.getPersistentDataContainer()
+        .get(new NamespacedKey(plugin, DATA_KEY), PersistentDataType.STRING);
 
-      if (key != null) {
-        if (key.equals(ICommandData.COMMAND_KEY)) {
-          data = new CommandData(entity, plugin);
-        } else if (key.equals(IWarpData.WARP_KEY)) {
-          data = new WarpData(entity, plugin);
+    if (key != null) {
+      if (MobData.DATA_KEY_MAP.containsKey(key)) {
+        try {
+          Constructor<? extends MobData> c = MobData.DATA_KEY_MAP.get(key)
+              .getConstructor(LivingEntity.class, JavaPlugin.class);
+          data = c.newInstance(entity, plugin);
+        } catch (NoSuchMethodException e) {
+          Bukkit.getLogger().log(Level.WARNING, "Unrecognized data key found");
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+          DebugLogger.getLogger().log("Error creating mob from recognized class");
         }
       }
     }
