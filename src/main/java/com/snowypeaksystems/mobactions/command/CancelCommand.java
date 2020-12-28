@@ -9,14 +9,8 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 
 public class CancelCommand implements ICancelCommand {
-  private final MobActionsUser player;
-
-  public CancelCommand(MobActionsUser player) {
-    this.player = player;
-  }
-
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Cancelling command");
     if (player.getStatus().getMode() == IStatus.Mode.NONE) {
       DebugLogger.getLogger().log("Not currently editing");

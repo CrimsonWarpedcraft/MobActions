@@ -12,24 +12,19 @@ import com.snowypeaksystems.mobactions.util.DebugLogger;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 import java.io.IOException;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 
 public class SetWarpCommand implements ISetWarpCommand {
   private final IWarpManager warpManager;
-  private final Location location;
-  private final MobActionsUser player;
   private final String name;
 
   /** Creates a SetWarpCommand object. */
-  public SetWarpCommand(MobActionsUser player, String name, IWarpManager warpManager) {
+  public SetWarpCommand(String name, IWarpManager warpManager) {
     this.name = name;
-    this.player = player;
     this.warpManager = warpManager;
-    this.location = player.getLocation();
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Setting warp");
     if (!player.canSetWarp()) {
       DebugLogger.getLogger().log("Permission error");
@@ -41,11 +36,11 @@ public class SetWarpCommand implements ISetWarpCommand {
       throw new WarpExistsException(name);
     }
 
-    SetWarpEvent event = new SetWarpEvent(player, name, location);
+    SetWarpEvent event = new SetWarpEvent(player, name, player.getLocation());
     Bukkit.getPluginManager().callEvent(event);
     if (!event.isCancelled()) {
       try {
-        warpManager.makeWarp(name, location);
+        warpManager.makeWarp(name, player.getLocation());
         player.sendMessage(gm("warp-create-success", name));
       } catch (IOException e) {
         DebugLogger.getLogger().log("Warp save error");

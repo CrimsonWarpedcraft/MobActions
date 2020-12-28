@@ -13,16 +13,14 @@ import com.snowypeaksystems.mobactions.util.DebugLogger;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class ReloadCommand implements IReloadCommand {
-  private final MobActionsUser player;
   private final AMobActions ma;
 
-  public ReloadCommand(MobActionsUser player, AMobActions ma) {
-    this.player = player;
+  public ReloadCommand(AMobActions ma) {
     this.ma = ma;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Reloading plugin");
     if (!player.canReload()) {
       DebugLogger.getLogger().log("Permission error");
