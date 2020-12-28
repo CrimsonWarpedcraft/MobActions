@@ -1,5 +1,8 @@
 package com.snowypeaksystems.mobactions.data;
 
+import static java.util.Map.entry;
+
+import java.util.Map;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,4 +22,8 @@ public interface MobData extends AliasedData {
 
   /** Returns the String to be used as instructions for this data. */
   String getNametagString();
+
+  Map<String, Class<? extends MobData>> DATA_KEY_MAP = Map.ofEntries(
+      entry(ICommandData.COMMAND_KEY, CommandData.class),
+      entry(IWarpData.WARP_KEY, WarpData.class));
 }

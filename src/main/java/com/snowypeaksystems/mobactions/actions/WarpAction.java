@@ -18,18 +18,16 @@ public class WarpAction implements IWarpAction {
   private final IInteractiveMob mob;
   private final IWarpData warpData;
   private final IWarpManager warpManager;
-  private final MobActionsUser player;
 
   /** Creates a warp action. */
-  public WarpAction(MobActionsUser player, IInteractiveMob mob, IWarpManager warpManager) {
-    this.player = player;
+  public WarpAction(IInteractiveMob mob, IWarpData data, IWarpManager warpManager) {
     this.mob = mob;
     this.warpManager = warpManager;
-    this.warpData = (IWarpData) mob.getData();
+    this.warpData = data;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Warping player");
     String warpName = warpData.getAlias();
 

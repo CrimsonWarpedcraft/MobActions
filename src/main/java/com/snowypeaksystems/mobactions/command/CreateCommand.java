@@ -10,16 +10,14 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 
 public class CreateCommand implements ICreateCommand {
-  private final MobActionsUser player;
   private final MobData data;
 
-  public CreateCommand(MobActionsUser player, MobData data) {
-    this.player = player;
+  public CreateCommand(MobData data) {
     this.data = data;
   }
 
   @Override
-  public void run() throws PlayerException {
+  public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Setting create mode");
     if (!player.canCreate()) {
       DebugLogger.getLogger().log("Permission error");

@@ -94,18 +94,18 @@ public class EventListener implements IEventListener {
   private void processEvent(MobActionsUser player, IInteractiveMob mob, Cancellable event) {
     MobAction action = null;
     if (player.getStatus().getMode() == IStatus.Mode.CREATING) {
-      action = new CreateAction(player, mob);
+      action = new CreateAction(mob);
     } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {
-      action = new RemoveAction(player, mob);
+      action = new RemoveAction(mob);
     } else if (mob.getData() instanceof ICommandData) {
-      action = new CommandAction(player, mob);
+      action = new CommandAction(mob, (ICommandData) mob.getData());
     } else if (mob.getData() instanceof IWarpData) {
-      action = new WarpAction(player, mob, ma.getWarpManager());
+      action = new WarpAction(mob, (IWarpData) mob.getData(), ma.getWarpManager());
     }
 
     if (action != null) {
       try {
-        action.run();
+        action.run(player);
       } catch (PlayerException e) {
         player.sendMessage(e.getPlayerFormattedString());
         DebugLogger.getLogger().log("Error: " + e.getPlayerFormattedString());
