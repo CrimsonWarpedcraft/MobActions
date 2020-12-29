@@ -4,6 +4,8 @@ import com.snowypeaksystems.mobactions.data.IncompleteDataException;
 import com.snowypeaksystems.mobactions.listener.CommandListener;
 import com.snowypeaksystems.mobactions.listener.EventListener;
 import com.snowypeaksystems.mobactions.listener.ICommandListener;
+import com.snowypeaksystems.mobactions.mobevent.IMobEventManager;
+import com.snowypeaksystems.mobactions.mobevent.MobEventManager;
 import com.snowypeaksystems.mobactions.player.ConsoleUser;
 import com.snowypeaksystems.mobactions.player.MobActionsPlayer;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
@@ -29,6 +31,7 @@ import org.bukkit.entity.Player;
  */
 public class MobActions extends AMobActions {
   private IWarpManager warps;
+  private IMobEventManager events;
   private Map<Player, MobActionsUser> players;
 
   @Override
@@ -65,6 +68,7 @@ public class MobActions extends AMobActions {
     cmd.setTabCompleter(cl);
 
     players = new HashMap<>();
+    events = new MobEventManager(this);
 
     getServer().getPluginManager().registerEvents(new EventListener(this, players), this);
 
@@ -105,11 +109,17 @@ public class MobActions extends AMobActions {
   }
 
   @Override
+  public IMobEventManager getMobEventManager() {
+    return events;
+  }
+
+  @Override
   public void reloadConfig() {
     super.reloadConfig();
     Messages.initialize();
     warps.reload();
     players.clear();
+    events.clear();
 
     getLogger().info("MobActions reloaded successfully!");
   }

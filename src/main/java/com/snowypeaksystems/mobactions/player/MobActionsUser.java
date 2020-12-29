@@ -26,6 +26,8 @@ public interface MobActionsUser {
   /** Returns the display name for this user. */
   String getName();
 
+  boolean isOnline();
+
   boolean canUseWarp(String warp);
 
   boolean canRunCommand();

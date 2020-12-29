@@ -89,4 +89,9 @@ public class ConsoleUser implements MobActionsUser {
   public String getName() {
     return "Console";
   }
+
+  @Override
+  public boolean isOnline() {
+    return true;
+  }
 }

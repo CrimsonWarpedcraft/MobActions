@@ -49,6 +49,11 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
+  public boolean isOnline() {
+    return player.isOnline();
+  }
+
+  @Override
   public boolean canUseWarp(String warp) {
     return player.hasPermission("mobactions.warp.*")
         || player.hasPermission("mobactions.warp." + warp);

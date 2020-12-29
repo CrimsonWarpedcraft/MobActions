@@ -29,6 +29,9 @@ public final class Messages {
     messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
     messages.put("reload-success", new Message("&aMobActions reload complete!"));
 
+    // Event message
+    messages.put("countdown-text", new Message("&eJoining event in {&c} seconds."));
+
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
     messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
