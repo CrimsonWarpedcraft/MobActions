@@ -51,7 +51,7 @@ public class MobEvent implements IMobEvent {
     this.timeout = new BukkitRunnable() {
       @Override
       public void run() {
-          countdown.runTaskTimer(plugin, 0, 1);
+          countdown.runTaskTimer(plugin, 0, 20);
       }
     };
 
