@@ -30,7 +30,7 @@ public final class Messages {
     messages.put("reload-success", new Message("&aMobActions reload complete!"));
 
     // Event message
-    messages.put("countdown-text", new Message("&eJoining event in {&c} seconds."));
+    messages.put("countdown-text", new Message("&eJoining {&c} event in {&c} seconds."));
 
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
