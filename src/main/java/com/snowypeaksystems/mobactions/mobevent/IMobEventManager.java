@@ -1,6 +1,7 @@
 package com.snowypeaksystems.mobactions.mobevent;
 
 import com.snowypeaksystems.mobactions.actions.MobAction;
+import com.snowypeaksystems.mobactions.player.MobActionsUser;
 
 /**
  * Objects to store and manage IMobEvents.
@@ -21,4 +22,7 @@ public interface IMobEventManager {
 
   /** Removes all events. */
   void clear();
+
+  /** Removes the player from all events. Helpful for logouts. */
+  void removeFromAll(MobActionsUser player);
 }

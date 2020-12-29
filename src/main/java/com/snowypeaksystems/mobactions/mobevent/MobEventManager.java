@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.mobevent;
 
 import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.actions.MobAction;
+import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,5 +46,12 @@ public class MobEventManager implements IMobEventManager {
   @Override
   public void clear() {
     events.clear();
+  }
+
+  @Override
+  public void removeFromAll(MobActionsUser player) {
+    for (IMobEvent event : events.values()) {
+      event.removePlayer(player);
+    }
   }
 }

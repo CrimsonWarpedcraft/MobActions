@@ -112,6 +112,7 @@ public class EventListener implements IEventListener {
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onPlayerLogout(PlayerQuitEvent event) {
     players.remove(event.getPlayer());
+    ma.getMobEventManager().removeFromAll(ma.getPlayer(event.getPlayer()));
   }
 
   private void processEvent(MobActionsUser player, IInteractiveMob mob, Cancellable event) {

@@ -82,4 +82,9 @@ public class MobEvent implements IMobEvent {
   public boolean hasPlayerJoined(MobActionsUser player) {
     return users.contains(player);
   }
+
+  @Override
+  public Set<MobActionsUser> getPlayerSet() {
+    return Set.copyOf(users);
+  }
 }

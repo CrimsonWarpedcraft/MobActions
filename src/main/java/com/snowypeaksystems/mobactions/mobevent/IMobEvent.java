@@ -1,6 +1,7 @@
 package com.snowypeaksystems.mobactions.mobevent;
 
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
+import java.util.Set;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -22,4 +23,7 @@ public interface IMobEvent {
 
   /** Returns true if the provided player has joined, false otherwise. */
   boolean hasPlayerJoined(MobActionsUser player);
+
+  /** Returns an unmodifiable copy of the list of joined players. */
+  Set<MobActionsUser> getPlayerSet();
 }

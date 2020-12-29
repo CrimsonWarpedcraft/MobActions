@@ -31,6 +31,7 @@ public final class Messages {
 
     // Event message
     messages.put("countdown-text", new Message("&eJoining {&c} event in {&c} seconds."));
+    messages.put("event-missing-error", new Message("&cThe {} event hasn't been started yet!"));
 
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
