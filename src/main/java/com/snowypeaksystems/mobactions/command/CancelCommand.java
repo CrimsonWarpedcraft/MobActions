@@ -2,9 +2,9 @@ package com.snowypeaksystems.mobactions.command;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
+import com.snowypeaksystems.mobactions.NothingToCancelException;
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
-import com.snowypeaksystems.mobactions.player.NothingToCancelException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 

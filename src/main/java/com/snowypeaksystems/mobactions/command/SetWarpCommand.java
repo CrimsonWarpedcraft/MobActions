@@ -6,10 +6,10 @@ import com.snowypeaksystems.mobactions.event.SetWarpEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
-import com.snowypeaksystems.mobactions.player.WarpCreateException;
-import com.snowypeaksystems.mobactions.player.WarpExistsException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
+import com.snowypeaksystems.mobactions.warp.WarpCreateException;
+import com.snowypeaksystems.mobactions.warp.WarpExistsException;
 import java.io.IOException;
 import org.bukkit.Bukkit;
 

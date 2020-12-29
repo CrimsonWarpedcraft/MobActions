@@ -1,6 +1,8 @@
-package com.snowypeaksystems.mobactions.player;
+package com.snowypeaksystems.mobactions.warp;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
+import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
  * Thrown when a warp cannot be created successfully.

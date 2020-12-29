@@ -1,6 +1,8 @@
-package com.snowypeaksystems.mobactions.player;
+package com.snowypeaksystems.mobactions.actions;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
+import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
  * Thrown if there is an error running a command.
