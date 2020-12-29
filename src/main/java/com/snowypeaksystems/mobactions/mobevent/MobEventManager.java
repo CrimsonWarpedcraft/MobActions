@@ -25,7 +25,7 @@ public class MobEventManager implements IMobEventManager {
 
   @Override
   public void removeEvent(String name) {
-    IMobEvent event = events.remove(name);
+    IMobEvent event = events.remove(name.toLowerCase());
 
     if (event != null && !event.getRunnableTask().isCancelled()) {
       event.getRunnableTask().cancel();
@@ -34,12 +34,12 @@ public class MobEventManager implements IMobEventManager {
 
   @Override
   public IMobEvent getEvent(String name) {
-    return events.get(name);
+    return events.get(name.toLowerCase());
   }
 
   @Override
   public boolean exists(String name) {
-    return events.containsKey(name);
+    return events.containsKey(name.toLowerCase());
   }
 
   @Override
