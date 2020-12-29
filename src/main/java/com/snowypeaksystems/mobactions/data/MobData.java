@@ -25,5 +25,6 @@ public interface MobData {
 
   Map<String, Class<? extends MobData>> DATA_KEY_MAP = Map.ofEntries(
       entry(ICommandData.COMMAND_KEY, CommandData.class),
-      entry(IWarpData.WARP_KEY, WarpData.class));
+      entry(IWarpData.WARP_KEY, WarpData.class),
+      entry(IEventData.EVENT_KEY, EventData.class));
 }

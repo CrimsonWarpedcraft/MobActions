@@ -33,6 +33,7 @@ public final class Messages {
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
     messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
     messages.put("nametag-command-text", new Message("&6{}!"));
+    messages.put("nametag-event-text", new Message("&6Click to join the {&c} event!"));
     messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
 
     // Mob errors
