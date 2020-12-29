@@ -9,11 +9,15 @@ import com.snowypeaksystems.mobactions.actions.RemoveAction;
 import com.snowypeaksystems.mobactions.actions.WarpAction;
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.data.IWarpData;
+import com.snowypeaksystems.mobactions.data.IncompleteDataException;
 import com.snowypeaksystems.mobactions.player.IStatus;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.Map;
+import java.util.logging.Level;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -49,9 +53,15 @@ public class EventListener implements IEventListener {
       return;
     }
 
-    IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getRightClicked());
+
     MobActionsUser user = ma.getPlayer(event.getPlayer());
-    processEvent(user, mob, event);
+    try {
+      IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getRightClicked());
+      processEvent(user, mob, event);
+    } catch (IncompleteDataException e) {
+      Bukkit.getLogger().log(Level.WARNING, "Error creating mob object", e.getCause());
+      user.sendMessage(e.getPlayerFormattedString());
+    }
   }
 
   @Override
@@ -61,13 +71,26 @@ public class EventListener implements IEventListener {
       return;
     }
 
-    IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
-    if (event instanceof EntityDamageByEntityEvent
-        && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
-      MobActionsUser user = ma.getPlayer((Player) ((EntityDamageByEntityEvent) event).getDamager());
-      processEvent(user, mob, event);
-    } else if (mob.exists()) {
-      event.setCancelled(true);
+    try {
+      IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
+      if (event instanceof EntityDamageByEntityEvent
+          && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
+        MobActionsUser user = ma.getPlayer(
+            (Player) ((EntityDamageByEntityEvent) event).getDamager());
+        processEvent(user, mob, event);
+      } else if (mob.exists()) {
+        event.setCancelled(true);
+      }
+
+    } catch (IncompleteDataException e) {
+      Bukkit.getLogger().log(Level.WARNING, "Error creating mob object", e);
+
+      if (event instanceof EntityDamageByEntityEvent) {
+        Entity entity = ((EntityDamageByEntityEvent) event).getDamager();
+        if (entity instanceof Player) {
+          ma.getPlayer((Player) entity).sendMessage(e.getPlayerFormattedString());
+        }
+      }
     }
   }
 

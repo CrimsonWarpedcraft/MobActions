@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobactions;
 
+import com.snowypeaksystems.mobactions.data.IncompleteDataException;
 import com.snowypeaksystems.mobactions.listener.CommandListener;
 import com.snowypeaksystems.mobactions.listener.EventListener;
 import com.snowypeaksystems.mobactions.listener.ICommandListener;
@@ -99,7 +100,7 @@ public class MobActions extends AMobActions {
   }
 
   @Override
-  public IInteractiveMob getInteractiveMob(LivingEntity entity) {
+  public IInteractiveMob getInteractiveMob(LivingEntity entity) throws IncompleteDataException {
     return new InteractiveMob(entity, this);
   }
 
