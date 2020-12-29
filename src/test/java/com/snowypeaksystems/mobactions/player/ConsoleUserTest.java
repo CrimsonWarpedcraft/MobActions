@@ -101,4 +101,28 @@ class ConsoleUserTest {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
     assertThrows(UnsupportedOperationException.class, console::getLocation);
   }
+
+  @Test
+  void canJoinEvent() {
+    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    assertFalse(console.canJoinEvent(""));
+  }
+
+  @Test
+  void canStartEvents() {
+    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    assertTrue(console.canStartEvents());
+  }
+
+  @Test
+  void canCancelEvents() {
+    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    assertTrue(console.canCancelEvents());
+  }
+
+  @Test
+  void isOnline() {
+    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    assertTrue(console.isOnline());
+  }
 }
