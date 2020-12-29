@@ -123,7 +123,7 @@ class MobActionsPlayerTest {
     FakePlayer fake = new FakePlayer();
     MobActionsUser player = new MobActionsPlayer(fake);
 
-    assertFalse(player.canReload());
+    assertFalse(player.canUseWarpsCommand());
 
     fake.setPermission("mobactions.warp", true);
     assertTrue(player.canUseWarpsCommand());
