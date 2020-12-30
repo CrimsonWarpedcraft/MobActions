@@ -11,12 +11,14 @@ import java.util.Set;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class MobEvent implements IMobEvent {
+  private final String name;
   private final int maxPlayers;
   private final Set<MobActionsUser> users;
   private final BukkitRunnable timeout;
   private final BukkitRunnable countdown;
 
   MobEvent(String name, int maxPlayers, long timeout, MobAction action, AMobActions plugin) {
+    this.name = name;
     this.maxPlayers = maxPlayers;
     users = new HashSet<>();
 
@@ -37,7 +39,7 @@ public class MobEvent implements IMobEvent {
         } else {
           seconds--;
           for (MobActionsUser user : users) {
-            user.sendMessage(gm("countdown-text", name, String.valueOf(seconds)));
+            user.sendMessage(gm("event-countdown-text", name, String.valueOf(seconds)));
           }
         }
       }
@@ -64,7 +66,11 @@ public class MobEvent implements IMobEvent {
   }
 
   @Override
-  public void addPlayer(MobActionsUser player) {
+  public void addPlayer(MobActionsUser player) throws EventFullException {
+    if (users.size() == maxPlayers) {
+      throw new EventFullException(name);
+    }
+
     users.add(player);
   }
 

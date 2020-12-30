@@ -16,7 +16,7 @@ public interface IMobEvent {
   BukkitRunnable getRunnableTask();
 
   /** Adds the provided player to the list of joined players. */
-  void addPlayer(MobActionsUser player);
+  void addPlayer(MobActionsUser player) throws EventFullException;
 
   /** Removes the provided player from the list of joined players. */
   void removePlayer(MobActionsUser player);
