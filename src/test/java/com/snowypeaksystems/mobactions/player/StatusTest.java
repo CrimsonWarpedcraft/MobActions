@@ -25,6 +25,12 @@ class StatusTest {
     status.setMode(IStatus.Mode.DESTROYING);
     assertEquals(IStatus.Mode.DESTROYING, status.getMode());
 
+    status.setMode(IStatus.Mode.ACTIVATING);
+    assertEquals(IStatus.Mode.ACTIVATING, status.getMode());
+
+    status.setMode(IStatus.Mode.DEACTIVATING);
+    assertEquals(IStatus.Mode.DEACTIVATING, status.getMode());
+
     status.setMode(IStatus.Mode.NONE);
     assertEquals(IStatus.Mode.NONE, status.getMode());
 
@@ -42,9 +48,22 @@ class StatusTest {
     status.setMobData(command);
     assertEquals(command, status.getMobData());
 
+    status.setMode(IStatus.Mode.DESTROYING);
+    assertNull(status.getMobData());
+
+    status.setMobData(command);
+    assertNull(status.getMobData());
+
+    status.setMode(IStatus.Mode.CREATING);
+    status.setMobData(command);
     status.setMode(IStatus.Mode.NONE);
     assertNull(status.getMobData());
 
+    status.setMode(IStatus.Mode.ACTIVATING);
+    status.setMobData(command);
+    assertEquals(command, status.getMobData());
+    status.setMode(IStatus.Mode.DEACTIVATING);
+    assertNull(status.getMobData());
     status.setMobData(command);
     assertNull(status.getMobData());
   }

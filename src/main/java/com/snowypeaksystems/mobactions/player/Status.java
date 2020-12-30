@@ -23,7 +23,7 @@ public class Status implements IStatus {
 
     this.mode = mode;
 
-    if (mode != Mode.CREATING) {
+    if (mode != Mode.CREATING && mode != Mode.ACTIVATING) {
       data = null;
     }
   }
@@ -35,7 +35,7 @@ public class Status implements IStatus {
 
   @Override
   public void setMobData(MobData data) {
-    if (mode == Mode.CREATING) {
+    if (mode == Mode.CREATING || mode == Mode.ACTIVATING) {
       this.data = data;
     }
   }
