@@ -25,7 +25,7 @@ public class CreateCommand implements ICreateCommand {
     }
 
     player.getStatus().setMode(IStatus.Mode.CREATING);
-    player.getStatus().setStatusData(data);
+    player.getStatus().setMobData(data);
     player.sendMessage(gm("create-command"), gm("edit-cancel"));
     DebugLogger.getLogger().log("Create mode set");
   }
