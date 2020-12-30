@@ -34,18 +34,18 @@ public class EventMobAction implements IEventMobAction {
       throw new PermissionException();
     }
 
-    if (!manager.exists(data.getAlias())) {
+    if (!manager.exists(eventName)) {
       DebugLogger.getLogger().log("Event not found");
-      throw new EventNotFoundException(data.getAlias());
+      throw new EventNotFoundException(eventName);
     }
 
-    IMobEvent mobEvent = manager.getEvent(mob.getData().getAlias());
+    IMobEvent mobEvent = manager.getEvent(eventName);
     if (!mobEvent.hasPlayerJoined(player)) {
       mobEvent.addPlayer(player);
-      player.sendMessage(gm("event-joined-text", data.getAlias()), gm("event-leave-info"));
+      player.sendMessage(gm("event-joined-text", eventName), gm("event-leave-info"));
     } else {
       mobEvent.removePlayer(player);
-      player.sendMessage(gm("event-left-text"));
+      player.sendMessage(gm("event-left-text", eventName));
     }
   }
 }
