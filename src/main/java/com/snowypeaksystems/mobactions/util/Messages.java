@@ -31,6 +31,9 @@ public final class Messages {
 
     // Event message
     messages.put("event-countdown-text", new Message("&eStarting {&c} event in {&c} seconds."));
+    messages.put("event-joined-text", new Message("&aSuccessfully joined the {&c} event!"));
+    messages.put("event-left-text", new Message("&cLeft the {&c} event!"));
+    messages.put("event-leave-info", new Message("&cClick again to leave the event!"));
     messages.put("event-missing-error", new Message("&cThe {} event hasn't been started yet!"));
     messages.put("event-full-error", new Message("&cThe {} event is full!"));
 
