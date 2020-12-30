@@ -28,21 +28,16 @@ public class MobEvent implements IMobEvent {
           plugin.getMobEventManager().removeEvent(name);
 
           for (MobActionsUser user : users) {
-            if (user.isOnline()) {
-              try {
-                action.run(user);
-              } catch (PlayerException e) {
-                user.sendMessage(e.getPlayerFormattedString());
-              }
+            try {
+              action.run(user);
+            } catch (PlayerException e) {
+              user.sendMessage(e.getPlayerFormattedString());
             }
           }
         } else {
           seconds--;
-
           for (MobActionsUser user : users) {
-            if (user.isOnline()) {
-              user.sendMessage(gm("countdown-text", name, String.valueOf(seconds)));
-            }
+            user.sendMessage(gm("countdown-text", name, String.valueOf(seconds)));
           }
         }
       }

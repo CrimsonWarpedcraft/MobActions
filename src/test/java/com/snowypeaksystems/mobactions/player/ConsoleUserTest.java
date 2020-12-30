@@ -119,10 +119,4 @@ class ConsoleUserTest {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
     assertTrue(console.canCancelEvents());
   }
-
-  @Test
-  void isOnline() {
-    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    assertTrue(console.isOnline());
-  }
 }
