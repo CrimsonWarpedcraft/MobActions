@@ -24,7 +24,7 @@ public class CreateAction implements ICreateAction {
   @Override
   public void run(MobActionsUser player) throws PlayerException {
     DebugLogger.getLogger().log("Creating mob");
-    final MobData data = player.getStatus().getMobData();
+    final MobData data = (MobData) player.getStatus().getStatusData();
     player.getStatus().setMode(IStatus.Mode.NONE);
 
     if (!player.canCreate()) {

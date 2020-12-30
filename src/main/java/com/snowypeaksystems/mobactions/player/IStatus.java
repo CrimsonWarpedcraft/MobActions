@@ -1,6 +1,6 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.data.MobData;
+import com.snowypeaksystems.mobactions.data.StatusData;
 
 /**
  * Represents a user's state and creation.
@@ -22,8 +22,8 @@ public interface IStatus {
   void setMode(Mode mode);
 
   /** Returns the MobData if it exists, or null otherwise. */
-  MobData getMobData();
+  StatusData getStatusData();
 
   /** Sets the MobData. */
-  void setMobData(MobData data);
+  void setStatusData(StatusData data);
 }

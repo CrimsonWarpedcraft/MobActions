@@ -1,9 +1,9 @@
 package com.snowypeaksystems.mobactions.player;
 
-import com.snowypeaksystems.mobactions.data.MobData;
+import com.snowypeaksystems.mobactions.data.StatusData;
 
 public class Status implements IStatus {
-  private MobData data;
+  private StatusData data;
   private Mode mode;
 
   public Status() {
@@ -29,12 +29,12 @@ public class Status implements IStatus {
   }
 
   @Override
-  public MobData getMobData() {
+  public StatusData getStatusData() {
     return data;
   }
 
   @Override
-  public void setMobData(MobData data) {
+  public void setStatusData(StatusData data) {
     if (mode == Mode.CREATING || mode == Mode.ACTIVATING) {
       this.data = data;
     }

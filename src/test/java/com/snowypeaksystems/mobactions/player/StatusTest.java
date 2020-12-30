@@ -42,29 +42,29 @@ class StatusTest {
     ICommandData command = new CommandData("", "");
 
     IStatus status = new Status();
-    assertNull(status.getMobData());
+    assertNull(status.getStatusData());
 
     status.setMode(IStatus.Mode.CREATING);
-    status.setMobData(command);
-    assertEquals(command, status.getMobData());
+    status.setStatusData(command);
+    assertEquals(command, status.getStatusData());
 
     status.setMode(IStatus.Mode.DESTROYING);
-    assertNull(status.getMobData());
+    assertNull(status.getStatusData());
 
-    status.setMobData(command);
-    assertNull(status.getMobData());
+    status.setStatusData(command);
+    assertNull(status.getStatusData());
 
     status.setMode(IStatus.Mode.CREATING);
-    status.setMobData(command);
+    status.setStatusData(command);
     status.setMode(IStatus.Mode.NONE);
-    assertNull(status.getMobData());
+    assertNull(status.getStatusData());
 
     status.setMode(IStatus.Mode.ACTIVATING);
-    status.setMobData(command);
-    assertEquals(command, status.getMobData());
+    status.setStatusData(command);
+    assertEquals(command, status.getStatusData());
     status.setMode(IStatus.Mode.DEACTIVATING);
-    assertNull(status.getMobData());
-    status.setMobData(command);
-    assertNull(status.getMobData());
+    assertNull(status.getStatusData());
+    status.setStatusData(command);
+    assertNull(status.getStatusData());
   }
 }
