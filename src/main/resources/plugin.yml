@@ -51,9 +51,12 @@ permissions:
     children:
       mobactions.admin.create: true
       mobactions.admin.remove: true
+      mobactions.admin.reload: true
+      mobactions.admin.event.start: true
+      mobactions.admin.event.stop: true
       mobactions.admin.warps.set: true
       mobactions.admin.warps.remove: true
-      mobactions.admin.reload: true
+
   mobactions.*:
     description: Grants access to all mobs and all other permissions
     default: false
@@ -62,3 +65,4 @@ permissions:
       mobactions.admin.*: true
       mobactions.command: true
       mobactions.warp.*: true
+      mobactions.event.*: true
