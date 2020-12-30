@@ -4,6 +4,8 @@ import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.data.IEventData;
+import com.snowypeaksystems.mobactions.event.MobEventJoinEvent;
+import com.snowypeaksystems.mobactions.event.MobEventLeaveEvent;
 import com.snowypeaksystems.mobactions.mobevent.EventNotFoundException;
 import com.snowypeaksystems.mobactions.mobevent.IMobEvent;
 import com.snowypeaksystems.mobactions.mobevent.IMobEventManager;
@@ -11,6 +13,7 @@ import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
+import org.bukkit.Bukkit;
 
 public class EventMobAction implements IEventMobAction {
   private final IInteractiveMob mob;
@@ -41,11 +44,19 @@ public class EventMobAction implements IEventMobAction {
 
     IMobEvent mobEvent = manager.getEvent(eventName);
     if (!mobEvent.hasPlayerJoined(player)) {
-      mobEvent.addPlayer(player);
-      player.sendMessage(gm("event-joined-text", eventName), gm("event-leave-info"));
+      MobEventJoinEvent event = new MobEventJoinEvent(player, mob, mobEvent);
+      Bukkit.getPluginManager().callEvent(event);
+      if (!event.isCancelled()) {
+        mobEvent.addPlayer(player);
+        player.sendMessage(gm("event-joined-text", eventName), gm("event-leave-info"));
+      }
     } else {
-      mobEvent.removePlayer(player);
-      player.sendMessage(gm("event-left-text", eventName));
+      MobEventLeaveEvent event = new MobEventLeaveEvent(player, mob, mobEvent);
+      Bukkit.getPluginManager().callEvent(event);
+      if (!event.isCancelled()) {
+        mobEvent.removePlayer(player);
+        player.sendMessage(gm("event-left-text", eventName));
+      }
     }
   }
 }
