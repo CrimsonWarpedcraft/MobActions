@@ -67,21 +67,29 @@ public class EventListener implements IEventListener {
   @Override
   @EventHandler(priority = EventPriority.HIGH)
   public void onMobDamage(EntityDamageEvent event) {
-    if (!(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof Player) {
+    if (!(event.getEntity() instanceof LivingEntity)) {
       return;
     }
 
     try {
-      IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
-      if (event instanceof EntityDamageByEntityEvent
+      if (!(event.getEntity() instanceof Player) && event instanceof EntityDamageByEntityEvent
           && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
         MobActionsUser user = ma.getPlayer(
             (Player) ((EntityDamageByEntityEvent) event).getDamager());
+        IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
         processEvent(user, mob, event);
-      } else if (mob.exists()) {
+
+      } else if (event.getEntity() instanceof Player && event instanceof EntityDamageByEntityEvent
+          && (((EntityDamageByEntityEvent) event).getDamager()) instanceof LivingEntity
+          && ma.getInteractiveMob(
+              (LivingEntity) ((EntityDamageByEntityEvent) event).getDamager()).exists()) {
+        event.setCancelled(true);
+
+      } else if (!(event.getEntity() instanceof Player)
+          && ma.getInteractiveMob((LivingEntity) event.getEntity()).exists()) {
         event.setCancelled(true);
       }
-
+      
     } catch (IncompleteDataException e) {
       Bukkit.getLogger().log(Level.WARNING, "Error creating mob object", e);
 
