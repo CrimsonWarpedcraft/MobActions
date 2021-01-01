@@ -14,7 +14,6 @@ import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.util.Map;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -58,23 +57,25 @@ public class EventListener implements IEventListener {
   @Override
   @EventHandler(priority = EventPriority.HIGH)
   public void onMobDamage(EntityDamageEvent event) {
-    if (!(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof Player) {
+    if (!(event.getEntity() instanceof LivingEntity)) {
       return;
     }
 
-
-
-    if (event instanceof EntityDamageByEntityEvent) {
+    if (!(event.getEntity() instanceof Player) && event instanceof EntityDamageByEntityEvent
+        && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
+      MobActionsUser user = ma.getPlayer((Player) ((EntityDamageByEntityEvent) event).getDamager());
       IInteractiveMob mob = ma.getInteractiveMob((LivingEntity) event.getEntity());
-      Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
+      processEvent(user, mob, event);
 
-      if (damager instanceof Player) {
-        MobActionsUser user = ma.getPlayer((Player) damager);
-        processEvent(user, mob, event);
-      } else if (mob.exists() || ma.getInteractiveMob((LivingEntity) damager).exists()
-          && event.getEntity() instanceof Player) {
-        event.setCancelled(true);
-      }
+    } else if (event.getEntity() instanceof Player && event instanceof EntityDamageByEntityEvent
+        && (((EntityDamageByEntityEvent) event).getDamager()) instanceof LivingEntity
+        && ma.getInteractiveMob(
+            (LivingEntity) ((EntityDamageByEntityEvent) event).getDamager()).exists()) {
+      event.setCancelled(true);
+
+    } else if (!(event.getEntity() instanceof Player)
+        && ma.getInteractiveMob((LivingEntity) event.getEntity()).exists()) {
+      event.setCancelled(true);
     }
 
   }
