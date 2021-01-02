@@ -41,6 +41,9 @@ public final class Messages {
     messages.put("remove-error", new Message("&cNo active mob found!"));
     messages.put("command-error",
         new Message("&cThere was a problem running this MobAction command!"));
+    messages.put("mob-corrupt-error",
+        new Message("&cA MobAction mob exists here, but it's data became corrupt (possibly due to "
+            + "another plugin). Please destroy this mob. See console for details."));
 
     // Warp messages
     messages.put("warp-create-error",

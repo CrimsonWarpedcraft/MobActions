@@ -19,14 +19,21 @@ public class CommandData implements ICommandData {
   private final String tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});
 
   /** Constructs CommandData from an entity. */
-  public CommandData(LivingEntity entity, JavaPlugin plugin) {
+  public CommandData(LivingEntity entity, JavaPlugin plugin) throws IncompleteDataException {
     PersistentDataContainer container = entity.getPersistentDataContainer();
+    NamespacedKey aliasKey = new NamespacedKey(plugin, COMMAND_ALIAS_KEY);
+    NamespacedKey commandKey = new NamespacedKey(plugin, COMMAND_KEY);
+    NamespacedKey descriptionKey = new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY);
 
-    this.name = container.get(
-        new NamespacedKey(plugin, COMMAND_ALIAS_KEY), PersistentDataType.STRING);
-    this.command = container.get(new NamespacedKey(plugin, COMMAND_KEY), PersistentDataType.STRING);
-    this.description = container.get(
-        new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY), PersistentDataType.STRING);
+    if (!container.has(aliasKey, PersistentDataType.STRING)
+        || !container.has(commandKey, PersistentDataType.STRING)
+        || !container.has(descriptionKey, PersistentDataType.STRING)) {
+      throw new IncompleteDataException();
+    }
+
+    this.name = container.get(aliasKey, PersistentDataType.STRING);
+    this.command = container.get(commandKey, PersistentDataType.STRING);
+    this.description = container.get(descriptionKey, PersistentDataType.STRING);
   }
 
   /** Constructs a command given a name and command to execute. */

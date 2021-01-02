@@ -4,6 +4,7 @@ import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,9 +15,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WarpData implements IWarpData {
   private final String name;
 
-  public WarpData(LivingEntity entity, JavaPlugin plugin) {
-    this.name = entity.getPersistentDataContainer().get(
-        new NamespacedKey(plugin, WARP_KEY), PersistentDataType.STRING);
+  /** Create WarpData from a current entity. */
+  public WarpData(LivingEntity entity, JavaPlugin plugin) throws IncompleteDataException {
+    PersistentDataContainer container = entity.getPersistentDataContainer();
+    NamespacedKey warpKey = new NamespacedKey(plugin, WARP_KEY);
+
+    if (!container.has(warpKey, PersistentDataType.STRING)) {
+      throw new IncompleteDataException();
+    }
+
+    this.name = container.get(warpKey, PersistentDataType.STRING);
   }
 
   public WarpData(String name) {

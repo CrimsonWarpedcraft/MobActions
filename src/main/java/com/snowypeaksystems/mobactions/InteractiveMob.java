@@ -1,5 +1,6 @@
 package com.snowypeaksystems.mobactions;
 
+import com.snowypeaksystems.mobactions.data.IncompleteDataException;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.lang.reflect.Constructor;
@@ -17,7 +18,7 @@ public class InteractiveMob implements IInteractiveMob {
   private final LivingEntity entity;
   private MobData data;
 
-  InteractiveMob(LivingEntity entity, JavaPlugin plugin) {
+  InteractiveMob(LivingEntity entity, JavaPlugin plugin) throws IncompleteDataException {
     if (entity instanceof Player) {
       throw new IllegalArgumentException("The entity cannot be a player");
     }
@@ -36,7 +37,13 @@ public class InteractiveMob implements IInteractiveMob {
           data = c.newInstance(entity, plugin);
         } catch (NoSuchMethodException e) {
           Bukkit.getLogger().log(Level.WARNING, "Unrecognized data key found");
-        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+        } catch (InvocationTargetException e) {
+          if (e.getCause() instanceof IncompleteDataException) {
+            throw (IncompleteDataException) e.getCause();
+          } else {
+            DebugLogger.getLogger().log("Error running constructor");
+          }
+        } catch (IllegalAccessException | InstantiationException e) {
           DebugLogger.getLogger().log("Error creating mob from recognized class");
         }
       }
