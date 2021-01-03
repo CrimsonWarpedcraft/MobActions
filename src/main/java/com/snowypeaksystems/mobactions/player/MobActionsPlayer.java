@@ -55,9 +55,8 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public boolean canRunCommand(String command) {
-    return player.hasPermission("mobactions.command.*")
-        || player.hasPermission("mobactions.command." + command);
+  public boolean canRunCommand() {
+    return player.hasPermission("mobactions.command");
   }
 
   @Override

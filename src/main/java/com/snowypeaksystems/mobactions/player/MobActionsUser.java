@@ -28,7 +28,7 @@ public interface MobActionsUser {
 
   boolean canUseWarp(String warp);
 
-  boolean canRunCommand(String command);
+  boolean canRunCommand();
 
   boolean canCreate();
 

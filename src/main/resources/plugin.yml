@@ -15,8 +15,8 @@ permissions:
   mobactions.warp.*:
     description: Allows players to use all warps, or specify a warp name instead of *
     default: true
-  mobactions.command.*:
-    description: Allows players to use all commands, or specify a command alias instead of *
+  mobactions.command:
+    description: Allows players to use all command mobs
     default: true
   mobactions.warp:
     description: Allows players to go to a warp using /mac warp
@@ -51,5 +51,5 @@ permissions:
     children:
       mobactions.warp: true
       mobactions.admin.*: true
-      mobactions.command.*: true
+      mobactions.command: true
       mobactions.warp.*: true

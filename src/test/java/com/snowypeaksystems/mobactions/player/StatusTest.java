@@ -33,7 +33,7 @@ class StatusTest {
 
   @Test
   void getMobData() {
-    ICommandData command = new CommandData("", "", "");
+    ICommandData command = new CommandData("", "");
 
     IStatus status = new Status();
     assertNull(status.getMobData());

@@ -13,7 +13,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class CommandData implements ICommandData {
-  private final String name;
   private final String command;
   private final String description;
   private final String tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});
@@ -21,24 +20,20 @@ public class CommandData implements ICommandData {
   /** Constructs CommandData from an entity. */
   public CommandData(LivingEntity entity, JavaPlugin plugin) throws IncompleteDataException {
     PersistentDataContainer container = entity.getPersistentDataContainer();
-    NamespacedKey aliasKey = new NamespacedKey(plugin, COMMAND_ALIAS_KEY);
     NamespacedKey commandKey = new NamespacedKey(plugin, COMMAND_KEY);
     NamespacedKey descriptionKey = new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY);
 
-    if (!container.has(aliasKey, PersistentDataType.STRING)
-        || !container.has(commandKey, PersistentDataType.STRING)
+    if (!container.has(commandKey, PersistentDataType.STRING)
         || !container.has(descriptionKey, PersistentDataType.STRING)) {
       throw new IncompleteDataException();
     }
 
-    this.name = container.get(aliasKey, PersistentDataType.STRING);
     this.command = container.get(commandKey, PersistentDataType.STRING);
     this.description = container.get(descriptionKey, PersistentDataType.STRING);
   }
 
   /** Constructs a command given a name and command to execute. */
-  public CommandData(String name, String command, String description) {
-    this.name = name;
+  public CommandData(String command, String description) {
     this.command = command;
     this.description = description;
   }
@@ -69,16 +64,9 @@ public class CommandData implements ICommandData {
   }
 
   @Override
-  public String getAlias() {
-    return name;
-  }
-
-  @Override
   public void store(LivingEntity entity, JavaPlugin plugin) {
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, COMMAND_KEY), PersistentDataType.STRING, command);
-    entity.getPersistentDataContainer()
-        .set(new NamespacedKey(plugin, COMMAND_ALIAS_KEY), PersistentDataType.STRING, name);
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY),
             PersistentDataType.STRING, description);
@@ -87,7 +75,6 @@ public class CommandData implements ICommandData {
   @Override
   public void purge(LivingEntity entity, JavaPlugin plugin) {
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_KEY));
-    entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_ALIAS_KEY));
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY));
   }
 

@@ -3,8 +3,6 @@ package com.snowypeaksystems.mobactions.player;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.snowypeaksystems.mobactions.data.CommandData;
-import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.mock.FakePlayer;
 import org.junit.jupiter.api.Test;
 
@@ -33,17 +31,12 @@ class MobActionsPlayerTest {
   void canRunCommand() {
     FakePlayer fake = new FakePlayer();
     MobActionsUser player = new MobActionsPlayer(fake);
-    ICommandData command = new CommandData("test1", "", "");
 
-    assertFalse(player.canRunCommand(command.getAlias()));
+    assertFalse(player.canRunCommand());
 
-    fake.setPermission("mobactions.command.test1", true);
-    assertTrue(player.canRunCommand(command.getAlias()));
-    fake.setPermission("mobactions.command.test1", false);
-
-    fake.setPermission("mobactions.command.*", true);
-    assertTrue(player.canRunCommand(command.getAlias()));
-    fake.setPermission("mobactions.command.*", false);
+    fake.setPermission("mobactions.command", true);
+    assertTrue(player.canRunCommand());
+    fake.setPermission("mobactions.command", false);
   }
 
   @Test
