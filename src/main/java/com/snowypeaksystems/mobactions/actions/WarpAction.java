@@ -43,17 +43,20 @@ public class WarpAction implements IWarpAction {
 
     IWarp warp = warpManager.getWarp(warpName);
 
-    WarpInteractEvent event = new WarpInteractEvent(player, mob, warp);
-    Bukkit.getPluginManager().callEvent(event);
-    if (!event.isCancelled()) {
+
+    if (mob == null || !callEvent(player, warp)) {
       player.teleport(warp.getDestination()).thenAccept(success -> {
         if (success) {
           player.sendMessage(gm("warp-success", warpName));
           DebugLogger.getLogger().log("Player warped");
         }
       });
-    } else {
-      DebugLogger.getLogger().log("Event cancelled");
     }
+  }
+
+  private boolean callEvent(MobActionsUser player, IWarp warp) {
+    WarpInteractEvent event = new WarpInteractEvent(player, mob, warp);
+    Bukkit.getPluginManager().callEvent(event);
+    return event.isCancelled();
   }
 }

@@ -30,17 +30,20 @@ public class CommandAction implements ICommandAction {
     String commandStr = command.getCommand(player.getName());
     DebugLogger.getLogger().log("Command: " + commandStr);
 
-    CommandInteractEvent event = new CommandInteractEvent(player, mob, commandStr);
-    Bukkit.getPluginManager().callEvent(event);
-    if (!event.isCancelled()) {
+    if (mob == null || !callEvent(player, commandStr)) {
       if (!player.performCommand(commandStr)) {
         DebugLogger.getLogger().log("Command execution failed");
         throw new CommandActionException();
       }
 
       DebugLogger.getLogger().log("Command executed");
-    } else {
-      DebugLogger.getLogger().log("Event cancelled");
     }
   }
+
+  private boolean callEvent(MobActionsUser player, String commandStr) {
+    CommandInteractEvent event = new CommandInteractEvent(player, mob, commandStr);
+    Bukkit.getPluginManager().callEvent(event);
+    return event.isCancelled();
+  }
+
 }
