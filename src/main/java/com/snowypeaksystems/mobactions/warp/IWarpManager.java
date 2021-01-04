@@ -16,7 +16,7 @@ public interface IWarpManager {
   IWarp getWarp(String name);
 
   /** Removes and returns the IWarp with the provided name if present, or null otherwise. */
-  IWarp unregister(String name);
+  void unregister(String name);
 
   /** Returns true if a warp with the given name exists, and false otherwise. */
   boolean exists(String name);

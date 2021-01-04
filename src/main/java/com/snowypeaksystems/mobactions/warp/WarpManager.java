@@ -49,14 +49,13 @@ public class WarpManager implements IWarpManager {
   }
 
   @Override
-  public IWarp unregister(String name) {
+  public void unregister(String name) {
     IWarp warp = warps.remove(name.toLowerCase());
 
     if (warp != null) {
       warp.delete();
     }
 
-    return warp;
   }
 
   @Override
