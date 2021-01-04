@@ -33,7 +33,7 @@ public class CommandListener implements ICommandListener {
   // TODO: Add to Messages class
   private final String[] help = {
       "Usage: /mac <subcommand>",
-      "/mac create command <name> \"command\" \"description\" - Create a new command mob",
+      "/mac create command \"command\" \"description\" - Create a new command mob",
       "/mac create warp <warp> - Create a new warp mob",
       "/mac remove - Remove a mob's action",
       "/mac cancel - Cancels the current operation",
@@ -105,14 +105,14 @@ public class CommandListener implements ICommandListener {
       MobActionsUser user = ma.getPlayer(sender);
       PlayerCommand cmd = null;
 
-      if (args.length > 3 && args[0].equalsIgnoreCase("create")
+      if (args.length >= 4 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("command")) {
-        String[] sublist = Arrays.asList(args).subList(3, args.length).toArray(new String[]{});
+        String[] sublist = Arrays.asList(args).subList(2, args.length).toArray(new String[]{});
         List<String> strArgs = parseForStrings(sublist);
 
         DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
         if (strArgs.size() == 2) {
-          cmd = new CreateCommand(new CommandData(args[2], strArgs.get(0), strArgs.get(1)));
+          cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1)));
         }
       } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("warp")) {

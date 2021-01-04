@@ -13,16 +13,11 @@ import org.junit.jupiter.api.Test;
 class CommandDataTest {
   @Test
   void replace() {
-    ICommandData data = new CommandData("", "te{}st", "");
+    ICommandData data = new CommandData("te{}st", "");
     assertEquals("test test", data.getCommand("st te"));
 
-    data = new CommandData("", "{}st {}st", "");
+    data = new CommandData("{}st {}st", "");
     assertEquals("test test", data.getCommand("te"));
   }
 
-  @Test
-  void getAlias() {
-    ICommandData data = new CommandData("test", "", "");
-    assertEquals("test", data.getAlias());
-  }
 }

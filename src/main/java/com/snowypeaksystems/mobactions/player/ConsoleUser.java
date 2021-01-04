@@ -21,7 +21,7 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
-  public boolean canRunCommand(String command) {
+  public boolean canRunCommand() {
     return false;
   }
 

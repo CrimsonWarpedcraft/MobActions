@@ -14,8 +14,8 @@ Tested Minecraft Versions: **1.16**
 For a simple plugin, we pack a few powerful features!
 
 ### Commands
-`/mac create command <name> "command" "description"` - Create a new command mob  
-`/mac create warp <warp>` - Create a new warp mob  
+`/mac create command "command" "description"` - Create a new command mob  
+`/mac create warp <name>` - Create a new warp mob  
 `/mac remove` - Remove a mob's action  
 `/mac cancel` - Cancels the current operation  
 `/mac warp <warp>` - Teleport to a warp  
@@ -27,8 +27,7 @@ For a simple plugin, we pack a few powerful features!
 
 ### Permissions
 `mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
-`mobactions.command.*` - Allows players to use all command mobs (Default: enabled)  
-`mobactions.command.[command]` - Allows players to use specific command mobs (Default: disabled)  
+`mobactions.command` - Allows players to use all command mobs (Default: enabled)  
 `mobactions.warp` - Allows players to go to a warp using /mac warp. Also needed for /mac warps (Default: op)  
 `mobactions.warp.*` - Allows players to use all mob portals (Default: enabled)  
 `mobactions.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)
