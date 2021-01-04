@@ -1,6 +1,6 @@
 package com.snowypeaksystems.mobactions.mobevent;
 
-import com.snowypeaksystems.mobactions.actions.MobAction;
+import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 
 /**
@@ -8,8 +8,8 @@ import com.snowypeaksystems.mobactions.player.MobActionsUser;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface IMobEventManager {
-  /** Creates, schedules, and returns a IMobEvent. */
-  IMobEvent createEvent(String name, int maxPlayers, long timeout, MobAction data);
+  /** Creates and returns an IMobEvent. */
+  IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers);
 
   /** Removes and cancels the event. */
   void removeEvent(String name);
