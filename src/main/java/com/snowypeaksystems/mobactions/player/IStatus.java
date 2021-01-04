@@ -10,8 +10,6 @@ public interface IStatus {
   enum Mode {
     CREATING,
     DESTROYING,
-    ACTIVATING,
-    DEACTIVATING,
     NONE
   }
 
