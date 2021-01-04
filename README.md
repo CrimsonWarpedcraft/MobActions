@@ -16,11 +16,15 @@ For a simple plugin, we pack a few powerful features!
 ### Commands
 `/mac create command "command" "description"` - Create a new command mob  
 `/mac create warp <name>` - Create a new warp mob  
-`/mac create event <name> <command|warp> <args>` - Create a new event mob with a command or warp action  
+`/mac create event <name>` - Create a new event mob with a command or warp action  
 `/mac remove` - Remove a mob's action  
 `/mac cancel` - Cancels the current operation  
-`/mac events start <max-players> <timeout>` - Start an event  
-`/mac events stop <max-players> <timeout>` - Stop an event  
+`/mac events create <name> <timeout> command "command" <max-players>` - Create a command event  
+`/mac events create <name> <timeout> warp <name> <max-players>` - Create a warp event  
+`/mac events remove <name>` - Remove an event  
+`/mac events open <name>` - Opens an event  
+`/mac events cancel <name>` - Cancel an event  
+`/mac events forcestart <name>` - Forces an event to start now  
 `/mac warp <warp>` - Teleport to a warp  
 `/mac warps` - List available warps  
 `/mac warps set <name>` - Create a warp  
@@ -50,7 +54,8 @@ For a simple plugin, we pack a few powerful features!
 For now, enjoy a simple, empty config. :)
 
 ## Installation
-Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/mac reload` to load any changes you make or messages you add!
+Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run 
+`/mac reload` to load any changes you make or messages you add!
 
 ## Building From Source
 You can build from source by running the following command.
