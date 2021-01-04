@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.mobevent;
 
+import com.snowypeaksystems.mobactions.data.AliasedData;
+import com.snowypeaksystems.mobactions.data.FileData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import java.util.Set;
 
@@ -7,7 +9,7 @@ import java.util.Set;
  * Objects representing running MobEvents.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public interface IMobEvent {
+public interface IMobEvent extends AliasedData, FileData {
   enum State {
     OPEN,
     COUNTDOWN,

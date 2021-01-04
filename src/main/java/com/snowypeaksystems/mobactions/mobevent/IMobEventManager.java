@@ -20,8 +20,8 @@ public interface IMobEventManager {
   /** Returns true if the event with the provided name exists, or null otherwise. */
   boolean exists(String name);
 
-  /** Removes all events. */
-  void clear();
+  /** Reloads all events. */
+  void reload();
 
   /** Removes the player from all events. Helpful for logouts. */
   void removeFromAll(MobActionsUser player);

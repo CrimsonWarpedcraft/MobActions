@@ -58,7 +58,7 @@ public class MobEventManager implements IMobEventManager {
   }
 
   @Override
-  public void clear() {
+  public void reload() {
     for (IMobEvent event : events.values()) {
       if (event.getState() != IMobEvent.State.CLOSED) {
         event.cancel();

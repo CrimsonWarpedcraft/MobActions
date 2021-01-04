@@ -6,6 +6,7 @@ import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.actions.MobAction;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -132,5 +133,20 @@ public class MobEvent implements IMobEvent {
     }
 
     countdown.runTaskTimer(plugin, 0, 20);
+  }
+
+  @Override
+  public String getAlias() {
+    return name;
+  }
+
+  @Override
+  public void save() throws IOException {
+
+  }
+
+  @Override
+  public boolean delete() {
+    return false;
   }
 }

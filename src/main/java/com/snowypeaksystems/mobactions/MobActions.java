@@ -119,7 +119,7 @@ public class MobActions extends AMobActions {
     Messages.initialize();
     warps.reload();
     players.clear();
-    events.clear();
+    events.reload();
 
     getLogger().info("MobActions reloaded successfully!");
   }
