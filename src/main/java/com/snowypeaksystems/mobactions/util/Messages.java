@@ -34,8 +34,9 @@ public final class Messages {
     messages.put("event-joined-text", new Message("&aSuccessfully joined the {&c} event!"));
     messages.put("event-left-text", new Message("&cLeft the {&c} event!"));
     messages.put("event-leave-info", new Message("&cClick again to leave the event!"));
-    messages.put("event-missing-error", new Message("&cThe {} event hasn't been started yet!"));
-    messages.put("event-full-error", new Message("&cThe {} event is full!"));
+    messages.put("event-missing-error", new Message("&eThe {} event doesn't exist!"));
+    messages.put("event-already-open-error", new Message("&eThe {} event is already open!"));
+    messages.put("event-closed-error", new Message("&eThe {} event isn't open!"));
 
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));

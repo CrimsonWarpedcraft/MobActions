@@ -13,13 +13,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class MobEvent implements IMobEvent {
   private final String name;
   private final int maxPlayers;
-  private final Set<MobActionsUser> users;
-  private final BukkitRunnable timeout;
+  private final long timeout;
+  private final BukkitRunnable timeoutCounter;
   private final BukkitRunnable countdown;
+  private final Set<MobActionsUser> users;
+  private final AMobActions plugin;
+  private State state;
 
-  MobEvent(String name, int maxPlayers, long timeout, MobAction action, AMobActions plugin) {
+  MobEvent(String name, MobAction action, long timeout, AMobActions plugin, int maxPlayers) {
     this.name = name;
     this.maxPlayers = maxPlayers;
+    this.timeout = timeout;
+    this.plugin = plugin;
+    state = State.CLOSED;
     users = new HashSet<>();
 
     this.countdown = new BukkitRunnable() {
@@ -27,7 +33,7 @@ public class MobEvent implements IMobEvent {
       @Override
       public void run() {
         if (seconds < 1) {
-          plugin.getMobEventManager().removeEvent(name);
+          state = State.CLOSED;
 
           for (MobActionsUser user : users) {
             try {
@@ -36,6 +42,7 @@ public class MobEvent implements IMobEvent {
               user.sendMessage(e.getPlayerFormattedString());
             }
           }
+
         } else {
           seconds--;
           for (MobActionsUser user : users) {
@@ -45,33 +52,27 @@ public class MobEvent implements IMobEvent {
       }
     };
 
-    this.timeout = new BukkitRunnable() {
+    this.timeoutCounter = new BukkitRunnable() {
       @Override
       public void run() {
-          countdown.runTaskTimer(plugin, 0, 20);
+        state = State.COUNTDOWN;
+        countdown.runTaskTimer(plugin, 0, 20);
       }
     };
-
-    this.timeout.runTaskLater(plugin, timeout * 20);
   }
 
   @Override
-  public int getMaxPlayers() {
-    return maxPlayers;
-  }
-
-  @Override
-  public BukkitRunnable getRunnableTask() {
-    return timeout;
-  }
-
-  @Override
-  public void addPlayer(MobActionsUser player) throws EventFullException {
-    if (users.size() == maxPlayers) {
-      throw new EventFullException(name);
+  public void addPlayer(MobActionsUser player) throws EventStateException {
+    if (state != State.OPEN) {
+      throw new EventStateException(gm("event-closed-error", name));
     }
 
     users.add(player);
+
+    if (users.size() == maxPlayers) {
+      state = State.COUNTDOWN;
+      force();
+    }
   }
 
   @Override
@@ -87,5 +88,49 @@ public class MobEvent implements IMobEvent {
   @Override
   public Set<MobActionsUser> getPlayerSet() {
     return Set.copyOf(users);
+  }
+
+  @Override
+  public void open() throws EventStateException {
+    if (state != State.CLOSED) {
+      throw new EventStateException(gm("event-already-open-error", name));
+    }
+
+    state = State.OPEN;
+    timeoutCounter.runTaskLater(plugin, timeout * 20);
+  }
+
+  @Override
+  public void forceStart() throws EventStateException {
+    if (state != State.OPEN) {
+      throw new EventStateException(gm("event-closed-error", name));
+    }
+
+    state = State.COUNTDOWN;
+    force();
+  }
+
+  @Override
+  public void cancel() {
+    if (!timeoutCounter.isCancelled()) {
+      timeoutCounter.cancel();
+    }
+
+    if (!countdown.isCancelled()) {
+      countdown.cancel();
+    }
+  }
+
+  @Override
+  public State getState() {
+    return state;
+  }
+
+  private void force() {
+    if (!timeoutCounter.isCancelled()) {
+      timeoutCounter.cancel();
+    }
+
+    countdown.runTaskTimer(plugin, 0, 20);
   }
 }
