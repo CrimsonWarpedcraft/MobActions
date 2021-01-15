@@ -20,6 +20,7 @@ public class MobEvent implements IMobEvent {
   private final Set<MobActionsUser> users;
   private final AMobActions plugin;
   private State state;
+  // todo: declare file variable
 
   MobEvent(String name, MobAction action, long timeout, AMobActions plugin, int maxPlayers) {
     this.name = name;
@@ -28,6 +29,7 @@ public class MobEvent implements IMobEvent {
     this.plugin = plugin;
     state = State.CLOSED;
     users = new HashSet<>();
+    // todo: instantiate file variable
 
     this.countdown = new BukkitRunnable() {
       private int seconds = 10;
@@ -61,6 +63,8 @@ public class MobEvent implements IMobEvent {
       }
     };
   }
+
+  // todo: create constructor for loading from file
 
   @Override
   public void addPlayer(MobActionsUser player) throws EventStateException {
@@ -142,11 +146,15 @@ public class MobEvent implements IMobEvent {
 
   @Override
   public void save() throws IOException {
-
+    // todo: write data to file
+    // name, timeout, max players, data key
+    // if data is command, command string
+    // if data is warp, warp name
   }
 
   @Override
   public boolean delete() {
+    // todo: delete file
     return false;
   }
 }

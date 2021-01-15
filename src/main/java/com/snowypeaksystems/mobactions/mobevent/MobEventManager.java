@@ -14,7 +14,9 @@ import java.util.Map;
 public class MobEventManager implements IMobEventManager {
   private final Map<String, IMobEvent> events;
   private final AMobActions plugin;
+  // todo: declare warp folder variable
 
+  // todo: require warp folder argument, throw file not found if does not exist
   public MobEventManager(AMobActions plugin) {
     this.plugin = plugin;
     events = new HashMap<>();
@@ -66,6 +68,8 @@ public class MobEventManager implements IMobEventManager {
     }
 
     events.clear();
+
+    // todo: load events from data folder
   }
 
   @Override
