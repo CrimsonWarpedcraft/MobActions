@@ -1,11 +1,6 @@
 package com.snowypeaksystems.mobactions.mobevent;
 
 import com.snowypeaksystems.mobactions.AMobActions;
-import com.snowypeaksystems.mobactions.actions.CommandAction;
-import com.snowypeaksystems.mobactions.actions.MobAction;
-import com.snowypeaksystems.mobactions.actions.WarpAction;
-import com.snowypeaksystems.mobactions.data.ICommandData;
-import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import java.util.HashMap;
@@ -24,17 +19,7 @@ public class MobEventManager implements IMobEventManager {
 
   @Override
   public IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers) {
-    MobAction action;
-
-    if (data instanceof IWarpData) {
-      action = new WarpAction(null, (IWarpData) data, plugin.getWarpManager());
-    } else if (data instanceof ICommandData) {
-      action = new CommandAction(null, (ICommandData) data);
-    } else {
-      throw new IllegalArgumentException("That data is not yet supported with events.");
-    }
-
-    IMobEvent event = new MobEvent(name, action, timeout, plugin, maxPlayers);
+    IMobEvent event = new MobEvent(name, data, timeout, plugin, maxPlayers);
     events.put(name.toLowerCase(), event);
 
     return event;

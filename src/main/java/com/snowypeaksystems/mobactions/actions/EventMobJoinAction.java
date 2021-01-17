@@ -15,13 +15,13 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import org.bukkit.Bukkit;
 
-public class EventMobAction implements IEventMobAction {
+public class EventMobJoinAction implements IEventMobJoinAction {
   private final IInteractiveMob mob;
   private final IEventData data;
   private final IMobEventManager manager;
 
-  /** Create an EventMobAction. */
-  public EventMobAction(IInteractiveMob mob, IEventData data, IMobEventManager manager) {
+  /** Create an EventMobJoinAction. */
+  public EventMobJoinAction(IInteractiveMob mob, IEventData data, IMobEventManager manager) {
     this.mob = mob;
     this.data = data;
     this.manager = manager;

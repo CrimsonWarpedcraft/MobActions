@@ -1,8 +1,8 @@
 package com.snowypeaksystems.mobactions.actions;
 
 /**
- * Action used to join an event.
+ * Run once an event has started.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public interface IEventMobAction extends MobAction {
+public interface IEventMobStartAction extends MobAction {
 }

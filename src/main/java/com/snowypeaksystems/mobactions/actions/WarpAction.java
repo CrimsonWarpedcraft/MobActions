@@ -43,8 +43,7 @@ public class WarpAction implements IWarpAction {
 
     IWarp warp = warpManager.getWarp(warpName);
 
-
-    if (mob == null || !callEvent(player, warp)) {
+    if (!callEvent(player, warp)) {
       player.teleport(warp.getDestination()).thenAccept(success -> {
         if (success) {
           player.sendMessage(gm("warp-success", warpName));

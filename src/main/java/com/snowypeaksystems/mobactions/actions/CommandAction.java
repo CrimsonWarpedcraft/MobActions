@@ -30,7 +30,7 @@ public class CommandAction implements ICommandAction {
     String commandStr = command.getCommand(player.getName());
     DebugLogger.getLogger().log("Command: " + commandStr);
 
-    if (mob == null || !callEvent(player, commandStr)) {
+    if (!callEvent(player, commandStr)) {
       if (!player.performCommand(commandStr)) {
         DebugLogger.getLogger().log("Command execution failed");
         throw new CommandActionException();

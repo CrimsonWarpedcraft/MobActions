@@ -3,12 +3,17 @@ package com.snowypeaksystems.mobactions.mobevent;
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
 import com.snowypeaksystems.mobactions.AMobActions;
-import com.snowypeaksystems.mobactions.actions.MobAction;
+import com.snowypeaksystems.mobactions.actions.EventMobStartAction;
+import com.snowypeaksystems.mobactions.actions.IEventMobStartAction;
+import com.snowypeaksystems.mobactions.data.MobData;
+import com.snowypeaksystems.mobactions.event.MobEventStartEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
+import com.snowypeaksystems.mobactions.util.DebugLogger;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class MobEvent implements IMobEvent {
@@ -19,17 +24,22 @@ public class MobEvent implements IMobEvent {
   private final BukkitRunnable countdown;
   private final Set<MobActionsUser> users;
   private final AMobActions plugin;
+  private final MobData data;
   private State state;
   // todo: declare file variable
 
-  MobEvent(String name, MobAction action, long timeout, AMobActions plugin, int maxPlayers) {
+  MobEvent(String name, MobData data, long timeout, AMobActions plugin, int maxPlayers) {
     this.name = name;
-    this.maxPlayers = maxPlayers;
+    this.data = data;
     this.timeout = timeout;
     this.plugin = plugin;
+    this.maxPlayers = maxPlayers;
     state = State.CLOSED;
     users = new HashSet<>();
     // todo: instantiate file variable
+
+    MobEvent e = this;
+    IEventMobStartAction action = new EventMobStartAction(data, plugin);
 
     this.countdown = new BukkitRunnable() {
       private int seconds = 10;
@@ -38,12 +48,18 @@ public class MobEvent implements IMobEvent {
         if (seconds < 1) {
           state = State.CLOSED;
 
-          for (MobActionsUser user : users) {
-            try {
-              action.run(user);
-            } catch (PlayerException e) {
-              user.sendMessage(e.getPlayerFormattedString());
+          MobEventStartEvent event = new MobEventStartEvent(e);
+          Bukkit.getPluginManager().callEvent(event);
+          if (!event.isCancelled()) {
+            for (MobActionsUser user : users) {
+              try {
+                action.run(user);
+              } catch (PlayerException e) {
+                user.sendMessage(e.getPlayerFormattedString());
+              }
             }
+          } else {
+            DebugLogger.getLogger().log("Event cancelled");
           }
 
         } else {
