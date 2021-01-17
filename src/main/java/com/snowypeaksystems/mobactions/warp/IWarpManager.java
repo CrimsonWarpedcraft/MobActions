@@ -24,6 +24,9 @@ public interface IWarpManager {
   /** Returns a set of loaded warp names. */
   Set<String> getLoadedWarpNames();
 
+  /** Returns a set of loaded warps. */
+  Set<IWarp> getLoadedWarps();
+
   /** Reloads the warp list from storage. */
   void reload();
 }
