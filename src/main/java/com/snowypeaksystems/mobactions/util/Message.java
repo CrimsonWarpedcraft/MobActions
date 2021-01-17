@@ -59,12 +59,13 @@ public class Message implements IMessage {
           String previousFormat = ChatColor.getLastColors(segment);
           formatCodes.append(previousFormat);
           newString.append(segment);
+          String formatted = ChatColor.translateAlternateColorCodes('&', args[tokens]);
 
           if (tokenFormat.length() > 0) {
-            newString.append(ChatColor.RESET).append(tokenFormat).append(args[tokens])
+            newString.append(ChatColor.RESET).append(tokenFormat).append(formatted)
                 .append(ChatColor.RESET).append(formatCodes.toString());
           } else {
-            newString.append(args[tokens]);
+            newString.append(formatted);
           }
 
           last = i + 1;
