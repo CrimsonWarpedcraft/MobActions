@@ -19,12 +19,13 @@ For a simple plugin, we pack a few powerful features!
 `/mac create event <name>` - Create a new event mob with a command or warp action  
 `/mac remove` - Remove a mob's action  
 `/mac cancel` - Cancels the current operation  
-`/mac events create <name> <timeout> command "command" <max-players>` - Create a command event  
-`/mac events create <name> <timeout> warp <name> <max-players>` - Create a warp event  
-`/mac events remove <name>` - Remove an event  
-`/mac events open <name>` - Opens an event  
-`/mac events cancel <name>` - Cancel an event  
-`/mac events forcestart <name>` - Forces an event to start now  
+`/mac event create command "command" <event-name> <timeout> <max-players>` - Create a command event  
+`/mac event create warp <warp-name> <event-name> <timeout> <max-players>` - Create a warp event  
+`/mac event open <name>` - Opens an event  
+`/mac event cancel <name>` - Cancel an event  
+`/mac event remove <name>` - Remove an event  
+`/mac event forcestart <name>` - Forces an event to start now  
+`/mac events` - List available events and their state  
 `/mac warp <warp>` - Teleport to a warp  
 `/mac warps` - List available warps  
 `/mac warps set <name>` - Create a warp  
