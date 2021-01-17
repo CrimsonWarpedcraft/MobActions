@@ -37,7 +37,7 @@ public class CreateAction implements ICreateAction {
       throw new InteractiveMobAlreadyExistsException();
     }
 
-    CreateIInteractiveMobEvent event = new CreateIInteractiveMobEvent(player, mob);
+    CreateIInteractiveMobEvent event = new CreateIInteractiveMobEvent(player, mob, data);
     Bukkit.getPluginManager().callEvent(event);
     if (!event.isCancelled()) {
       mob.setData(data);
