@@ -33,6 +33,11 @@ public final class Messages {
     messages.put("event-countdown-text", new Message("&eStarting {&c} event in {&c} seconds."));
     messages.put("event-joined-text", new Message("&aSuccessfully joined the {&c} event!"));
     messages.put("event-left-text", new Message("&cLeft the {&c} event!"));
+    messages.put("event-create-text", new Message("&cCreated {&c} event!"));
+    messages.put("event-remove-text", new Message("&cRemoved {&c} event!"));
+    messages.put("event-open-text", new Message("&cOpened {&c} event!"));
+    messages.put("event-cancel-text", new Message("&cCancelled {&c} event!"));
+    messages.put("event-forcestart-text", new Message("&cStarted {&c} event!"));
     messages.put("event-leave-info", new Message("&cClick again to leave the event!"));
     messages.put("event-missing-error", new Message("&eThe {} event doesn't exist!"));
     messages.put("event-already-open-error", new Message("&eThe {} event is already open!"));
