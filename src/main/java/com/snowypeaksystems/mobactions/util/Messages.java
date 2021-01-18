@@ -41,8 +41,10 @@ public final class Messages {
     messages.put("event-forcestart-text", new Message("&aStarted {&c} event!"));
     messages.put("event-leave-info", new Message("&eClick again to leave the event!"));
     messages.put("event-missing-error", new Message("&cThe {} event doesn't exist!"));
+    messages.put("event-exists-error", new Message("&cThe {} event already exists!"));
     messages.put("event-already-open-error", new Message("&cThe {} event is already open!"));
     messages.put("event-closed-error", new Message("&cThe {} event isn't open!"));
+    messages.put("event-save-error", new Message("&cCouldn't save event \"{}\"!"));
 
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
