@@ -66,6 +66,16 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
+  public boolean canCreateEvents() {
+    return player.hasPermission("mobactions.admin.events.create");
+  }
+
+  @Override
+  public boolean canRemoveEvents() {
+    return player.hasPermission("mobactions.admin.events.remove");
+  }
+
+  @Override
   public boolean canStartEvents() {
     return player.hasPermission("mobactions.admin.events.start");
   }

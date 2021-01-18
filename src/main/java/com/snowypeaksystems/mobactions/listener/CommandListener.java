@@ -43,11 +43,10 @@ public class CommandListener implements ICommandListener {
           + "command event",
       "/mac event create warp <warp-name> <event-name> <timeout> <max-players> - Create a warp "
           + "event",
-      "/mac event open <name> - Opens an event",
-      "/mac event cancel <name> - Cancel an event",
-      "/mac event remove <name> - Remove an event",
-      "/mac event forcestart <name> - Forces an event to start now",
-      "/mac events - List available events and their state",
+      "/mac events open <name> - Opens an event",
+      "/mac events cancel <name> - Cancel an event",
+      "/mac events remove <name> - Remove an event",
+      "/mac events forcestart <name> - Forces an event to start now",
       "/mac warp <warp> - Teleport to a warp",
       "/mac warps - List available warps",
       "/mac warps set <name> - Create a warp",
@@ -57,7 +56,7 @@ public class CommandListener implements ICommandListener {
   };
 
   private final String[] subcommands =
-      {"cancel", "create", "event", "events", "help", "reload", "remove", "warp", "warps"};
+      {"cancel", "create", "events", "help", "reload", "remove", "warp", "warps"};
   private final String[] createCommands = {"command", "event", "warp"};
   private final String[] eventCommands = {"cancel", "create", "forcestart", "open", "remove"};
   private final String[] eventTypes = {"command", "warp"};
@@ -105,8 +104,8 @@ public class CommandListener implements ICommandListener {
             StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
           }
 
-        } else if (args[0].equalsIgnoreCase("event")) {
-          if (args[1].equalsIgnoreCase("cancel")) {
+        } else if (args[0].equalsIgnoreCase("events")) {
+          if (args[1].equalsIgnoreCase("cancel") && user.canCancelEvents()) {
             Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
             ArrayList<String> names = new ArrayList<>();
 
@@ -121,7 +120,7 @@ public class CommandListener implements ICommandListener {
           } else if (args[1].equalsIgnoreCase("create")) {
             StringUtil.copyPartialMatches(args[2], Arrays.asList(eventTypes), completions);
 
-          } else if (args[1].equalsIgnoreCase("forcestart")) {
+          } else if (args[1].equalsIgnoreCase("forcestart") && user.canStartEvents()) {
             Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
             ArrayList<String> names = new ArrayList<>();
 
@@ -133,7 +132,7 @@ public class CommandListener implements ICommandListener {
 
             StringUtil.copyPartialMatches(args[2], names, completions);
 
-          } else if (args[1].equalsIgnoreCase("open")) {
+          } else if (args[1].equalsIgnoreCase("open") && user.canStartEvents()) {
             Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
             ArrayList<String> names = new ArrayList<>();
 
@@ -145,7 +144,7 @@ public class CommandListener implements ICommandListener {
 
             StringUtil.copyPartialMatches(args[2], names, completions);
 
-          } else if (args[1].equalsIgnoreCase("remove")) {
+          } else if (args[1].equalsIgnoreCase("remove") && user.canRemoveEvents()) {
             Set<String> events = ma.getMobEventManager().getLoadedEventNames();
             StringUtil.copyPartialMatches(args[2], new ArrayList<>(events), completions);
           }

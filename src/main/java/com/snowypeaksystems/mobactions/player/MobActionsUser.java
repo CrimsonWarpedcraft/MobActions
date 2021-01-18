@@ -32,6 +32,10 @@ public interface MobActionsUser {
 
   boolean canJoinEvent(String event);
 
+  boolean canCreateEvents();
+
+  boolean canRemoveEvents();
+  
   boolean canStartEvents();
 
   boolean canCancelEvents();

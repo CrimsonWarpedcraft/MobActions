@@ -19,13 +19,12 @@ For a simple plugin, we pack a few powerful features!
 `/mac create event <name>` - Create a new event mob with a command or warp action  
 `/mac remove` - Remove a mob's action  
 `/mac cancel` - Cancels the current operation  
-`/mac event create command "command" <event-name> <timeout> <max-players>` - Create a command event  
-`/mac event create warp <warp-name> <event-name> <timeout> <max-players>` - Create a warp event  
-`/mac event open <name>` - Opens an event  
-`/mac event cancel <name>` - Cancel an event  
-`/mac event remove <name>` - Remove an event  
-`/mac event forcestart <name>` - Forces an event to start now  
-`/mac events` - List available events and their state  
+`/mac events create command "command" <event-name> <timeout> <max-players>` - Create a command event  
+`/mac events create warp <warp-name> <event-name> <timeout> <max-players>` - Create a warp event  
+`/mac events open <name>` - Opens an event  
+`/mac events cancel <name>` - Cancel an event  
+`/mac events remove <name>` - Remove an event  
+`/mac events forcestart <name>` - Forces an event to start now  
 `/mac warp <warp>` - Teleport to a warp  
 `/mac warps` - List available warps  
 `/mac warps set <name>` - Create a warp  
@@ -46,6 +45,8 @@ For a simple plugin, we pack a few powerful features!
 `mobactions.admin.create` - Allows players to create action mobs with /mac create (Default: op)  
 `mobactions.admin.remove` - Allows players to destroy mob portals with /mac remove (Default: op)  
 `mobactions.admin.reload` - Allows players to reload the plugin configuration using /mac reload (Default: op)  
+`mobactions.admin.events.create` - Allows players to create an event using /mac event create (Default: op)  
+`mobactions.admin.events.remove` - Allows players to remove an event using /mac event remove (Default: op)  
 `mobactions.admin.events.start` - Allows players to start an event using /mac events start (Default: op)  
 `mobactions.admin.events.stop` - Allows players to stop an event using /mac events stop (Default: op)  
 `mobactions.admin.warps.set` - Allows players to create a warp using /mac setwarp (Default: op)  
