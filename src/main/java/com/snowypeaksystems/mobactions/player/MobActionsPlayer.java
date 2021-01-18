@@ -62,7 +62,7 @@ public class MobActionsPlayer implements MobActionsUser {
   @Override
   public boolean canJoinEvent(String event) {
     return player.hasPermission("mobactions.event.*")
-        || player.hasPermission("mobactions.event." + event);
+        || player.hasPermission("mobactions.event." + event.toLowerCase());
   }
 
   @Override
