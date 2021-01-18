@@ -51,7 +51,7 @@ public class MobActionsPlayer implements MobActionsUser {
   @Override
   public boolean canUseWarp(String warp) {
     return player.hasPermission("mobactions.warp.*")
-        || player.hasPermission("mobactions.warp." + warp);
+        || player.hasPermission("mobactions.warp." + warp.toLowerCase());
   }
 
   @Override
