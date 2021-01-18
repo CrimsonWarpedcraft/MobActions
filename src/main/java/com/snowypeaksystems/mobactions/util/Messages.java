@@ -32,16 +32,17 @@ public final class Messages {
     // Event message
     messages.put("event-countdown-text", new Message("&eStarting {&c} event in {&c} seconds."));
     messages.put("event-joined-text", new Message("&aSuccessfully joined the {&c} event!"));
-    messages.put("event-left-text", new Message("&cLeft the {&c} event!"));
-    messages.put("event-create-text", new Message("&cCreated {&c} event!"));
-    messages.put("event-remove-text", new Message("&cRemoved {&c} event!"));
-    messages.put("event-open-text", new Message("&cOpened {&c} event!"));
-    messages.put("event-cancel-text", new Message("&cCancelled {&c} event!"));
-    messages.put("event-forcestart-text", new Message("&cStarted {&c} event!"));
-    messages.put("event-leave-info", new Message("&cClick again to leave the event!"));
-    messages.put("event-missing-error", new Message("&eThe {} event doesn't exist!"));
-    messages.put("event-already-open-error", new Message("&eThe {} event is already open!"));
-    messages.put("event-closed-error", new Message("&eThe {} event isn't open!"));
+    messages.put("event-left-text", new Message("&eLeft the {&c} event!"));
+    messages.put("event-create-text", new Message("&aCreated {&c} event!"));
+    messages.put("event-remove-text", new Message("&aRemoved {&c} event!"));
+    messages.put("event-open-text", new Message("&aOpened {&c} event!"));
+    messages.put("event-cancel-text", new Message("&aCancelled {&c} event!"));
+    messages.put("event-cancelled-text", new Message("&eThe {&c} event has been cancelled!"));
+    messages.put("event-forcestart-text", new Message("&aStarted {&c} event!"));
+    messages.put("event-leave-info", new Message("&eClick again to leave the event!"));
+    messages.put("event-missing-error", new Message("&cThe {} event doesn't exist!"));
+    messages.put("event-already-open-error", new Message("&cThe {} event is already open!"));
+    messages.put("event-closed-error", new Message("&cThe {} event isn't open!"));
 
     // Mob messages
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));

@@ -135,6 +135,12 @@ public class MobEvent implements IMobEvent {
   public void cancel() {
     state = State.CLOSED;
 
+    for (MobActionsUser user : users) {
+      user.sendMessage(gm("event-cancelled-text", name));
+    }
+
+    users.clear();
+
     if (!timeoutCounter.isCancelled()) {
       timeoutCounter.cancel();
     }
