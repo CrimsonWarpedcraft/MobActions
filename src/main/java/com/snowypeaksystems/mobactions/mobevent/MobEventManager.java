@@ -3,6 +3,7 @@ package com.snowypeaksystems.mobactions.mobevent;
 import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,8 +21,10 @@ public class MobEventManager implements IMobEventManager {
   }
 
   @Override
-  public IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers) {
+  public IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers)
+      throws IOException {
     IMobEvent event = new MobEvent(name, data, timeout, plugin, maxPlayers);
+    event.save();
     events.put(name.toLowerCase(), event);
 
     return event;
@@ -31,8 +34,9 @@ public class MobEventManager implements IMobEventManager {
   public void removeEvent(String name) {
     IMobEvent event = events.remove(name.toLowerCase());
 
-    if (event != null && event.getState() != IMobEvent.State.CLOSED) {
+    if (event != null) {
       event.cancel();
+      event.delete();
     }
   }
 

@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.mobevent;
 
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Set;
  */
 public interface IMobEventManager {
   /** Creates and returns an IMobEvent. */
-  IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers);
+  IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers) throws IOException;
 
   /** Removes and cancels the event. */
   void removeEvent(String name);

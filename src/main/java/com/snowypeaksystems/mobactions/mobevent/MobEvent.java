@@ -133,6 +133,8 @@ public class MobEvent implements IMobEvent {
 
   @Override
   public void cancel() {
+    state = State.CLOSED;
+
     if (!timeoutCounter.isCancelled()) {
       timeoutCounter.cancel();
     }
