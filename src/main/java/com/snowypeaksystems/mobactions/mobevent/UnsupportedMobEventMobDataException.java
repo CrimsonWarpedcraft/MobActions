@@ -6,6 +6,6 @@ package com.snowypeaksystems.mobactions.mobevent;
  */
 public class UnsupportedMobEventMobDataException extends IllegalArgumentException {
   public UnsupportedMobEventMobDataException() {
-    super();
+    super("The provided MobData is not supported.");
   }
 }

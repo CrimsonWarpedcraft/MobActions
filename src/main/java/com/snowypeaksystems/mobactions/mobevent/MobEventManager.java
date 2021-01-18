@@ -23,6 +23,10 @@ public class MobEventManager implements IMobEventManager {
   @Override
   public IMobEvent createEvent(String name, MobData data, long timeout, int maxPlayers)
       throws IOException {
+    if (maxPlayers < 0) {
+      throw new IllegalArgumentException("Argument maxPlayers cannot be less than 0");
+    }
+
     IMobEvent event = new MobEvent(name, data, timeout, plugin, maxPlayers);
     event.save();
     events.put(name.toLowerCase(), event);
