@@ -39,10 +39,10 @@ public class CommandListener implements ICommandListener {
       "/mac create warp <warp> - Create a new warp mob",
       "/mac remove - Remove a mob's action",
       "/mac cancel - Cancels the current operation",
-      "/mac event create command \"command\" <event-name> <timeout> <max-players> - Create a " +
-          "command event",
-      "/mac event create warp <warp-name> <event-name> <timeout> <max-players> - Create a warp " +
-          "event",
+      "/mac event create command \"command\" <event-name> <timeout> <max-players> - Create a "
+          + "command event",
+      "/mac event create warp <warp-name> <event-name> <timeout> <max-players> - Create a warp "
+          + "event",
       "/mac event open <name> - Opens an event",
       "/mac event cancel <name> - Cancel an event",
       "/mac event remove <name> - Remove an event",
