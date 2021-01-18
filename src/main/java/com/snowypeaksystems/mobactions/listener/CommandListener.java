@@ -113,9 +113,6 @@ public class CommandListener implements ICommandListener {
         DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
         if (strArgs.size() == 2) {
           cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1)));
-        } else {
-          DebugLogger.getLogger().log("Command not found");
-          user.sendMessage(help);
         }
       } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("warp")) {
