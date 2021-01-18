@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -66,6 +67,11 @@ public class WarpManager implements IWarpManager {
   @Override
   public Set<String> getLoadedWarpNames() {
     return warps.keySet();
+  }
+
+  @Override
+  public Set<IWarp> getLoadedWarps() {
+    return new HashSet<>(warps.values());
   }
 
   @Override
