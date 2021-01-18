@@ -4,6 +4,11 @@ import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.command.CancelCommand;
 import com.snowypeaksystems.mobactions.command.CreateCommand;
 import com.snowypeaksystems.mobactions.command.DelWarpCommand;
+import com.snowypeaksystems.mobactions.command.EventCancelCommand;
+import com.snowypeaksystems.mobactions.command.EventCreateCommand;
+import com.snowypeaksystems.mobactions.command.EventForceStartCommand;
+import com.snowypeaksystems.mobactions.command.EventOpenCommand;
+import com.snowypeaksystems.mobactions.command.EventRemoveCommand;
 import com.snowypeaksystems.mobactions.command.ListWarpsCommand;
 import com.snowypeaksystems.mobactions.command.PlayerCommand;
 import com.snowypeaksystems.mobactions.command.ReloadCommand;
@@ -39,10 +44,10 @@ public class CommandListener implements ICommandListener {
       "/mac create warp <warp> - Create a new warp mob",
       "/mac remove - Remove a mob's action",
       "/mac cancel - Cancels the current operation",
-      "/mac event create command \"command\" <event-name> <timeout> <max-players> - Create a "
-          + "command event",
-      "/mac event create warp <warp-name> <event-name> <timeout> <max-players> - Create a warp "
-          + "event",
+      "/mac events create <event-name> <wait-time> [max-players] command \"command\" - Create a "
+          + "command event with an optional player limit",
+      "/mac events create <event-name> <wait-time> [max-players] warp <warp-name> - Create a warp "
+          + "event with an optional player limit",
       "/mac events open <name> - Opens an event",
       "/mac events cancel <name> - Cancel an event",
       "/mac events remove <name> - Remove an event",
@@ -171,7 +176,40 @@ public class CommandListener implements ICommandListener {
       MobActionsUser user = ma.getPlayer(sender);
       PlayerCommand cmd = null;
 
-      if (args.length >= 4 && args[0].equalsIgnoreCase("create")
+      if (args.length >= 6 && args[0].equalsIgnoreCase("events")
+          && args[1].equalsIgnoreCase("create")) {
+        int playerLimit;
+        int typeIndexOffset;
+
+        try {
+          playerLimit = Integer.parseInt(args[4]);
+          typeIndexOffset = 1;
+        } catch (NumberFormatException e) {
+          playerLimit = 0;
+          typeIndexOffset = 0;
+        }
+
+        try {
+          long waitTime = Long.parseLong(args[3]);
+
+          if (args[4 + typeIndexOffset].equalsIgnoreCase("command")) {
+            String[] sublist = Arrays.asList(args).subList(5 + typeIndexOffset, args.length)
+                .toArray(new String[]{});
+            List<String> strArgs = parseForStrings(sublist);
+            if (strArgs.size() == 1) {
+              cmd = new EventCreateCommand(args[2], new CommandData(strArgs.get(0)), waitTime,
+                  playerLimit, ma.getMobEventManager());
+            }
+
+          } else if (args[4 + typeIndexOffset].equalsIgnoreCase("warp")) {
+            cmd = new EventCreateCommand(args[2], new WarpData(args[5 + typeIndexOffset]), waitTime,
+                playerLimit, ma.getMobEventManager());
+          }
+        } catch (NumberFormatException e) {
+          DebugLogger.getLogger().log("Wait time is not a valid long");
+        }
+
+      } else if (args.length >= 4 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("command")) {
         String[] sublist = Arrays.asList(args).subList(2, args.length).toArray(new String[]{});
         List<String> strArgs = parseForStrings(sublist);
@@ -183,6 +221,18 @@ public class CommandListener implements ICommandListener {
       } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("warp")) {
         cmd = new CreateCommand(new WarpData(args[2]));
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("events")
+          && args[1].equalsIgnoreCase("open")) {
+        cmd = new EventOpenCommand(args[2], ma.getMobEventManager());
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("events")
+          && args[1].equalsIgnoreCase("cancel")) {
+        cmd = new EventCancelCommand(args[2], ma.getMobEventManager());
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("events")
+          && args[1].equalsIgnoreCase("remove")) {
+        cmd = new EventRemoveCommand(args[2], ma.getMobEventManager());
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("events")
+          && args[1].equalsIgnoreCase("forcestart")) {
+        cmd = new EventForceStartCommand(args[2], ma.getMobEventManager());
       } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
           && args[1].equalsIgnoreCase("set")) {
         cmd = new SetWarpCommand(args[2], ma.getWarpManager());
