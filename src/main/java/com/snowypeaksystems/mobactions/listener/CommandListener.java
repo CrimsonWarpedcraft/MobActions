@@ -12,6 +12,7 @@ import com.snowypeaksystems.mobactions.command.SetWarpCommand;
 import com.snowypeaksystems.mobactions.command.WarpCommand;
 import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.data.WarpData;
+import com.snowypeaksystems.mobactions.mobevent.IMobEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
@@ -56,8 +57,10 @@ public class CommandListener implements ICommandListener {
   };
 
   private final String[] subcommands =
-      {"cancel", "create", "help", "reload", "remove", "warp", "warps"};
-  private final String[] createCommands = {"command", "warp"};
+      {"cancel", "create", "event", "events", "help", "reload", "remove", "warp", "warps"};
+  private final String[] createCommands = {"command", "event", "warp"};
+  private final String[] eventCommands = {"cancel", "create", "forcestart", "open", "remove"};
+  private final String[] eventTypes = {"command", "warp"};
   private final String[] warpCommands = {"set", "remove"};
 
   public CommandListener(AMobActions parent) {
@@ -72,11 +75,17 @@ public class CommandListener implements ICommandListener {
     if (command.getName().equalsIgnoreCase("mac")) {
       if (args.length == 1) {
         StringUtil.copyPartialMatches(args[0], Arrays.asList(subcommands), completions);
+
       } else if (args.length == 2) {
         if (args[0].equalsIgnoreCase("create")) {
           StringUtil.copyPartialMatches(args[1], Arrays.asList(createCommands), completions);
+
+        } else if (args[0].equalsIgnoreCase("event")) {
+          StringUtil.copyPartialMatches(args[1], Arrays.asList(eventCommands), completions);
+
         } else if (args[0].equalsIgnoreCase("warps")) {
           StringUtil.copyPartialMatches(args[1], Arrays.asList(warpCommands), completions);
+
         } else if (args[0].equalsIgnoreCase("warp")) {
           if (user.canUseWarpCommand()) {
             Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
@@ -84,19 +93,67 @@ public class CommandListener implements ICommandListener {
             StringUtil.copyPartialMatches(args[1], new ArrayList<>(warps), completions);
           }
         }
+
       } else if (args.length == 3) {
-        if (args[0].equalsIgnoreCase("warps")
-            && args[1].equalsIgnoreCase("remove")) {
-          if (user.canRemoveWarp()) {
+        if (args[0].equalsIgnoreCase("create") && user.canCreate()) {
+          if (args[1].equalsIgnoreCase("event")) {
+            Set<String> events = ma.getMobEventManager().getLoadedEventNames();
+            StringUtil.copyPartialMatches(args[2], new ArrayList<>(events), completions);
+
+          } else if (args[1].equalsIgnoreCase("warp")) {
             Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
             StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
           }
-        } else if (args[0].equalsIgnoreCase("create")
-            && args[1].equalsIgnoreCase("warp")) {
-          if (user.canCreate()) {
-            Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
-            StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
+
+        } else if (args[0].equalsIgnoreCase("event")) {
+          if (args[1].equalsIgnoreCase("cancel")) {
+            Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
+            ArrayList<String> names = new ArrayList<>();
+
+            for (IMobEvent event : events) {
+              if (event.getState() != IMobEvent.State.CLOSED) {
+                names.add(event.getAlias().toLowerCase());
+              }
+            }
+
+            StringUtil.copyPartialMatches(args[2], names, completions);
+
+          } else if (args[1].equalsIgnoreCase("create")) {
+            StringUtil.copyPartialMatches(args[2], Arrays.asList(eventTypes), completions);
+
+          } else if (args[1].equalsIgnoreCase("forcestart")) {
+            Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
+            ArrayList<String> names = new ArrayList<>();
+
+            for (IMobEvent event : events) {
+              if (event.getState() == IMobEvent.State.OPEN) {
+                names.add(event.getAlias().toLowerCase());
+              }
+            }
+
+            StringUtil.copyPartialMatches(args[2], names, completions);
+
+          } else if (args[1].equalsIgnoreCase("open")) {
+            Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
+            ArrayList<String> names = new ArrayList<>();
+
+            for (IMobEvent event : events) {
+              if (event.getState() == IMobEvent.State.CLOSED) {
+                names.add(event.getAlias().toLowerCase());
+              }
+            }
+
+            StringUtil.copyPartialMatches(args[2], names, completions);
+
+          } else if (args[1].equalsIgnoreCase("remove")) {
+            Set<String> events = ma.getMobEventManager().getLoadedEventNames();
+            StringUtil.copyPartialMatches(args[2], new ArrayList<>(events), completions);
           }
+
+        } else if (args[0].equalsIgnoreCase("warps")
+            && args[1].equalsIgnoreCase("remove") && user.canRemoveWarp()) {
+          Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
+          StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
         }
       }
     }

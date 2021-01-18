@@ -4,7 +4,9 @@ import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class MobEventManager implements IMobEventManager {
   private final Map<String, IMobEvent> events;
@@ -62,5 +64,15 @@ public class MobEventManager implements IMobEventManager {
     for (IMobEvent event : events.values()) {
       event.removePlayer(player);
     }
+  }
+
+  @Override
+  public Set<String> getLoadedEventNames() {
+    return events.keySet();
+  }
+
+  @Override
+  public Set<IMobEvent> getLoadedEvents() {
+    return new HashSet<>(events.values());
   }
 }
