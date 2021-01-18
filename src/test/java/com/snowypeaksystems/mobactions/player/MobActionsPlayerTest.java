@@ -162,4 +162,28 @@ class MobActionsPlayerTest {
     assertTrue(player.canCancelEvents());
     fake.setPermission("mobactions.admin.events.stop", false);
   }
+
+  @Test
+  void canCreateEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canCreateEvents());
+
+    fake.setPermission("mobactions.admin.events.create", true);
+    assertTrue(player.canCreateEvents());
+    fake.setPermission("mobactions.admin.events.create", false);
+  }
+
+  @Test
+  void canRemoveEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canRemoveEvents());
+
+    fake.setPermission("mobactions.admin.events.remove", true);
+    assertTrue(player.canRemoveEvents());
+    fake.setPermission("mobactions.admin.events.remove", false);
+  }
 }
