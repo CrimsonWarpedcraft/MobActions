@@ -2,7 +2,6 @@ package com.snowypeaksystems.mobactions.command;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
-import com.snowypeaksystems.mobactions.event.RemoveWarpEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
@@ -34,14 +33,8 @@ public class DelWarpCommand implements IDelWarpCommand {
       throw new WarpNotFoundException(name);
     }
 
-    RemoveWarpEvent event = new RemoveWarpEvent(player, warpManager.getWarp(name));
-    Bukkit.getPluginManager().callEvent(event);
-    if (!event.isCancelled()) {
-      warpManager.unregister(name);
-      player.sendMessage(gm("warp-delete-success", name));
-      DebugLogger.getLogger().log("Warp deleted");
-    } else {
-      DebugLogger.getLogger().log("Event cancelled");
-    }
+    warpManager.unregister(name);
+    player.sendMessage(gm("warp-delete-success", name));
+    DebugLogger.getLogger().log("Warp deleted");
   }
 }
