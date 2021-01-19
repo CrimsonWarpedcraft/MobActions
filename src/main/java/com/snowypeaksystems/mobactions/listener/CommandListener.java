@@ -122,9 +122,6 @@ public class CommandListener implements ICommandListener {
 
             StringUtil.copyPartialMatches(args[2], names, completions);
 
-          } else if (args[1].equalsIgnoreCase("create")) {
-            StringUtil.copyPartialMatches(args[2], Arrays.asList(eventTypes), completions);
-
           } else if (args[1].equalsIgnoreCase("forcestart") && user.canStartEvents()) {
             Set<IMobEvent> events = ma.getMobEventManager().getLoadedEvents();
             ArrayList<String> names = new ArrayList<>();
@@ -158,6 +155,20 @@ public class CommandListener implements ICommandListener {
             && args[1].equalsIgnoreCase("remove") && user.canRemoveWarp()) {
           Set<String> warps = ma.getWarpManager().getLoadedWarpNames();
           StringUtil.copyPartialMatches(args[2], new ArrayList<>(warps), completions);
+        }
+      } else if (args.length >= 5) {
+        if (args[0].equalsIgnoreCase("events")
+            && args[1].equalsIgnoreCase("create") && user.canCreate()) {
+          int typeIndexOffset;
+          try {
+            Integer.parseInt(args[4]);
+            typeIndexOffset = 1;
+          } catch (NumberFormatException e) {
+            typeIndexOffset = 0;
+          }
+
+          StringUtil.copyPartialMatches(args[4 + typeIndexOffset], Arrays.asList(eventTypes),
+              completions);
         }
       }
     }
