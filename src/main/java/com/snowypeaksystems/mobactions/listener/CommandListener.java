@@ -84,7 +84,7 @@ public class CommandListener implements ICommandListener {
         if (args[0].equalsIgnoreCase("create")) {
           StringUtil.copyPartialMatches(args[1], Arrays.asList(createCommands), completions);
 
-        } else if (args[0].equalsIgnoreCase("event")) {
+        } else if (args[0].equalsIgnoreCase("events")) {
           StringUtil.copyPartialMatches(args[1], Arrays.asList(eventCommands), completions);
 
         } else if (args[0].equalsIgnoreCase("warps")) {
