@@ -161,8 +161,12 @@ public class CommandListener implements ICommandListener {
             && args[1].equalsIgnoreCase("create") && user.canCreate()) {
           int typeIndexOffset;
           try {
-            Integer.parseInt(args[4]);
-            typeIndexOffset = 1;
+            if (args.length > 5) {
+              Integer.parseInt(args[4]);
+              typeIndexOffset = 1;
+            } else {
+              typeIndexOffset = 0;
+            }
           } catch (NumberFormatException e) {
             typeIndexOffset = 0;
           }
