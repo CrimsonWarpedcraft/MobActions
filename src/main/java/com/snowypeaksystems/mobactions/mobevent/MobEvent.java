@@ -115,21 +115,21 @@ public class MobEvent implements IMobEvent {
 
   @Override
   public void cancel() {
-    state = State.CLOSED;
-
     for (MobActionsUser user : users) {
       user.sendMessage(gm("event-cancelled-text", name));
     }
 
     users.clear();
 
-    if (!timeoutCounter.isCancelled()) {
+    if (state == State.OPEN) {
       timeoutCounter.cancel();
     }
 
-    if (!countdown.isCancelled()) {
+    if (state == State.COUNTDOWN) {
       countdown.cancel();
     }
+
+    state = State.CLOSED;
   }
 
   @Override
@@ -138,7 +138,7 @@ public class MobEvent implements IMobEvent {
   }
 
   private void force() {
-    if (!timeoutCounter.isCancelled()) {
+    if (state == State.OPEN) {
       timeoutCounter.cancel();
     }
 
