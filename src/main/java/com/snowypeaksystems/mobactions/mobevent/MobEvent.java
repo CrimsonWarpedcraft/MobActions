@@ -14,14 +14,11 @@ import com.snowypeaksystems.mobactions.event.MobEventStartEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
-import com.snowypeaksystems.mobactions.warp.WarpConfigException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -29,8 +26,8 @@ public class MobEvent implements IMobEvent {
   private final String name;
   private final int maxPlayers;
   private final long timeout;
-  private final BukkitRunnable timeoutCounter;
-  private final BukkitRunnable countdown;
+  private BukkitRunnable timeoutCounter;
+  private BukkitRunnable countdown;
   private final Set<MobActionsUser> users;
   private final AMobActions plugin;
   private final MobData data;
@@ -47,48 +44,7 @@ public class MobEvent implements IMobEvent {
     state = State.CLOSED;
     users = new HashSet<>();
     file = new File(eventFolder, String.valueOf(name.toLowerCase().hashCode()));
-
-
-    MobEvent e = this;
-    IEventMobStartAction action = new EventMobStartAction(data, plugin);
-
-    this.countdown = new BukkitRunnable() {
-      private int seconds = 10;
-      @Override
-      public void run() {
-        if (seconds < 1) {
-          state = State.CLOSED;
-
-          MobEventStartEvent event = new MobEventStartEvent(e);
-          Bukkit.getPluginManager().callEvent(event);
-          if (!event.isCancelled()) {
-            for (MobActionsUser user : users) {
-              try {
-                action.run(user);
-              } catch (PlayerException e) {
-                user.sendMessage(e.getPlayerFormattedString());
-              }
-            }
-          } else {
-            DebugLogger.getLogger().log("Event cancelled");
-          }
-
-        } else {
-          seconds--;
-          for (MobActionsUser user : users) {
-            user.sendMessage(gm("event-countdown-text", name, String.valueOf(seconds)));
-          }
-        }
-      }
-    };
-
-    this.timeoutCounter = new BukkitRunnable() {
-      @Override
-      public void run() {
-        state = State.COUNTDOWN;
-        countdown.runTaskTimer(plugin, 0, 20);
-      }
-    };
+    configDelayedTasks();
   }
 
   MobEvent(File file, AMobActions plugin) throws EventConfigException {
@@ -105,7 +61,7 @@ public class MobEvent implements IMobEvent {
     this.users = new HashSet<>();
     this.state = State.CLOSED;
     this.plugin = plugin;
-
+    configDelayedTasks();
   }
 
   @Override
@@ -236,4 +192,45 @@ public class MobEvent implements IMobEvent {
     }
   }
 
+  private void configDelayedTasks() {
+    MobEvent e = this;
+    IEventMobStartAction action = new EventMobStartAction(data, plugin);
+    this.countdown = new BukkitRunnable() {
+      private int seconds = 10;
+      @Override
+      public void run() {
+        if (seconds < 1) {
+          state = State.CLOSED;
+
+          MobEventStartEvent event = new MobEventStartEvent(e);
+          Bukkit.getPluginManager().callEvent(event);
+          if (!event.isCancelled()) {
+            for (MobActionsUser user : users) {
+              try {
+                action.run(user);
+              } catch (PlayerException e) {
+                user.sendMessage(e.getPlayerFormattedString());
+              }
+            }
+          } else {
+            DebugLogger.getLogger().log("Event cancelled");
+          }
+
+        } else {
+          seconds--;
+          for (MobActionsUser user : users) {
+            user.sendMessage(gm("event-countdown-text", name, String.valueOf(seconds)));
+          }
+        }
+      }
+    };
+
+    this.timeoutCounter = new BukkitRunnable() {
+      @Override
+      public void run() {
+        state = State.COUNTDOWN;
+        countdown.runTaskTimer(plugin, 0, 20);
+      }
+    };
+  }
 }

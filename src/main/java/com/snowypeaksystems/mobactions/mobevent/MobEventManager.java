@@ -18,11 +18,12 @@ public class MobEventManager implements IMobEventManager {
   private final AMobActions plugin;
   private final File eventFolder;
 
+  /** Create MobEventManager from provided plugin and event folder. */
   public MobEventManager(AMobActions plugin, File eventFolder) throws FileNotFoundException {
     this.plugin = plugin;
     events = new HashMap<>();
 
-    if(!eventFolder.exists() || !eventFolder.isDirectory()) {
+    if (!eventFolder.exists() || !eventFolder.isDirectory()) {
       throw new FileNotFoundException("Event Folder Not Found");
     }
 
