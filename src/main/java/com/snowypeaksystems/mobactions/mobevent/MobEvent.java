@@ -182,10 +182,10 @@ public class MobEvent implements IMobEvent {
       throws EventConfigException {
 
     if (config.isSet("data")
-        && config.getString("data", "").equals(ICommandData.COMMAND_KEY)) {
+        && ICommandData.COMMAND_KEY.equals(config.getString("data", ""))) {
       return new CommandData(config.getString("command", ""));
     } else if (config.isSet("data")
-        && config.getString("data", "").equals(IWarpData.WARP_KEY)) {
+        && IWarpData.WARP_KEY.equals(config.getString("data", ""))) {
       return new WarpData(config.getString("warp-name", ""));
     } else {
       throw new EventConfigException("data key not valid");
