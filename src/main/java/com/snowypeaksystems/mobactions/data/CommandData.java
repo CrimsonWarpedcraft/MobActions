@@ -93,4 +93,9 @@ public class CommandData implements ICommandData {
   public String getNametagString() {
     return gm("nametag-command-text", description);
   }
+
+  @Override
+  public String toString() {
+    return command;
+  }
 }

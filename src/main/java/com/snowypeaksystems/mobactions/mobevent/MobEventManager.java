@@ -3,21 +3,31 @@ package com.snowypeaksystems.mobactions.mobevent;
 import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import org.bukkit.Bukkit;
 
 public class MobEventManager implements IMobEventManager {
   private final Map<String, IMobEvent> events;
   private final AMobActions plugin;
-  // todo: declare warp folder variable
+  private final File eventFolder;
 
-  // todo: require warp folder argument, throw file not found if does not exist
-  public MobEventManager(AMobActions plugin) {
+  public MobEventManager(AMobActions plugin, File eventFolder) throws FileNotFoundException {
     this.plugin = plugin;
     events = new HashMap<>();
+
+    if(!eventFolder.exists() || !eventFolder.isDirectory()) {
+      throw new FileNotFoundException("Event Folder Not Found");
+    }
+
+    this.eventFolder = eventFolder;
+    reload();
   }
 
   @Override
@@ -27,7 +37,7 @@ public class MobEventManager implements IMobEventManager {
       throw new IllegalArgumentException("Argument maxPlayers cannot be less than 0");
     }
 
-    IMobEvent event = new MobEvent(name, data, timeout, plugin, maxPlayers);
+    IMobEvent event = new MobEvent(name, data, timeout, plugin, maxPlayers, eventFolder);
     event.save();
     events.put(name.toLowerCase(), event);
 
@@ -63,8 +73,23 @@ public class MobEventManager implements IMobEventManager {
     }
 
     events.clear();
+    File[] files = eventFolder.listFiles();
 
-    // todo: load events from data folder
+    if (files != null) {
+      for (File f : files) {
+        if (f.getName().startsWith(".") || f.isDirectory()) {
+          continue;
+        }
+
+        try {
+          IMobEvent mobEvent = new MobEvent(f, plugin);
+          events.put(mobEvent.getAlias().toLowerCase(), mobEvent);
+        } catch (EventConfigException e) {
+          Bukkit.getLogger().log(Level.FINE, e.getMessage(), e);
+        }
+      }
+    }
+
   }
 
   @Override

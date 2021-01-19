@@ -49,7 +49,21 @@ public class MobActions extends AMobActions {
 
     try {
       warps = new WarpManager(warpDir);
-      warps.reload();
+    } catch (FileNotFoundException e) {
+      getLogger().log(Level.SEVERE, e.getMessage(), e);
+      setEnabled(false);
+      return;
+    }
+
+    File eventDir = new File(getDataFolder(), "events");
+    if (!eventDir.exists() && !eventDir.mkdirs()) {
+      getLogger().log(Level.SEVERE, "Could not create event data folder! Aborting!");
+      setEnabled(false);
+      return;
+    }
+
+    try {
+      events = new MobEventManager(this, eventDir);
     } catch (FileNotFoundException e) {
       getLogger().log(Level.SEVERE, e.getMessage(), e);
       setEnabled(false);
@@ -68,7 +82,6 @@ public class MobActions extends AMobActions {
     cmd.setTabCompleter(cl);
 
     players = new HashMap<>();
-    events = new MobEventManager(this);
 
     getServer().getPluginManager().registerEvents(new EventListener(this, players), this);
 
