@@ -51,6 +51,11 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
+  public boolean canListEvents() {
+    return true;
+  }
+
+  @Override
   public boolean canCreate() {
     return false;
   }

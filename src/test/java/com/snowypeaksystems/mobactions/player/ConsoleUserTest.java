@@ -131,4 +131,10 @@ class ConsoleUserTest {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
     assertTrue(console.canRemoveEvents());
   }
+
+  @Test
+  void canListEvents() {
+    MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
+    assertTrue(console.canListEvents());
+  }
 }

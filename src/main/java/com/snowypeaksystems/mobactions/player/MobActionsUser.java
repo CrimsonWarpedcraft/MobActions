@@ -40,6 +40,8 @@ public interface MobActionsUser {
 
   boolean canCancelEvents();
 
+  boolean canListEvents();
+
   boolean canCreate();
 
   boolean canRemove();
