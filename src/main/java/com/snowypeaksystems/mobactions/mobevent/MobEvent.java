@@ -214,6 +214,7 @@ public class MobEvent implements IMobEvent {
             DebugLogger.getLogger().log("Event cancelled");
           }
 
+          users.clear();
         } else {
           seconds--;
           for (MobActionsUser user : users) {
