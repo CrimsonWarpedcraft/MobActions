@@ -32,7 +32,7 @@ public class EventRemoveCommand implements IEventRemoveCommand {
     }
 
     manager.removeEvent(name);
-    player.sendMessage(gm("warp-delete-success", name));
+    player.sendMessage(gm("event-remove-text", name));
     DebugLogger.getLogger().log("Mob event deleted");
   }
 }
