@@ -32,7 +32,7 @@ public class EventForceStartCommand implements IEventForceStartCommand {
     }
 
     manager.getEvent(name).forceStart();
-    player.sendMessage(gm("event-start-text", name));
+    player.sendMessage(gm("event-forcestart-text", name));
     DebugLogger.getLogger().log("Event started");
   }
 }
