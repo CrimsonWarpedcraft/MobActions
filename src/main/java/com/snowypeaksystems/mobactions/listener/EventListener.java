@@ -4,10 +4,12 @@ import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.IInteractiveMob;
 import com.snowypeaksystems.mobactions.actions.CommandAction;
 import com.snowypeaksystems.mobactions.actions.CreateAction;
+import com.snowypeaksystems.mobactions.actions.EventMobJoinAction;
 import com.snowypeaksystems.mobactions.actions.MobAction;
 import com.snowypeaksystems.mobactions.actions.RemoveAction;
 import com.snowypeaksystems.mobactions.actions.WarpAction;
 import com.snowypeaksystems.mobactions.data.ICommandData;
+import com.snowypeaksystems.mobactions.data.IEventData;
 import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.data.IncompleteDataException;
 import com.snowypeaksystems.mobactions.player.IStatus;
@@ -123,6 +125,8 @@ public class EventListener implements IEventListener {
       action = new RemoveAction(mob);
     } else if (mob.getData() instanceof ICommandData) {
       action = new CommandAction(mob, (ICommandData) mob.getData());
+    } else if (mob.getData() instanceof IEventData) {
+      action = new EventMobJoinAction(mob, (IEventData) mob.getData(), ma.getMobEventManager());
     } else if (mob.getData() instanceof IWarpData) {
       action = new WarpAction(mob, (IWarpData) mob.getData(), ma.getWarpManager());
     }
