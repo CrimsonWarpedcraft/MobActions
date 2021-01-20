@@ -16,6 +16,7 @@ import com.snowypeaksystems.mobactions.command.RemoveCommand;
 import com.snowypeaksystems.mobactions.command.SetWarpCommand;
 import com.snowypeaksystems.mobactions.command.WarpCommand;
 import com.snowypeaksystems.mobactions.data.CommandData;
+import com.snowypeaksystems.mobactions.data.EventData;
 import com.snowypeaksystems.mobactions.data.WarpData;
 import com.snowypeaksystems.mobactions.mobevent.IMobEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
@@ -236,6 +237,9 @@ public class CommandListener implements ICommandListener {
         if (strArgs.size() == 2) {
           cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1)));
         }
+      } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
+          && args[1].equalsIgnoreCase("event")) {
+        cmd = new CreateCommand(new EventData(args[2]));
       } else if (args.length == 3 && args[0].equalsIgnoreCase("create")
           && args[1].equalsIgnoreCase("warp")) {
         cmd = new CreateCommand(new WarpData(args[2]));
