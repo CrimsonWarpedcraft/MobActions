@@ -73,7 +73,6 @@ public class MobEvent implements IMobEvent {
     users.add(player);
 
     if (users.size() == maxPlayers) {
-      state = State.COUNTDOWN;
       force();
     }
   }
@@ -109,7 +108,6 @@ public class MobEvent implements IMobEvent {
       throw new EventStateException(gm("event-closed-error", name));
     }
 
-    state = State.COUNTDOWN;
     force();
   }
 
@@ -142,6 +140,7 @@ public class MobEvent implements IMobEvent {
       timeoutCounter.cancel();
     }
 
+    state = State.COUNTDOWN;
     countdown.runTaskTimer(plugin, 0, 20);
   }
 
