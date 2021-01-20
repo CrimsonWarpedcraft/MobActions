@@ -44,7 +44,6 @@ public class MobEvent implements IMobEvent {
     state = State.CLOSED;
     users = new HashSet<>();
     file = new File(eventFolder, String.valueOf(name.toLowerCase().hashCode()));
-    configDelayedTasks();
   }
 
   MobEvent(File file, AMobActions plugin) throws EventConfigException {
@@ -61,7 +60,6 @@ public class MobEvent implements IMobEvent {
     this.users = new HashSet<>();
     this.state = State.CLOSED;
     this.plugin = plugin;
-    configDelayedTasks();
   }
 
   @Override
@@ -99,6 +97,7 @@ public class MobEvent implements IMobEvent {
     }
 
     state = State.OPEN;
+    timeoutCounter = getTimeoutCounter();
     timeoutCounter.runTaskLater(plugin, timeout * 20);
   }
 
@@ -121,9 +120,7 @@ public class MobEvent implements IMobEvent {
 
     if (state == State.OPEN) {
       timeoutCounter.cancel();
-    }
-
-    if (state == State.COUNTDOWN) {
+    } else if (state == State.COUNTDOWN) {
       countdown.cancel();
     }
 
@@ -141,6 +138,7 @@ public class MobEvent implements IMobEvent {
     }
 
     state = State.COUNTDOWN;
+    countdown = getCountdown();
     countdown.runTaskTimer(plugin, 0, 20);
   }
 
@@ -191,14 +189,15 @@ public class MobEvent implements IMobEvent {
     }
   }
 
-  private void configDelayedTasks() {
+  private BukkitRunnable getCountdown() {
     MobEvent e = this;
     IEventMobStartAction action = new EventMobStartAction(data, plugin);
-    this.countdown = new BukkitRunnable() {
+    return new BukkitRunnable() {
       private int seconds = 10;
       @Override
       public void run() {
         if (seconds < 1) {
+          super.cancel();
           state = State.CLOSED;
 
           MobEventStartEvent event = new MobEventStartEvent(e);
@@ -223,11 +222,14 @@ public class MobEvent implements IMobEvent {
         }
       }
     };
+  }
 
-    this.timeoutCounter = new BukkitRunnable() {
+  private BukkitRunnable getTimeoutCounter() {
+    return new BukkitRunnable() {
       @Override
       public void run() {
         state = State.COUNTDOWN;
+        countdown = getCountdown();
         countdown.runTaskTimer(plugin, 0, 20);
       }
     };
