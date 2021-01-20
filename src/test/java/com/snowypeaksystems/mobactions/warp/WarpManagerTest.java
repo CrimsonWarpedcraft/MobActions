@@ -108,7 +108,7 @@ class WarpManagerTest {
     testWarpManager.makeWarp("testWarp2", testLoc1).delete();
     assertEquals(2, testWarpManager.getLoadedWarpNames().size());
 
-    assertTrue(testWarpManager.exists("testwarp"));
-    assertTrue(testWarpManager.exists("testwarp2"));
+    assertTrue(testWarpManager.getLoadedWarpNames().contains("testwarp"));
+    assertTrue(testWarpManager.getLoadedWarpNames().contains("testwarp2"));
   }
 }
