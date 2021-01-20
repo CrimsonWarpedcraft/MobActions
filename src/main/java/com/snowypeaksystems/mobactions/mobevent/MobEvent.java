@@ -216,10 +216,10 @@ public class MobEvent implements IMobEvent {
 
           users.clear();
         } else {
-          seconds--;
           for (MobActionsUser user : users) {
             user.sendMessage(gm("event-countdown-text", name, String.valueOf(seconds)));
           }
+          seconds--;
         }
       }
     };
