@@ -155,6 +155,9 @@ public class CommandListener implements ICommandListener {
           } else if (args[1].equalsIgnoreCase("remove") && user.canRemoveEvents()) {
             Set<String> events = ma.getMobEventManager().getLoadedEventNames();
             StringUtil.copyPartialMatches(args[2], new ArrayList<>(events), completions);
+          } else if (args[1].equalsIgnoreCase("info") && user.canGetEventInfo()) {
+            Set<String> events = ma.getMobEventManager().getLoadedEventNames();
+            StringUtil.copyPartialMatches(args[2], new ArrayList<>(events), completions);
           }
 
         } else if (args[0].equalsIgnoreCase("warps")
@@ -263,8 +266,6 @@ public class CommandListener implements ICommandListener {
       } else if (args.length == 3 && args[0].equalsIgnoreCase("events")
           && args[1].equalsIgnoreCase("info")) {
         cmd = new EventInfoCommand(args[2], ma.getMobEventManager());
-      } else if (args.length == 1 && args[0].equalsIgnoreCase("events")) {
-        cmd = new EventListCommand(ma.getMobEventManager());
       } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
           && args[1].equalsIgnoreCase("set")) {
         cmd = new SetWarpCommand(args[2], ma.getWarpManager());
@@ -273,6 +274,8 @@ public class CommandListener implements ICommandListener {
         cmd = new DelWarpCommand(args[2], ma.getWarpManager());
       } else if (args.length == 2 && args[0].equalsIgnoreCase("warp")) {
         cmd = new WarpCommand(args[1], ma.getWarpManager());
+      } else if (args.length == 1 && args[0].equalsIgnoreCase("events")) {
+        cmd = new EventListCommand(ma.getMobEventManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("warps")) {
         cmd = new ListWarpsCommand(ma.getWarpManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("remove")) {
