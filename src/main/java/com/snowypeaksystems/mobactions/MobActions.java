@@ -4,6 +4,8 @@ import com.snowypeaksystems.mobactions.data.IncompleteDataException;
 import com.snowypeaksystems.mobactions.listener.CommandListener;
 import com.snowypeaksystems.mobactions.listener.EventListener;
 import com.snowypeaksystems.mobactions.listener.ICommandListener;
+import com.snowypeaksystems.mobactions.mobevent.IMobEventManager;
+import com.snowypeaksystems.mobactions.mobevent.MobEventManager;
 import com.snowypeaksystems.mobactions.player.ConsoleUser;
 import com.snowypeaksystems.mobactions.player.MobActionsPlayer;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
@@ -29,6 +31,7 @@ import org.bukkit.entity.Player;
  */
 public class MobActions extends AMobActions {
   private IWarpManager warps;
+  private IMobEventManager events;
   private Map<Player, MobActionsUser> players;
 
   @Override
@@ -46,7 +49,21 @@ public class MobActions extends AMobActions {
 
     try {
       warps = new WarpManager(warpDir);
-      warps.reload();
+    } catch (FileNotFoundException e) {
+      getLogger().log(Level.SEVERE, e.getMessage(), e);
+      setEnabled(false);
+      return;
+    }
+
+    File eventDir = new File(getDataFolder(), "events");
+    if (!eventDir.exists() && !eventDir.mkdirs()) {
+      getLogger().log(Level.SEVERE, "Could not create event data folder! Aborting!");
+      setEnabled(false);
+      return;
+    }
+
+    try {
+      events = new MobEventManager(this, eventDir);
     } catch (FileNotFoundException e) {
       getLogger().log(Level.SEVERE, e.getMessage(), e);
       setEnabled(false);
@@ -105,11 +122,17 @@ public class MobActions extends AMobActions {
   }
 
   @Override
+  public IMobEventManager getMobEventManager() {
+    return events;
+  }
+
+  @Override
   public void reloadConfig() {
     super.reloadConfig();
     Messages.initialize();
     warps.reload();
     players.clear();
+    events.reload();
 
     getLogger().info("MobActions reloaded successfully!");
   }

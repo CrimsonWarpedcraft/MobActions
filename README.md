@@ -16,8 +16,17 @@ For a simple plugin, we pack a few powerful features!
 ### Commands
 `/mac create command "command" "description"` - Create a new command mob  
 `/mac create warp <name>` - Create a new warp mob  
+`/mac create event <name>` - Create a new event mob with a command or warp action  
 `/mac remove` - Remove a mob's action  
 `/mac cancel` - Cancels the current operation  
+`/mac events create <event-name> <wait-time> [max-players] command "command"` - Create a command event with an optional player limit  
+`/mac events create <event-name> <wait-time> [max-players] warp <warp-name>` - Create a warp event with an optional player limit  
+`/mac events open <name>` - Opens an event  
+`/mac events cancel <name>` - Cancel an event  
+`/mac events remove <name>` - Remove an event  
+`/mac events forcestart <name>` - Forces an event to start now  
+`/mac events info <name>` - Show information about the event  
+`/mac events` - List all events  
 `/mac warp <warp>` - Teleport to a warp  
 `/mac warps` - List available warps  
 `/mac warps set <name>` - Create a warp  
@@ -28,6 +37,8 @@ For a simple plugin, we pack a few powerful features!
 ### Permissions
 `mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
 `mobactions.command` - Allows players to use all command mobs (Default: enabled)  
+`mobactions.event.*` - Allows players to join all events (Default: enabled)  
+`mobactions.event.[event]` - Allows players to use specific command mobs (Default: disabled)  
 `mobactions.warp` - Allows players to go to a warp using /mac warp. Also needed for /mac warps (Default: op)  
 `mobactions.warp.*` - Allows players to use all mob portals (Default: enabled)  
 `mobactions.warp.[warp]` - Allows players to use portals to the specific warp (Default: disabled)
@@ -36,6 +47,10 @@ For a simple plugin, we pack a few powerful features!
 `mobactions.admin.create` - Allows players to create action mobs with /mac create (Default: op)  
 `mobactions.admin.remove` - Allows players to destroy mob portals with /mac remove (Default: op)  
 `mobactions.admin.reload` - Allows players to reload the plugin configuration using /mac reload (Default: op)  
+`mobactions.admin.events.create` - Allows players to create an event using /mac event create (Default: op)  
+`mobactions.admin.events.remove` - Allows players to remove an event using /mac event remove (Default: op)  
+`mobactions.admin.events.start` - Allows players to start an event using /mac events start (Default: op)  
+`mobactions.admin.events.stop` - Allows players to stop an event using /mac events stop (Default: op)  
 `mobactions.admin.warps.set` - Allows players to create a warp using /mac setwarp (Default: op)  
 `mobactions.admin.warps.remove` - Allows players to delete a warp using /mac delwarp (Default: op)
 
@@ -43,7 +58,8 @@ For a simple plugin, we pack a few powerful features!
 For now, enjoy a simple, empty config. :)
 
 ## Installation
-Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run `/mac reload` to load any changes you make or messages you add!
+Simply drop into your server's plugin folder, and we'll generate your config for you. Restart your server or run 
+`/mac reload` to load any changes you make or messages you add!
 
 ## Building From Source
 You can build from source by running the following command.

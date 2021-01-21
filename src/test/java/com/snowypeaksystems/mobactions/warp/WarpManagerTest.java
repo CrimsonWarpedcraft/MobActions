@@ -111,4 +111,22 @@ class WarpManagerTest {
     assertTrue(testWarpManager.getLoadedWarpNames().contains("testwarp"));
     assertTrue(testWarpManager.getLoadedWarpNames().contains("testwarp2"));
   }
+
+  @Test
+  void getLoadedWarps() throws IOException {
+    assertEquals(0, testWarpManager.getLoadedWarps().size());
+
+    testWarpManager.makeWarp("testWarp", testLoc1).delete();
+    assertEquals(1, testWarpManager.getLoadedWarps().size());
+    IWarp test1 = testWarpManager.makeWarp("testwarp", testLoc2);
+    test1.delete();
+    assertEquals(1, testWarpManager.getLoadedWarps().size());
+
+    IWarp test2 = testWarpManager.makeWarp("testWarp2", testLoc1);
+    test2.delete();
+    assertEquals(2, testWarpManager.getLoadedWarpNames().size());
+
+    assertTrue(testWarpManager.getLoadedWarps().contains(test1));
+    assertTrue(testWarpManager.getLoadedWarps().contains(test2));
+  }
 }

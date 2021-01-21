@@ -18,7 +18,7 @@ public class Status implements IStatus {
   @Override
   public void setMode(Mode mode) {
     if (mode == null) {
-      throw new NullPointerException("mode cannot be null.");
+      throw new NullPointerException("Mode cannot be null.");
     }
 
     this.mode = mode;

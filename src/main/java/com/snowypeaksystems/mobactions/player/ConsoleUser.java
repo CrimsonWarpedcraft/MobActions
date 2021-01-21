@@ -26,6 +26,36 @@ public class ConsoleUser implements MobActionsUser {
   }
 
   @Override
+  public boolean canJoinEvent(String event) {
+    return false;
+  }
+
+  @Override
+  public boolean canCreateEvents() {
+    return true;
+  }
+
+  @Override
+  public boolean canRemoveEvents() {
+    return true;
+  }
+
+  @Override
+  public boolean canStartEvents() {
+    return true;
+  }
+
+  @Override
+  public boolean canCancelEvents() {
+    return true;
+  }
+
+  @Override
+  public boolean canGetEventInfo() {
+    return true;
+  }
+
+  @Override
   public boolean canCreate() {
     return false;
   }

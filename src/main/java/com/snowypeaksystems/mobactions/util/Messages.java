@@ -15,27 +15,49 @@ public final class Messages {
     // TODO: Load other language translations if available in data folder and store in 2D map
     messages.clear();
 
-    // General messages/errors
+    // General messages
     messages.put("permission-error",
         new Message("&cYou do not have permission to do that!"));
+    messages.put("reload-success", new Message("&aMobActions reload complete!"));
 
     // Command messages
     messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
     messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
     messages.put("edit-cancel-success", new Message("&eCancelled!"));
     messages.put("remove-command", new Message("&bRight click on a mob to remove it"));
-
-    // Command errors
     messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
-    messages.put("reload-success", new Message("&aMobActions reload complete!"));
+
+    // Event message
+    messages.put("event-countdown-text", new Message("&eStarting {&c} event in {&c} seconds."));
+    messages.put("event-joined-text", new Message("&aSuccessfully joined the {&c} event!"));
+    messages.put("event-left-text", new Message("&eLeft the {&c} event!"));
+    messages.put("event-create-text", new Message("&aCreated {&c} event!"));
+    messages.put("event-remove-text", new Message("&aRemoved {&c} event!"));
+    messages.put("event-open-text", new Message("&aOpened {&c} event!"));
+    messages.put("event-cancel-text", new Message("&aCancelled {&c} event!"));
+    messages.put("event-cancelled-text", new Message("&eThe {&c} event has been cancelled!"));
+    messages.put("event-forcestart-text", new Message("&aStarted {&c} event!"));
+    messages.put("event-leave-info", new Message("&eClick again to leave the event!"));
+    messages.put("event-missing-error", new Message("&cThe {} event doesn't exist!"));
+    messages.put("event-exists-error", new Message("&cThe {} event already exists!"));
+    messages.put("event-already-open-error", new Message("&cThe {} event is already open!"));
+    messages.put("event-closed-error", new Message("&cThe {} event isn't open!"));
+    messages.put("event-save-error", new Message("&cCouldn't save event \"{}\"!"));
+    messages.put("event-info-text", new Message("&l&6{} Info"));
+    messages.put("event-status-text", new Message("&l&6Status: {&c}"));
+    messages.put("event-timeout-text", new Message("&l&6Wait time: {&c}"));
+    messages.put("event-players-text", new Message("&l&6Players: {&c}"));
+    messages.put("event-type-text", new Message("&l&6Type: {&c}"));
+    messages.put("event-type-details-text", new Message("&l&6{}: {&c}"));
+    messages.put("event-list-message", new Message("&aAvailable events:"));
+    messages.put("event-list-empty-message", new Message("&eNo events available!"));
 
     // Mob messages
+    messages.put("nametag-command-text", new Message("&6{}!"));
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
     messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
-    messages.put("nametag-command-text", new Message("&6{}!"));
+    messages.put("nametag-event-text", new Message("&6Click to join the {&c} event!"));
     messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
-
-    // Mob errors
     messages.put("mob-exists-error",
         new Message("&cA MobAction already exists here! Delete it to recreate."));
     messages.put("remove-error", new Message("&cNo active mob found!"));

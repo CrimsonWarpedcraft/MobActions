@@ -42,6 +42,14 @@ class StatusTest {
     status.setMobData(command);
     assertEquals(command, status.getMobData());
 
+    status.setMode(IStatus.Mode.DESTROYING);
+    assertNull(status.getMobData());
+
+    status.setMobData(command);
+    assertNull(status.getMobData());
+
+    status.setMode(IStatus.Mode.CREATING);
+    status.setMobData(command);
     status.setMode(IStatus.Mode.NONE);
     assertNull(status.getMobData());
 

@@ -32,7 +32,13 @@ public class CommandData implements ICommandData {
     this.description = container.get(descriptionKey, PersistentDataType.STRING);
   }
 
-  /** Constructs a command given a name and command to execute. */
+  /** Constructs a command given a command to execute. */
+  public CommandData(String command) {
+    this.command = command;
+    this.description = "";
+  }
+
+  /** Constructs a command given a command to execute and description. */
   public CommandData(String command, String description) {
     this.command = command;
     this.description = description;
@@ -86,5 +92,10 @@ public class CommandData implements ICommandData {
   @Override
   public String getNametagString() {
     return gm("nametag-command-text", description);
+  }
+
+  @Override
+  public String toString() {
+    return command;
   }
 }

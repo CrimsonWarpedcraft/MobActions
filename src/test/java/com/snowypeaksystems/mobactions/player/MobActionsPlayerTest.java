@@ -122,4 +122,94 @@ class MobActionsPlayerTest {
     assertTrue(player.canUseWarpsCommand());
     fake.setPermission("mobactions.warp", false);
   }
+
+  @Test
+  void canJoinEvent() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canJoinEvent("test1"));
+
+    fake.setPermission("mobactions.event.test1", true);
+    assertTrue(player.canJoinEvent("test1"));
+    fake.setPermission("mobactions.event.test1", false);
+
+    fake.setPermission("mobactions.event.*", true);
+    assertTrue(player.canJoinEvent("test1"));
+    fake.setPermission("mobactions.event.*", false);
+  }
+
+  @Test
+  void canStartEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canStartEvents());
+
+    fake.setPermission("mobactions.admin.events.start", true);
+    assertTrue(player.canStartEvents());
+    fake.setPermission("mobactions.admin.events.start", false);
+  }
+
+  @Test
+  void canCancelEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canCancelEvents());
+
+    fake.setPermission("mobactions.admin.events.stop", true);
+    assertTrue(player.canCancelEvents());
+    fake.setPermission("mobactions.admin.events.stop", false);
+  }
+
+  @Test
+  void canCreateEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canCreateEvents());
+
+    fake.setPermission("mobactions.admin.events.create", true);
+    assertTrue(player.canCreateEvents());
+    fake.setPermission("mobactions.admin.events.create", false);
+  }
+
+  @Test
+  void canRemoveEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canRemoveEvents());
+
+    fake.setPermission("mobactions.admin.events.remove", true);
+    assertTrue(player.canRemoveEvents());
+    fake.setPermission("mobactions.admin.events.remove", false);
+  }
+
+  @Test
+  void canListEvents() {
+    FakePlayer fake = new FakePlayer();
+    MobActionsUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canGetEventInfo());
+
+    fake.setPermission("mobactions.admin.events.remove", true);
+    assertTrue(player.canGetEventInfo());
+    fake.setPermission("mobactions.admin.events.remove", false);
+
+    fake.setPermission("mobactions.admin.events.create", true);
+    assertTrue(player.canGetEventInfo());
+    fake.setPermission("mobactions.admin.events.create", false);
+
+    fake.setPermission("mobactions.admin.events.start", true);
+    assertTrue(player.canGetEventInfo());
+    fake.setPermission("mobactions.admin.events.start", false);
+
+    fake.setPermission("mobactions.admin.events.stop", true);
+    assertTrue(player.canGetEventInfo());
+    fake.setPermission("mobactions.admin.events.stop", false);
+
+    assertFalse(player.canGetEventInfo());
+  }
 }

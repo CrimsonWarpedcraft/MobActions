@@ -1,6 +1,7 @@
 package com.snowypeaksystems.mobactions;
 
 import com.snowypeaksystems.mobactions.data.IncompleteDataException;
+import com.snowypeaksystems.mobactions.mobevent.IMobEventManager;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
 import org.bukkit.command.CommandSender;
@@ -23,4 +24,6 @@ public interface IMobActions {
 
   /** Returns the IInteractiveMob for this non-Player entity. */
   IInteractiveMob getInteractiveMob(LivingEntity entity) throws IncompleteDataException;
+
+  IMobEventManager getMobEventManager();
 }

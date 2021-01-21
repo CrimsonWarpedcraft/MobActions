@@ -18,6 +18,9 @@ permissions:
   mobactions.command:
     description: Allows players to use all command mobs
     default: true
+  mobactions.event.*:
+    description: Allows players to join all event, or specify an event name instead of *
+    default: true
   mobactions.warp:
     description: Allows players to go to a warp using /mac warp
     default: op
@@ -33,6 +36,18 @@ permissions:
   mobactions.admin.warps.remove:
     description: Allows players to delete a warp using /mac warps remove
     default: false
+  mobactions.admin.events.create:
+    description: Allows players to create an event using /mac event create
+    default: false
+  mobactions.admin.events.remove:
+    description: Allows players to remove an event using /mac event remove
+    default: false
+  mobactions.admin.events.start:
+    description: Allows players to start an event using /mac events start
+    default: false
+  mobactions.admin.events.stop:
+    description: Allows players to stop an event using /mac events stop
+    default: false
   mobactions.admin.reload:
     description: Allows players to reload the plugin configuration
     default: false
@@ -42,9 +57,14 @@ permissions:
     children:
       mobactions.admin.create: true
       mobactions.admin.remove: true
+      mobactions.admin.reload: true
+      mobactions.admin.events.create: true
+      mobactions.admin.events.remove: true
+      mobactions.admin.events.start: true
+      mobactions.admin.events.stop: true
       mobactions.admin.warps.set: true
       mobactions.admin.warps.remove: true
-      mobactions.admin.reload: true
+
   mobactions.*:
     description: Grants access to all mobs and all other permissions
     default: false
@@ -53,3 +73,4 @@ permissions:
       mobactions.admin.*: true
       mobactions.command: true
       mobactions.warp.*: true
+      mobactions.event.*: true

@@ -26,12 +26,13 @@ public class WarpManager implements IWarpManager {
    * @throws FileNotFoundException if dataDir does not exist
    */
   public WarpManager(File dataDir) throws FileNotFoundException {
-    if (dataDir == null || !dataDir.exists()) {
+    if (dataDir == null || !dataDir.exists() || !dataDir.isDirectory()) {
       throw new FileNotFoundException("Warp directory not found");
     }
 
     this.storageDir = dataDir;
     this.warps = new HashMap<>();
+    reload();
   }
 
   @Override
@@ -50,14 +51,13 @@ public class WarpManager implements IWarpManager {
   }
 
   @Override
-  public IWarp unregister(String name) {
+  public void unregister(String name) {
     IWarp warp = warps.remove(name.toLowerCase());
 
     if (warp != null) {
       warp.delete();
     }
 
-    return warp;
   }
 
   @Override
@@ -77,12 +77,12 @@ public class WarpManager implements IWarpManager {
 
   @Override
   public void reload() {
-    warps = new HashMap<>();
+    warps.clear();
     File[] files = storageDir.listFiles();
 
     if (files != null) {
       for (File f : files) {
-        if (f.getName().startsWith(".")) {
+        if (f.getName().startsWith(".") || f.isDirectory()) {
           continue;
         }
 

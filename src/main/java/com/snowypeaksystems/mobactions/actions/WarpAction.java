@@ -8,10 +8,10 @@ import com.snowypeaksystems.mobactions.event.WarpInteractEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
-import com.snowypeaksystems.mobactions.player.WarpNotFoundException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import com.snowypeaksystems.mobactions.warp.IWarp;
 import com.snowypeaksystems.mobactions.warp.IWarpManager;
+import com.snowypeaksystems.mobactions.warp.WarpNotFoundException;
 import org.bukkit.Bukkit;
 
 public class WarpAction implements IWarpAction {
@@ -43,17 +43,19 @@ public class WarpAction implements IWarpAction {
 
     IWarp warp = warpManager.getWarp(warpName);
 
-    WarpInteractEvent event = new WarpInteractEvent(player, mob, warp);
-    Bukkit.getPluginManager().callEvent(event);
-    if (!event.isCancelled()) {
+    if (!callEvent(player, warp)) {
       player.teleport(warp.getDestination()).thenAccept(success -> {
         if (success) {
           player.sendMessage(gm("warp-success", warpName));
           DebugLogger.getLogger().log("Player warped");
         }
       });
-    } else {
-      DebugLogger.getLogger().log("Event cancelled");
     }
+  }
+
+  private boolean callEvent(MobActionsUser player, IWarp warp) {
+    WarpInteractEvent event = new WarpInteractEvent(player, mob, warp);
+    Bukkit.getPluginManager().callEvent(event);
+    return event.isCancelled();
   }
 }

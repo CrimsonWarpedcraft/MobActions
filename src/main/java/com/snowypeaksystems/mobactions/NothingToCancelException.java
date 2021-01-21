@@ -1,6 +1,8 @@
-package com.snowypeaksystems.mobactions.player;
+package com.snowypeaksystems.mobactions;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
+import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
  * Thrown when attempting to cancel without already editing.
