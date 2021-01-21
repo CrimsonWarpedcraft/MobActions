@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.mobevent;
 
 import com.snowypeaksystems.mobactions.data.AliasedData;
 import com.snowypeaksystems.mobactions.data.FileData;
+import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import java.util.Set;
 
@@ -27,6 +28,15 @@ public interface IMobEvent extends AliasedData, FileData {
 
   /** Returns an unmodifiable copy of the set of joined players. */
   Set<MobActionsUser> getPlayerSet();
+
+  /** Returns the mob data for the event. */
+  MobData getData();
+
+  /** Returns the timeout in seconds. */
+  long getTimeout();
+
+  /** Returns the max players allowed for the event. */
+  int getMaxPlayers();
 
   /**
    * Allows players to join the event and begins the event's timeout period. The event countdown

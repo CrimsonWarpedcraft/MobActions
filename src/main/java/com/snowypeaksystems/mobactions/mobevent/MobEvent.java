@@ -91,6 +91,21 @@ public class MobEvent implements IMobEvent {
   }
 
   @Override
+  public MobData getData() {
+    return data;
+  }
+
+  @Override
+  public long getTimeout() {
+    return timeout;
+  }
+
+  @Override
+  public int getMaxPlayers() {
+    return maxPlayers;
+  }
+
+  @Override
   public void open() throws EventStateException {
     if (state != State.CLOSED) {
       throw new EventStateException(gm("event-already-open-error", name));

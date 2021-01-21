@@ -25,6 +25,7 @@ For a simple plugin, we pack a few powerful features!
 `/mac events cancel <name>` - Cancel an event  
 `/mac events remove <name>` - Remove an event  
 `/mac events forcestart <name>` - Forces an event to start now  
+`/mac events info <name>` - Show information about the event  
 `/mac warp <warp>` - Teleport to a warp  
 `/mac warps` - List available warps  
 `/mac warps set <name>` - Create a warp  

@@ -15,19 +15,17 @@ public final class Messages {
     // TODO: Load other language translations if available in data folder and store in 2D map
     messages.clear();
 
-    // General messages/errors
+    // General messages
     messages.put("permission-error",
         new Message("&cYou do not have permission to do that!"));
+    messages.put("reload-success", new Message("&aMobActions reload complete!"));
 
     // Command messages
     messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
     messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
     messages.put("edit-cancel-success", new Message("&eCancelled!"));
     messages.put("remove-command", new Message("&bRight click on a mob to remove it"));
-
-    // Command errors
     messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
-    messages.put("reload-success", new Message("&aMobActions reload complete!"));
 
     // Event message
     messages.put("event-countdown-text", new Message("&eStarting {&c} event in {&c} seconds."));
@@ -45,15 +43,19 @@ public final class Messages {
     messages.put("event-already-open-error", new Message("&cThe {} event is already open!"));
     messages.put("event-closed-error", new Message("&cThe {} event isn't open!"));
     messages.put("event-save-error", new Message("&cCouldn't save event \"{}\"!"));
+    messages.put("event-info-text", new Message("&l&6{} Info"));
+    messages.put("event-status-text", new Message("&l&6Status: {&c}"));
+    messages.put("event-timeout-text", new Message("&l&6Wait time: {&c}"));
+    messages.put("event-players-text", new Message("&l&6Players: {&c}"));
+    messages.put("event-type-text", new Message("&l&6Type: {&c}"));
+    messages.put("event-type-details-text", new Message("&l&6{}: {&c}"));
 
     // Mob messages
+    messages.put("nametag-command-text", new Message("&6{}!"));
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
     messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
-    messages.put("nametag-command-text", new Message("&6{}!"));
     messages.put("nametag-event-text", new Message("&6Click to join the {&c} event!"));
     messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
-
-    // Mob errors
     messages.put("mob-exists-error",
         new Message("&cA MobAction already exists here! Delete it to recreate."));
     messages.put("remove-error", new Message("&cNo active mob found!"));
