@@ -192,24 +192,24 @@ class MobActionsPlayerTest {
     FakePlayer fake = new FakePlayer();
     MobActionsUser player = new MobActionsPlayer(fake);
 
-    assertFalse(player.canListEvents());
+    assertFalse(player.canGetEventInfo());
 
     fake.setPermission("mobactions.admin.events.remove", true);
-    assertTrue(player.canListEvents());
+    assertTrue(player.canGetEventInfo());
     fake.setPermission("mobactions.admin.events.remove", false);
 
     fake.setPermission("mobactions.admin.events.create", true);
-    assertTrue(player.canListEvents());
+    assertTrue(player.canGetEventInfo());
     fake.setPermission("mobactions.admin.events.create", false);
 
     fake.setPermission("mobactions.admin.events.start", true);
-    assertTrue(player.canListEvents());
+    assertTrue(player.canGetEventInfo());
     fake.setPermission("mobactions.admin.events.start", false);
 
     fake.setPermission("mobactions.admin.events.stop", true);
-    assertTrue(player.canListEvents());
+    assertTrue(player.canGetEventInfo());
     fake.setPermission("mobactions.admin.events.stop", false);
 
-    assertFalse(player.canListEvents());
+    assertFalse(player.canGetEventInfo());
   }
 }

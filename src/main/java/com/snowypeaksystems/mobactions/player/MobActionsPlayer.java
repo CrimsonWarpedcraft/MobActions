@@ -86,7 +86,7 @@ public class MobActionsPlayer implements MobActionsUser {
   }
 
   @Override
-  public boolean canListEvents() {
+  public boolean canGetEventInfo() {
     return canCreateEvents() || canCancelEvents() || canStartEvents() || canRemoveEvents();
   }
 

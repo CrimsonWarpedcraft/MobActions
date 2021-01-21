@@ -135,6 +135,6 @@ class ConsoleUserTest {
   @Test
   void canListEvents() {
     MobActionsUser console = new ConsoleUser(new FakeConsoleCommandSender());
-    assertTrue(console.canListEvents());
+    assertTrue(console.canGetEventInfo());
   }
 }
