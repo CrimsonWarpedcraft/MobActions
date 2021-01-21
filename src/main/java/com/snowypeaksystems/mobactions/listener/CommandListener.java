@@ -8,6 +8,7 @@ import com.snowypeaksystems.mobactions.command.EventCancelCommand;
 import com.snowypeaksystems.mobactions.command.EventCreateCommand;
 import com.snowypeaksystems.mobactions.command.EventForceStartCommand;
 import com.snowypeaksystems.mobactions.command.EventInfoCommand;
+import com.snowypeaksystems.mobactions.command.EventListCommand;
 import com.snowypeaksystems.mobactions.command.EventOpenCommand;
 import com.snowypeaksystems.mobactions.command.EventRemoveCommand;
 import com.snowypeaksystems.mobactions.command.ListWarpsCommand;
@@ -55,6 +56,7 @@ public class CommandListener implements ICommandListener {
       "/mac events remove <name> - Remove an event",
       "/mac events forcestart <name> - Forces an event to start now",
       "/mac events info <name> - Show information about the event",
+      "/mac events - List all events",
       "/mac warp <warp> - Teleport to a warp",
       "/mac warps - List available warps",
       "/mac warps set <name> - Create a warp",
@@ -261,6 +263,8 @@ public class CommandListener implements ICommandListener {
       } else if (args.length == 3 && args[0].equalsIgnoreCase("events")
           && args[1].equalsIgnoreCase("info")) {
         cmd = new EventInfoCommand(args[2], ma.getMobEventManager());
+      } else if (args.length == 1 && args[0].equalsIgnoreCase("events")) {
+        cmd = new EventListCommand(ma.getMobEventManager());
       } else if (args.length == 3 && args[0].equalsIgnoreCase("warps")
           && args[1].equalsIgnoreCase("set")) {
         cmd = new SetWarpCommand(args[2], ma.getWarpManager());

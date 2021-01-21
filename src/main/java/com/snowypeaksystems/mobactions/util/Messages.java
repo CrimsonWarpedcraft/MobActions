@@ -49,6 +49,8 @@ public final class Messages {
     messages.put("event-players-text", new Message("&l&6Players: {&c}"));
     messages.put("event-type-text", new Message("&l&6Type: {&c}"));
     messages.put("event-type-details-text", new Message("&l&6{}: {&c}"));
+    messages.put("event-list-message", new Message("&aAvailable events:"));
+    messages.put("event-list-empty-message", new Message("&eNo events available!"));
 
     // Mob messages
     messages.put("nametag-command-text", new Message("&6{}!"));
