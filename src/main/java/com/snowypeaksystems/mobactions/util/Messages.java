@@ -22,7 +22,7 @@ public final class Messages {
 
     // Command messages
     messages.put("create-command", new Message("&bRight click on a mob to set the action!"));
-    messages.put("edit-cancel", new Message("&eUse /mac cancel to cancel"));
+    messages.put("edit-cancel", new Message("&eUse \"/mac action cancel\" to cancel"));
     messages.put("edit-cancel-success", new Message("&eCancelled!"));
     messages.put("remove-command", new Message("&bRight click on a mob to remove it"));
     messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));

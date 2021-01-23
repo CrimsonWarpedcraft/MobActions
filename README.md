@@ -14,11 +14,11 @@ Tested Minecraft Versions: **1.16**
 For a simple plugin, we pack a few powerful features!
 
 ### Commands
-`/mac create command "command" "description"` - Create a new command mob  
-`/mac create warp <name>` - Create a new warp mob  
-`/mac create event <name>` - Create a new event mob with a command or warp action  
-`/mac remove` - Remove a mob's action  
-`/mac cancel` - Cancels the current operation  
+`/mac action create command "command" "description"` - Create a new command mob action  
+`/mac action create warp <name>` - Create a new warp mob action  
+`/mac action create event <name>` - Create a new event mob action with a command or warp action  
+`/mac action remove` - Remove a mob action  
+`/mac action cancel` - Cancels the current action operation  
 `/mac events create <event-name> <wait-time> [max-players] command "command"` - Create a command event with an optional player limit  
 `/mac events create <event-name> <wait-time> [max-players] warp <warp-name>` - Create a warp event with an optional player limit  
 `/mac events open <name>` - Opens an event  
