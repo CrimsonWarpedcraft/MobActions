@@ -46,9 +46,9 @@ class MobActionsPlayerTest {
 
     assertFalse(player.canCreate());
 
-    fake.setPermission("mobactions.admin.create", true);
+    fake.setPermission("mobactions.admin.action.create", true);
     assertTrue(player.canCreate());
-    fake.setPermission("mobactions.admin.create", false);
+    fake.setPermission("mobactions.admin.action.create", false);
   }
 
   @Test
@@ -58,9 +58,9 @@ class MobActionsPlayerTest {
 
     assertFalse(player.canRemove());
 
-    fake.setPermission("mobactions.admin.remove", true);
+    fake.setPermission("mobactions.admin.action.remove", true);
     assertTrue(player.canRemove());
-    fake.setPermission("mobactions.admin.remove", false);
+    fake.setPermission("mobactions.admin.action.remove", false);
   }
 
   @Test

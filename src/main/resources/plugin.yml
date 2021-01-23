@@ -24,11 +24,11 @@ permissions:
   mobactions.warp:
     description: Allows players to go to a warp using /mac warp
     default: op
-  mobactions.admin.create:
-    description: Allows players to create action mobs with /mac create
+  mobactions.admin.action.create:
+    description: Allows players to create action mobs with /mac action create
     default: false
-  mobactions.admin.remove:
-    description: Allows players to destroy mobs with /mac remove
+  mobactions.admin.action.remove:
+    description: Allows players to destroy mobs with /mac action remove
     default: false
   mobactions.admin.warps.set:
     description: Allows players to create a warp using /mac warps set
@@ -55,9 +55,9 @@ permissions:
     description: Grants access to all mobs and other admin permissions
     default: op
     children:
-      mobactions.admin.create: true
-      mobactions.admin.remove: true
       mobactions.admin.reload: true
+      mobactions.admin.action.create: true
+      mobactions.admin.action.remove: true
       mobactions.admin.events.create: true
       mobactions.admin.events.remove: true
       mobactions.admin.events.start: true

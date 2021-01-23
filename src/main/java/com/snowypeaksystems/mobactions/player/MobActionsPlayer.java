@@ -92,12 +92,12 @@ public class MobActionsPlayer implements MobActionsUser {
 
   @Override
   public boolean canCreate() {
-    return player.hasPermission("mobactions.admin.create");
+    return player.hasPermission("mobactions.admin.action.create");
   }
 
   @Override
   public boolean canRemove() {
-    return player.hasPermission("mobactions.admin.remove");
+    return player.hasPermission("mobactions.admin.action.remove");
   }
 
   @Override
