@@ -45,7 +45,7 @@ public final class Messages {
     messages.put("event-save-error", new Message("&cCouldn't save event \"{}\"!"));
     messages.put("event-info-text", new Message("&l&6{} Info"));
     messages.put("event-status-text", new Message("&l&6Status: {&c}"));
-    messages.put("event-timeout-text", new Message("&l&6Wait time: {&c}"));
+    messages.put("event-timeout-text", new Message("&l&6Wait time: {&c} seconds"));
     messages.put("event-players-text", new Message("&l&6Players: {&c}"));
     messages.put("event-type-text", new Message("&l&6Type: {&c}"));
     messages.put("event-type-details-text", new Message("&l&6{}: {&c}"));
