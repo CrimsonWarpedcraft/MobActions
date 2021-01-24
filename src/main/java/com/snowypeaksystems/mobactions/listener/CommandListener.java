@@ -42,16 +42,16 @@ public class CommandListener implements ICommandListener {
   // TODO: Add to Messages class
   private final String[] help = {
       "Usage: /mac <subcommand>",
-      "/mac action create command \"command\" \"description\" - Create a new command mob",
+      "/mac action create command \"command\" \"name tag text\" - Create a new command mob",
       "/mac action create event <event> - Create a new event mob action",
       "/mac action create warp <warp> - Create a new warp mob action",
       "/mac action remove - Remove a mob action",
       "/mac action cancel - Cancels the current action operation",
-      "/mac events create <event-name> <wait-time> [max-players] command \"command\" - Create a "
+      "/mac events create <event name> <wait seconds> [max players] command \"command\" - Create a "
           + "command event with an optional player limit",
-      "/mac events create <event-name> <wait-time> [max-players] warp <warp-name> - Create a warp "
-          + "event with an optional player limit",
-      "/mac events open <name> - Opens an event",
+      "/mac events create <event name> <wait seconds> [max players] warp <warp name> - Create a "
+          + "warp event with an optional player limit",
+      "/mac events open <name> - Opens event, starts event timer",
       "/mac events cancel <name> - Cancel an event",
       "/mac events remove <name> - Remove an event",
       "/mac events forcestart <name> - Forces an event to start now",
