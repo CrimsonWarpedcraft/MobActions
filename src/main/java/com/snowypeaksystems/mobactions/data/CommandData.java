@@ -34,14 +34,18 @@ public class CommandData implements ICommandData {
 
   /** Constructs a command given a command to execute. */
   public CommandData(String command) {
-    this.command = command;
-    this.description = "";
+    this(command, null);
   }
 
   /** Constructs a command given a command to execute and description. */
   public CommandData(String command, String description) {
     this.command = command;
-    this.description = description;
+
+    if (description != null && description.length() > 0) {
+      this.description = description;
+    } else {
+      this.description = "\"" + command + "\"";
+    }
   }
 
   @Override

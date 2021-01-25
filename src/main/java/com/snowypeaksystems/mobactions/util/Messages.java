@@ -53,7 +53,7 @@ public final class Messages {
     messages.put("event-list-empty-message", new Message("&eNo events available!"));
 
     // Mob messages
-    messages.put("nametag-command-text", new Message("&6{}!"));
+    messages.put("nametag-command-text", new Message("&6Click to {}!"));
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));
     messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
     messages.put("nametag-event-text", new Message("&6Click to join the {&c} event!"));
