@@ -329,7 +329,10 @@ public class CommandListener implements ICommandListener {
         sb = new StringBuilder();
       } else if (sb != null) {
         if (c == '"') {
-          strings.add(sb.toString());
+          String str = sb.toString();
+          if (str.length() > 0) {
+            strings.add(str);
+          }
           sb = null;
         } else {
           sb.append(c);
