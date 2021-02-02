@@ -43,6 +43,8 @@ public final class Messages {
     messages.put("event-already-open-error", new Message("&cThe {} event is already open!"));
     messages.put("event-closed-error", new Message("&cThe {} event isn't open!"));
     messages.put("event-save-error", new Message("&cCouldn't save event \"{}\"!"));
+    messages.put("event-timeout-error", new Message("&cTimeout cannot be less than 1!"));
+    messages.put("event-players-error", new Message("&cMax players cannot be less than 0!"));
     messages.put("event-info-text", new Message("&l&6{} Info"));
     messages.put("event-status-text", new Message("&l&6Status: {&c}"));
     messages.put("event-timeout-text", new Message("&l&6Wait time: {&c} seconds"));

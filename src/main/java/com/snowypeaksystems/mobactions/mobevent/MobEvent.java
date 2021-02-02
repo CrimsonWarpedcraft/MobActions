@@ -36,6 +36,14 @@ public class MobEvent implements IMobEvent {
 
   MobEvent(String name, MobData data, long timeout, AMobActions plugin, int maxPlayers,
            File eventFolder) {
+    if (timeout < 1) {
+      throw new IllegalArgumentException("Argument \"timeout\" cannot be less than 1");
+    }
+
+    if (maxPlayers < 0) {
+      throw new IllegalArgumentException("Argument \"maxPlayers\" cannot be less than 0");
+    }
+
     this.name = name;
     this.data = data;
     this.timeout = timeout;
@@ -60,6 +68,14 @@ public class MobEvent implements IMobEvent {
     this.users = new HashSet<>();
     this.state = State.CLOSED;
     this.plugin = plugin;
+
+    if (timeout < 1) {
+      throw new EventConfigException("Property \"timeout\" cannot be less than 1");
+    }
+
+    if (maxPlayers < 0) {
+      throw new EventConfigException("Property \"maxPlayers\" cannot be less than 0");
+    }
   }
 
   @Override

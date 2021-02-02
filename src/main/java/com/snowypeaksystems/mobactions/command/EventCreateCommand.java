@@ -45,12 +45,20 @@ public class EventCreateCommand implements IEventCreateCommand {
       throw new EventExistsException(name);
     }
 
+    if (timeout < 1) {
+      throw new EventCreateException(gm("event-timeout-error"));
+    }
+
+    if (maxPlayers < 0) {
+      throw new EventCreateException(gm("event-players-error"));
+    }
+
     try {
       manager.createEvent(name, data, timeout, maxPlayers);
       player.sendMessage(gm("event-create-text", name));
     } catch (IOException e) {
       DebugLogger.getLogger().log("Event save error");
-      throw new EventCreateException(name);
+      throw new EventCreateException(gm("event-save-error", name));
     }
 
     DebugLogger.getLogger().log("Event created");
