@@ -18,6 +18,11 @@ class CommandDataTest {
 
     data = new CommandData("{}st {}st", "");
     assertEquals("test test", data.getCommand("te"));
-  }
 
+    data = new CommandData("{} \\{\\} {}", "");
+    assertEquals("test {} test", data.getCommand("test"));
+
+    data = new CommandData("\\{\\} {} \\{\\}", "");
+    assertEquals("{} test {}", data.getCommand("test"));
+  }
 }

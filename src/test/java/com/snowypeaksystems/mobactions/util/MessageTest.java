@@ -21,6 +21,13 @@ class MessageTest {
     assertThrows(IllegalArgumentException.class, message::replace);
     assertThrows(IllegalArgumentException.class, message::replace);
 
+    message = new Message("{} \\{\\} {}");
+    assertEquals("test {} test", message.replace("test", "test"));
+    assertThrows(IllegalArgumentException.class, message::replace);
+
+    message = new Message("\\{\\} {} \\{\\}");
+    assertEquals("{} test {}", message.replace("test"));
+
     message = new Message("&ctest {} test");
     assertEquals(
         ChatColor.translateAlternateColorCodes('&', "&ctest test test"),

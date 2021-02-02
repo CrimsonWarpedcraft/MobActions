@@ -325,16 +325,16 @@ public class CommandListener implements ICommandListener {
 
     for (int i = 0; i < text.length(); i++) {
       char c = text.charAt(i);
-      if (sb == null && c == '"') {
+      if (sb == null && c == '"' && (i == 0 || text.charAt(i - 1) != '\\')) {
         sb = new StringBuilder();
       } else if (sb != null) {
-        if (c == '"') {
+        if (c == '"' && text.charAt(i - 1) != '\\') {
           String str = sb.toString();
           if (str.length() > 0) {
             strings.add(str);
           }
           sb = null;
-        } else {
+        } else if (i == text.length() - 1 || text.charAt(i) != '\\' || text.charAt(i + 1) != '"') {
           sb.append(c);
         }
       }

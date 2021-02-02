@@ -55,20 +55,22 @@ public class CommandData implements ICommandData {
     StringBuilder newString = new StringBuilder();
 
     for (int i = 0, j = 0; i < command.length(); i++) {
-      if (command.charAt(i) == tokenStr.charAt(j)) {
+      if (command.charAt(i) == tokenStr.charAt(j) && (i == 0 || command.charAt(i - 1) != '\\')) {
         positions[j] = i;
         j++;
       }
 
       if (j == positions.length) {
-        String segment = command.substring(last, positions[0]);
+        String segment = command.substring(last, positions[0]).replaceAll("\\\\\\{", "{")
+            .replaceAll("\\\\}", "}");
         newString.append(segment).append(name);
         last = i + 1;
         j = 0;
       }
     }
 
-    newString.append(command, last, command.length());
+    newString.append(command.substring(last).replaceAll("\\\\\\{", "{")
+        .replaceAll("\\\\}", "}"));
 
     return newString.toString();
   }

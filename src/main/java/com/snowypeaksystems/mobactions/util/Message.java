@@ -17,7 +17,7 @@ public class Message implements IMessage {
 
     int tokens = 0;
     for (int i = 0, j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == tokenStr.charAt(j)) {
+      if (message.charAt(i) == tokenStr.charAt(j) && (i == 0 || message.charAt(i - 1) != '\\')) {
         j++;
       }
 
@@ -47,7 +47,7 @@ public class Message implements IMessage {
     StringBuilder newString = new StringBuilder();
     StringBuilder formatCodes = new StringBuilder();
     for (int i = 0, j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == tokenStr.charAt(j)) {
+      if (message.charAt(i) == tokenStr.charAt(j) && (i == 0 || message.charAt(i - 1) != '\\')) {
         positions[j] = i;
         j++;
       }
@@ -55,7 +55,8 @@ public class Message implements IMessage {
       if (j == positions.length) {
         if (args.length > tokens) {
           String tokenFormat = message.substring(positions[0] + 1, positions[1]);
-          String segment = message.substring(last, positions[0]);
+          String segment = message.substring(last, positions[0]).replaceAll("\\\\\\{", "{")
+              .replaceAll("\\\\}", "}");
           String previousFormat = ChatColor.getLastColors(segment);
           formatCodes.append(previousFormat);
           newString.append(segment);
@@ -76,7 +77,8 @@ public class Message implements IMessage {
       }
     }
 
-    newString.append(message, last, message.length());
+    newString.append(message.substring(last).replaceAll("\\\\\\{", "{")
+        .replaceAll("\\\\}", "}"));
 
     return newString.toString();
   }
