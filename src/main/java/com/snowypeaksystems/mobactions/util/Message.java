@@ -17,7 +17,8 @@ public class Message implements IMessage {
 
     int tokens = 0;
     for (int i = 0, j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == tokenStr.charAt(j) && (i == 0 || message.charAt(i - 1) != '\\')) {
+      if (message.charAt(i) == tokenStr.charAt(j) && (i == 0 || message.charAt(i - 1) != '\\'
+          || (i >= 2 && message.charAt(i - 2) == '\\'))) {
         j++;
       }
 
@@ -41,27 +42,30 @@ public class Message implements IMessage {
   }
 
   private String replaceAndColorize(String... args) {
-    int last = 0;
+    int start = 0;
     int tokens = 0;
     int[] positions = new int[2];
     StringBuilder newString = new StringBuilder();
     StringBuilder formatCodes = new StringBuilder();
     for (int i = 0, j = 0; i < message.length(); i++) {
-      if (message.charAt(i) == tokenStr.charAt(j) && (i == 0 || message.charAt(i - 1) != '\\')) {
+      if (message.charAt(i) == tokenStr.charAt(j) && (i == 0 || message.charAt(i - 1) != '\\'
+          || (i >= 2 && message.charAt(i - 2) == '\\'))) {
         positions[j] = i;
         j++;
       }
 
       if (j == positions.length) {
         if (args.length > tokens) {
-          String tokenFormat = message.substring(positions[0] + 1, positions[1]);
-          String segment = message.substring(last, positions[0]).replaceAll("\\\\\\{", "{")
-              .replaceAll("\\\\}", "}");
-          String previousFormat = ChatColor.getLastColors(segment);
-          formatCodes.append(previousFormat);
+          int end = positions[0];
+          if (positions[0] >= 2 && message.startsWith("\\\\", positions[0] - 2)) {
+            end = positions[0] - 1;
+          }
+          String segment = message.substring(start, end)
+              .replaceAll("(?<!\\\\)\\\\\\{", "{").replaceAll("(?<!\\\\)\\\\}", "}");
+          formatCodes.append(ChatColor.getLastColors(segment));
           newString.append(segment);
+          String tokenFormat = message.substring(positions[0] + 1, positions[1]);
           String formatted = ChatColor.translateAlternateColorCodes('&', args[tokens]);
-
           if (tokenFormat.length() > 0) {
             newString.append(ChatColor.RESET).append(tokenFormat).append(formatted)
                 .append(ChatColor.RESET).append(formatCodes.toString());
@@ -69,7 +73,7 @@ public class Message implements IMessage {
             newString.append(formatted);
           }
 
-          last = i + 1;
+          start = i + 1;
         }
 
         j = 0;
@@ -77,8 +81,8 @@ public class Message implements IMessage {
       }
     }
 
-    newString.append(message.substring(last).replaceAll("\\\\\\{", "{")
-        .replaceAll("\\\\}", "}"));
+    newString.append(message.substring(start).replaceAll("(?<!\\\\)\\\\\\{", "{")
+        .replaceAll("(?<!\\\\)\\\\}", "}"));
 
     return newString.toString();
   }

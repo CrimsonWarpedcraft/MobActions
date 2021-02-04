@@ -50,27 +50,32 @@ public class CommandData implements ICommandData {
 
   @Override
   public String getCommand(String name) {
-    int last = 0;
+    int start = 0;
     int[] positions = new int[2];
     StringBuilder newString = new StringBuilder();
 
     for (int i = 0, j = 0; i < command.length(); i++) {
-      if (command.charAt(i) == tokenStr.charAt(j) && (i == 0 || command.charAt(i - 1) != '\\')) {
+      if (command.charAt(i) == tokenStr.charAt(j) && (i == 0 || command.charAt(i - 1) != '\\'
+          || (i >= 2 && command.charAt(i - 2) == '\\'))) {
         positions[j] = i;
         j++;
       }
 
       if (j == positions.length) {
-        String segment = command.substring(last, positions[0]).replaceAll("\\\\\\{", "{")
-            .replaceAll("\\\\}", "}");
+        int end = positions[0];
+        if (positions[0] >= 2 && command.startsWith("\\\\", positions[0] - 2)) {
+          end = positions[0] - 1;
+        }
+        String segment = command.substring(start, end).replaceAll("(?<!\\\\)\\\\\\{", "{")
+            .replaceAll("(?<!\\\\)\\\\}", "}");
         newString.append(segment).append(name);
-        last = i + 1;
+        start = i + 1;
         j = 0;
       }
     }
 
-    newString.append(command.substring(last).replaceAll("\\\\\\{", "{")
-        .replaceAll("\\\\}", "}"));
+    newString.append(command.substring(start).replaceAll("(?<!\\\\)\\\\\\{", "{")
+        .replaceAll("(?<!\\\\)\\\\}", "}"));
 
     return newString.toString();
   }
