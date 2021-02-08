@@ -83,6 +83,7 @@ public class EventListener implements IEventListener {
 
       } else if (event.getEntity() instanceof Player && event instanceof EntityDamageByEntityEvent
           && (((EntityDamageByEntityEvent) event).getDamager()) instanceof LivingEntity
+          && !((((EntityDamageByEntityEvent) event).getDamager()) instanceof Player)
           && ma.getInteractiveMob(
               (LivingEntity) ((EntityDamageByEntityEvent) event).getDamager()).exists()) {
         event.setCancelled(true);
