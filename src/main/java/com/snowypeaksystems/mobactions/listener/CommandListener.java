@@ -336,7 +336,7 @@ public class CommandListener implements ICommandListener {
           }
           sb = null;
         } else if (i == text.length() - 1 || text.charAt(i) != '\\' || text.charAt(i + 1) != '"'
-            || (i >= 2 && text.charAt(i - 2) == '\\')) {
+            || text.charAt(i - 1) == '\\') {
           sb.append(c);
         }
       }
