@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.player;
 
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 
 /**
@@ -11,6 +12,11 @@ import org.bukkit.command.ConsoleCommandSender;
 public class ConsoleUser implements MobActionsUser {
   private final ConsoleCommandSender console;
 
+  public ConsoleUser(ConsoleCommandSender console, Server server) {
+    this.console = console;
+  }
+
+  @Deprecated
   public ConsoleUser(ConsoleCommandSender console) {
     this.console = console;
   }

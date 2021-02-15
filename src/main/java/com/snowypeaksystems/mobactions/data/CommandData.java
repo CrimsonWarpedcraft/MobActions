@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Stores a String command.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class CommandData implements ICommandData {
+public class CommandData implements ConsoleCommandData {
   private final String command;
   private final String description;
   private final String tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});
@@ -87,6 +87,7 @@ public class CommandData implements ICommandData {
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY),
             PersistentDataType.STRING, description);
+    // TODO Mason, store, purge, and load if console command
   }
 
   @Override
@@ -108,5 +109,11 @@ public class CommandData implements ICommandData {
   @Override
   public String toString() {
     return command;
+  }
+
+  @Override
+  public boolean isConsoleCommand() {
+    // TODO Mason, implement
+    return false;
   }
 }

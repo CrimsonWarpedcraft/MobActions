@@ -8,12 +8,19 @@ import com.snowypeaksystems.mobactions.player.PermissionException;
 import com.snowypeaksystems.mobactions.player.PlayerException;
 import com.snowypeaksystems.mobactions.util.DebugLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
 
 public class CommandAction implements ICommandAction {
   private final ICommandData command;
   private final IInteractiveMob mob;
 
   /** Creates a CommandAction for a command to be ran by a player. */
+  public CommandAction(IInteractiveMob mob, ICommandData data, Server server) {
+    this.mob = mob;
+    this.command = data;
+  }
+
+  @Deprecated
   public CommandAction(IInteractiveMob mob, ICommandData data) {
     this.mob = mob;
     this.command = data;
@@ -29,8 +36,9 @@ public class CommandAction implements ICommandAction {
 
     String commandStr = command.getCommand(player.getName());
     DebugLogger.getLogger().log("Command: " + commandStr);
-
-    if (!callEvent(player, commandStr)) {
+    // TODO Mason, if server != null and command is ConsoleCommandData and isConsoleCommand, get
+    //  console user and run command from there. Else, run below
+    if (!callEvent(player, commandStr, false)) {
       if (!player.performCommand(commandStr)) {
         DebugLogger.getLogger().log("Command execution failed");
         throw new CommandActionException();
@@ -40,8 +48,8 @@ public class CommandAction implements ICommandAction {
     }
   }
 
-  private boolean callEvent(MobActionsUser player, String commandStr) {
-    CommandInteractEvent event = new CommandInteractEvent(player, mob, commandStr);
+  private boolean callEvent(MobActionsUser player, String commandStr, boolean isServerCommand) {
+    CommandInteractEvent event = new CommandInteractEvent(player, mob, commandStr, isServerCommand);
     Bukkit.getPluginManager().callEvent(event);
     return event.isCancelled();
   }
