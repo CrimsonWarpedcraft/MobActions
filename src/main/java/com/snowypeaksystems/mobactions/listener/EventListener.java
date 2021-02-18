@@ -125,7 +125,7 @@ public class EventListener implements IEventListener {
     } else if (player.getStatus().getMode() == IStatus.Mode.DESTROYING) {
       action = new RemoveAction(mob);
     } else if (mob.getData() instanceof ICommandData) {
-      action = new CommandAction(mob, (ICommandData) mob.getData(), ma.getServer());
+      action = new CommandAction(mob, (ICommandData) mob.getData(), ma);
     } else if (mob.getData() instanceof IEventData) {
       action = new EventMobJoinAction(mob, (IEventData) mob.getData(), ma.getMobEventManager());
     } else if (mob.getData() instanceof IWarpData) {

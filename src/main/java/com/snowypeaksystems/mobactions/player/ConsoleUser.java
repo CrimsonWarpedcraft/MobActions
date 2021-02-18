@@ -11,14 +11,17 @@ import org.bukkit.command.ConsoleCommandSender;
  */
 public class ConsoleUser implements MobActionsUser {
   private final ConsoleCommandSender console;
+  private final Server server;
 
   public ConsoleUser(ConsoleCommandSender console, Server server) {
     this.console = console;
+    this.server = server;
   }
 
   @Deprecated
   public ConsoleUser(ConsoleCommandSender console) {
     this.console = console;
+    this.server = null;
   }
 
   @Override
@@ -28,7 +31,7 @@ public class ConsoleUser implements MobActionsUser {
 
   @Override
   public boolean canRunCommand() {
-    return false;
+    return true;
   }
 
   @Override
@@ -113,7 +116,11 @@ public class ConsoleUser implements MobActionsUser {
 
   @Override
   public boolean performCommand(String command) {
-    throw new UnsupportedOperationException();
+    if (server == null) {
+      throw new UnsupportedOperationException();
+    }
+
+    return server.dispatchCommand(console, command);
   }
 
   @Override

@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandData implements ConsoleCommandData {
   private final String command;
   private final String description;
+  private final Boolean isConsoleCommand;
   private final String tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});
 
   /** Constructs CommandData from an entity. */
@@ -22,24 +23,33 @@ public class CommandData implements ConsoleCommandData {
     PersistentDataContainer container = entity.getPersistentDataContainer();
     NamespacedKey commandKey = new NamespacedKey(plugin, COMMAND_KEY);
     NamespacedKey descriptionKey = new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY);
+    NamespacedKey consoleKey = new NamespacedKey(plugin, CONSOLE_COMMAND_KEY);
 
     if (!container.has(commandKey, PersistentDataType.STRING)
-        || !container.has(descriptionKey, PersistentDataType.STRING)) {
+        || !container.has(descriptionKey, PersistentDataType.STRING)
+        || !container.has(consoleKey, PersistentDataType.INTEGER)) {
       throw new IncompleteDataException();
     }
 
+    Integer consoleNum = container.get(consoleKey, PersistentDataType.INTEGER);
     this.command = container.get(commandKey, PersistentDataType.STRING);
     this.description = container.get(descriptionKey, PersistentDataType.STRING);
+    this.isConsoleCommand = consoleNum != null && consoleNum == 1;
+  }
+
+  public CommandData(String command, String description) {
+    this(command, description, false);
   }
 
   /** Constructs a command given a command to execute. */
   public CommandData(String command) {
-    this(command, null);
+    this(command, null, false);
   }
 
   /** Constructs a command given a command to execute and description. */
-  public CommandData(String command, String description) {
+  public CommandData(String command, String description, boolean isConsoleCommand) {
     this.command = command;
+    this.isConsoleCommand = isConsoleCommand;
 
     if (description != null && description.length() > 0) {
       this.description = description;
@@ -87,13 +97,16 @@ public class CommandData implements ConsoleCommandData {
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY),
             PersistentDataType.STRING, description);
-    // TODO Mason, store, purge, and load if console command
+    entity.getPersistentDataContainer()
+        .set(new NamespacedKey(plugin, CONSOLE_COMMAND_KEY),
+            PersistentDataType.INTEGER, isConsoleCommand ? 1 : 0);
   }
 
   @Override
   public void purge(LivingEntity entity, JavaPlugin plugin) {
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_KEY));
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY));
+    entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, CONSOLE_COMMAND_KEY));
   }
 
   @Override
@@ -113,7 +126,6 @@ public class CommandData implements ConsoleCommandData {
 
   @Override
   public boolean isConsoleCommand() {
-    // TODO Mason, implement
-    return false;
+    return isConsoleCommand;
   }
 }

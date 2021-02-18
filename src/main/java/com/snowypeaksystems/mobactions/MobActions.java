@@ -6,7 +6,7 @@ import com.snowypeaksystems.mobactions.listener.EventListener;
 import com.snowypeaksystems.mobactions.listener.ICommandListener;
 import com.snowypeaksystems.mobactions.mobevent.IMobEventManager;
 import com.snowypeaksystems.mobactions.mobevent.MobEventManager;
-import com.snowypeaksystems.mobactions.player.CommandConsoleUser;
+import com.snowypeaksystems.mobactions.player.ConsoleUser;
 import com.snowypeaksystems.mobactions.player.MobActionsPlayer;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import com.snowypeaksystems.mobactions.util.Messages;
@@ -113,7 +113,7 @@ public class MobActions extends AMobActions {
       return getPlayer((Player) sender);
     }
 
-    return new CommandConsoleUser((ConsoleCommandSender) sender, getServer());
+    return new ConsoleUser((ConsoleCommandSender) sender, getServer());
   }
 
   @Override

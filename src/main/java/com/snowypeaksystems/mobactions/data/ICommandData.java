@@ -9,6 +9,7 @@ public interface ICommandData extends MobData {
   char TOKEN_SUFFIX = '}';
   String COMMAND_KEY = "command";
   String COMMAND_DESCRIPTION_KEY = "command-description";
+  String CONSOLE_COMMAND_KEY = "console-command";
 
   /** Returns the command String with the token replaced by name. */
   String getCommand(String name);
