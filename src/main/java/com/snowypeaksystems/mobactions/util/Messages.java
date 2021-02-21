@@ -54,6 +54,41 @@ public final class Messages {
     messages.put("event-list-message", new Message("&aAvailable events:"));
     messages.put("event-list-empty-message", new Message("&eNo events available!"));
 
+    // Help messages
+    messages.put("help-usage", new Message("&eUsage: /mac <subcommand>"));
+    messages.put("help-command-action", new Message("&e/mac action create command \"command\""
+        + " \"name tag text\" - Create a new command mob"));
+    messages.put("help-event-action",
+        new Message("&e/mac action create event <event> - Create a new event mob action"));
+    messages.put("help-warp-action",
+        new Message("&e/mac action create warp <warp> - Create a new warp mob action"));
+    messages.put("help-action-remove", new Message("&e/mac action remove - Remove a mob action"));
+    messages.put("help-action-cancel",
+        new Message("&e/mac action cancel - Cancels the current action operation"));
+    messages.put("help-command-event", new Message("&e/mac events create <event name>"
+        + " <wait seconds> [max players] command \"command\" - Create a command event with an"
+        + " optional player limit"));
+    messages.put("help-warp-event", new Message("&e/mac events create <event name> <wait seconds>"
+        + " [max players] warp <warp name> - Create a warp event with an optional player limit"));
+    messages.put("help-event-open",
+        new Message("&e/mac events open <name> - Opens event, starts event timer"));
+    messages.put("help-event-cancel", new Message("&e/mac events cancel <name> - Cancel an event"));
+    messages.put("help-event-remove", new Message("&e/mac events remove <name> - Remove an event"));
+    messages.put("help-event-forcestart",
+        new Message("&e/mac events forcestart <name> - Forces an event to start now"));
+    messages.put("help-event-info",
+        new Message("&e/mac events info <name> - Show information about the event"));
+    messages.put("help-event-list", new Message("&e/mac events - List all events"));
+    messages.put("help-warp", new Message("&e/mac warp <warp> - Teleport to a warp"));
+    messages.put("help-warps-list", new Message("&e/mac warps - List available warps"));
+    messages.put("help-warps-set", new Message("&e/mac warps set <name> - Create a warp"));
+    messages.put("help-warps-remove", new Message("&e/mac warps remove <name> - Delete a warp"));
+    messages.put("help-reload", new Message("&e/mac reload - Reloads the plugin's configuration"));
+    messages.put("help-page-number", new Message("&6Help page {} / {}:"));
+    messages.put("help-command-usage",
+        new Message("&6/mac help [page] - Shows the specified help page"));
+    messages.put("help-command-error", new Message("&cThat page does not exist!"));
+
     // Mob messages
     messages.put("nametag-command-text", new Message("&6Click to {}!"));
     messages.put("action-create-success", new Message("&aMobAction created successfully!"));

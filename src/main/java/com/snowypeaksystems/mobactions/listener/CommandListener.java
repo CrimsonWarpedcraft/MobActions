@@ -1,5 +1,7 @@
 package com.snowypeaksystems.mobactions.listener;
 
+import static com.snowypeaksystems.mobactions.util.Messages.gm;
+
 import com.snowypeaksystems.mobactions.AMobActions;
 import com.snowypeaksystems.mobactions.command.CancelCommand;
 import com.snowypeaksystems.mobactions.command.CreateCommand;
@@ -38,33 +40,28 @@ import org.bukkit.util.StringUtil;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class CommandListener implements ICommandListener {
+  private static final int pageItemCount = 8;
   private final AMobActions ma;
-  // TODO: Add to Messages class
   private final String[] help = {
-      "Usage: /mac <subcommand>",
-      "/mac action create command \"command\" \"name tag text\" - Create a new command mob",
-      "/mac action create event <event> - Create a new event mob action",
-      "/mac action create warp <warp> - Create a new warp mob action",
-      "/mac action remove - Remove a mob action",
-      "/mac action cancel - Cancels the current action operation",
-      "/mac events create <event name> <wait seconds> [max players] command \"command\" - Create a "
-          + "command event with an optional player limit",
-      "/mac events create <event name> <wait seconds> [max players] warp <warp name> - Create a "
-          + "warp event with an optional player limit",
-      "/mac events open <name> - Opens event, starts event timer",
-      "/mac events cancel <name> - Cancel an event",
-      "/mac events remove <name> - Remove an event",
-      "/mac events forcestart <name> - Forces an event to start now",
-      "/mac events info <name> - Show information about the event",
-      "/mac events - List all events",
-      "/mac warp <warp> - Teleport to a warp",
-      "/mac warps - List available warps",
-      "/mac warps set <name> - Create a warp",
-      "/mac warps remove <name> - Delete a warp",
-      "/mac reload - Reloads the plugin's configuration",
-      "/mac - Shows this message"
+      gm("help-command-action"),
+      gm("help-event-action"),
+      gm("help-warp-action"),
+      gm("help-action-remove"),
+      gm("help-action-cancel"),
+      gm("help-command-event"),
+      gm("help-warp-event"),
+      gm("help-event-open"),
+      gm("help-event-cancel"),
+      gm("help-event-remove"),
+      gm("help-event-forcestart"),
+      gm("help-event-info"),
+      gm("help-event-list"),
+      gm("help-warp"),
+      gm("help-warps-list"),
+      gm("help-warps-set"),
+      gm("help-warps-remove"),
+      gm("help-reload")
   };
-
   private final String[] subcommands = {"events", "help", "action", "reload", "warp", "warps"};
   private final String[] createCommands = {"command", "event", "warp"};
   private final String[] eventCommands =
@@ -207,6 +204,7 @@ public class CommandListener implements ICommandListener {
                            String[] args) {
     DebugLogger.getLogger().log("Processing command");
     if (command.getName().equalsIgnoreCase("mac")) {
+      int page = 0;
       DebugLogger.getLogger().log("Arguments: " + Arrays.toString(args));
       MobActionsUser user = ma.getPlayer(sender);
       PlayerCommand cmd = null;
@@ -291,6 +289,12 @@ public class CommandListener implements ICommandListener {
       } else if (args.length == 2 && args[0].equalsIgnoreCase("action")
           && args[1].equalsIgnoreCase("cancel")) {
         cmd = new CancelCommand();
+      } else if (args.length == 2 && args[0].equalsIgnoreCase("help")) {
+        try {
+          page = Integer.parseInt(args[1]) - 1;
+        } catch (NumberFormatException e) {
+          DebugLogger.getLogger().log("Incorrect help command usage");
+        }
       } else if (args.length == 1 && args[0].equalsIgnoreCase("events")) {
         cmd = new EventListCommand(ma.getMobEventManager());
       } else if (args.length == 1 && args[0].equalsIgnoreCase("warps")) {
@@ -308,8 +312,8 @@ public class CommandListener implements ICommandListener {
           user.sendMessage(e.getPlayerFormattedString());
         }
       } else {
-        DebugLogger.getLogger().log("Command not found");
-        user.sendMessage(help);
+        DebugLogger.getLogger().log("No command run");
+        user.sendMessage(getHelp(page));
       }
 
       return true;
@@ -343,5 +347,24 @@ public class CommandListener implements ICommandListener {
     }
 
     return strings;
+  }
+
+  private String[] getHelp(int page) {
+    ArrayList<String> messages = new ArrayList<>(pageItemCount + 3);
+    int startIdx = page * pageItemCount;
+
+    if (startIdx < help.length && startIdx >= 0) {
+      messages.add(gm("help-page-number", String.valueOf(page + 1),
+          String.valueOf((int) Math.ceil((double) help.length / pageItemCount))));
+      messages.add(gm("help-usage"));
+      for (int i = 0; i < pageItemCount && i + startIdx < help.length; i++) {
+        messages.add(help[i + startIdx]);
+      }
+      messages.add(gm("help-command-usage"));
+    } else {
+      messages.add(gm("help-command-error"));
+    }
+
+    return messages.toArray(new String[0]);
   }
 }

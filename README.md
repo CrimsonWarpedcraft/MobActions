@@ -34,7 +34,7 @@ event with an optional player limit
 `/mac warps set <name>` - Create a warp  
 `/mac warps remove <name>` - Delete a warp  
 `/mac reload` - Reloads the plugin's configuration  
-`/mac` - Shows this message
+`/mac help [page]` - Shows the specified help page
 
 ### Permissions
 `mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
@@ -53,7 +53,7 @@ event with an optional player limit
 `mobactions.admin.events.start` - Allows players to start an event using /mac events start (Default: op)  
 `mobactions.admin.events.stop` - Allows players to stop an event using /mac events stop (Default: op)  
 `mobactions.admin.warps.set` - Allows players to create a warp using /mac setwarp (Default: op)  
-`mobactions.admin.warps.remove` - Allows players to delete a warp using /mac delwarp (Default: op)
+`mobactions.admin.warps.remove` - Allows players to delete a warp using /mac delwarp (Default: op)  
 `mobactions.admin.reload` - Allows players to reload the plugin configuration using /mac reload (Default: op)  
 
 ### Configuration
