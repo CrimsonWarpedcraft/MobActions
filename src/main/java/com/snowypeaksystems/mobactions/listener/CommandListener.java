@@ -44,11 +44,13 @@ public class CommandListener implements ICommandListener {
   private final AMobActions ma;
   private final String[] help = {
       gm("help-command-action"),
+      gm("help-consolecmd-action"),
       gm("help-event-action"),
       gm("help-warp-action"),
       gm("help-action-remove"),
       gm("help-action-cancel"),
       gm("help-command-event"),
+      gm("help-consolecmd-event"),
       gm("help-warp-event"),
       gm("help-event-open"),
       gm("help-event-cancel"),
