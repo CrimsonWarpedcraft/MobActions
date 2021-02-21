@@ -227,7 +227,8 @@ public class CommandListener implements ICommandListener {
         try {
           long waitTime = Long.parseLong(args[3]);
 
-          if (args[4 + typeIndexOffset].equalsIgnoreCase("command")) {
+          String type = args[4 + typeIndexOffset];
+          if (type.equalsIgnoreCase("command") || type.equalsIgnoreCase("consolecmd")) {
             String[] sublist = Arrays.asList(args).subList(5 + typeIndexOffset, args.length)
                 .toArray(new String[]{});
             List<String> strArgs = parseForStrings(sublist);
@@ -236,7 +237,7 @@ public class CommandListener implements ICommandListener {
                   playerLimit, ma.getMobEventManager());
             }
 
-          } else if (args[4 + typeIndexOffset].equalsIgnoreCase("warp")) {
+          } else if (type.equalsIgnoreCase("warp")) {
             cmd = new EventCreateCommand(args[2], new WarpData(args[5 + typeIndexOffset]), waitTime,
                 playerLimit, ma.getMobEventManager());
           }
