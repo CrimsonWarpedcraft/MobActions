@@ -26,9 +26,13 @@ public class CommandData implements ConsoleCommandData {
     NamespacedKey consoleKey = new NamespacedKey(plugin, CONSOLE_COMMAND_KEY);
 
     if (!container.has(commandKey, PersistentDataType.STRING)
-        || !container.has(descriptionKey, PersistentDataType.STRING)
-        || !container.has(consoleKey, PersistentDataType.INTEGER)) {
+        || !container.has(descriptionKey, PersistentDataType.STRING)) {
       throw new IncompleteDataException();
+    }
+
+    // This is to upgrade legacy mobs without causing an error
+    if (!container.has(consoleKey, PersistentDataType.INTEGER)) {
+      container.set(consoleKey, PersistentDataType.INTEGER, 0);
     }
 
     Integer consoleNum = container.get(consoleKey, PersistentDataType.INTEGER);
