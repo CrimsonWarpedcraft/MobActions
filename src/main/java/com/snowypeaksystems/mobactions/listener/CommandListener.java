@@ -63,10 +63,10 @@ public class CommandListener implements ICommandListener {
       gm("help-reload")
   };
   private final String[] subcommands = {"events", "help", "action", "reload", "warp", "warps"};
-  private final String[] createCommands = {"command", "event", "warp"};
+  private final String[] createCommands = {"command", "consolecmd", "event", "warp"};
   private final String[] eventCommands =
       {"cancel", "create", "forcestart", "info", "open", "remove"};
-  private final String[] eventTypes = {"command", "warp"};
+  private final String[] eventTypes = {"command", "consolecmd", "warp"};
   private final String[] mobCommands = {"cancel", "create", "remove"};
   private final String[] warpCommands = {"set", "remove"};
 
