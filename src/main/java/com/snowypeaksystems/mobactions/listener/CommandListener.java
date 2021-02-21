@@ -246,13 +246,15 @@ public class CommandListener implements ICommandListener {
 
       } else if (args.length >= 5 && args[0].equalsIgnoreCase("action")
           && args[1].equalsIgnoreCase("create")
-          && args[2].equalsIgnoreCase("command")) {
+          && (args[2].equalsIgnoreCase("command") || args[2].equalsIgnoreCase("consolecmd"))) {
         String[] sublist = Arrays.asList(args).subList(3, args.length).toArray(new String[]{});
         List<String> strArgs = parseForStrings(sublist);
 
         DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
         if (strArgs.size() == 2) {
-          cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1)));
+          cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1),
+              args[2].equalsIgnoreCase("consolecmd")));
+
         }
       } else if (args.length == 4 && args[0].equalsIgnoreCase("action")
           && args[1].equalsIgnoreCase("create")
