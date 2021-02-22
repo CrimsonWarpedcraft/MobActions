@@ -113,7 +113,7 @@ public class MobActions extends AMobActions {
       return getPlayer((Player) sender);
     }
 
-    return new ConsoleUser((ConsoleCommandSender) sender);
+    return new ConsoleUser((ConsoleCommandSender) sender, getServer());
   }
 
   @Override

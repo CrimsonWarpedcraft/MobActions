@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
  * Player based implementation of MobActionsUser.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class MobActionsPlayer implements MobActionsUser {
+public class MobActionsPlayer implements ConsoleActionUser {
   private final Player player;
   private final IStatus status;
 
@@ -123,5 +123,10 @@ public class MobActionsPlayer implements MobActionsUser {
   @Override
   public boolean canReload() {
     return player.hasPermission("mobactions.admin.reload");
+  }
+
+  @Override
+  public boolean canUseConsoleCommand() {
+    return player.hasPermission("mobactions.consolecmd");
   }
 }

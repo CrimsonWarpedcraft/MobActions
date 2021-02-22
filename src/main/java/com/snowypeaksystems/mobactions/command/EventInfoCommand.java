@@ -2,6 +2,7 @@ package com.snowypeaksystems.mobactions.command;
 
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
+import com.snowypeaksystems.mobactions.data.ConsoleCommandData;
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.data.MobData;
@@ -54,7 +55,10 @@ public class EventInfoCommand implements IEventInfoCommand {
     String type = "";
     String details = "";
     MobData data = event.getData();
-    if (data instanceof ICommandData) {
+    if (data instanceof ConsoleCommandData && ((ConsoleCommandData) data).isConsoleCommand()) {
+      type = "Console command";
+      details = ((ConsoleCommandData) event.getData()).getCommand("{player}");
+    } else if (data instanceof ICommandData) {
       type = "Command";
       details = ((ICommandData) event.getData()).getCommand("{player}");
     } else if (data instanceof IWarpData) {

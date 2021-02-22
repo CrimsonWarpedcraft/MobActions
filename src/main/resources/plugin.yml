@@ -18,6 +18,9 @@ permissions:
   mobactions.command:
     description: Allows players to use all command mobs
     default: true
+  mobactions.consolecmd:
+    description: Allows players to use all console command mobs
+    default: true
   mobactions.event.*:
     description: Allows players to join all event, or specify an event name instead of *
     default: true
@@ -72,5 +75,6 @@ permissions:
       mobactions.warp: true
       mobactions.admin.*: true
       mobactions.command: true
+      mobactions.consolecmd: true
       mobactions.warp.*: true
       mobactions.event.*: true

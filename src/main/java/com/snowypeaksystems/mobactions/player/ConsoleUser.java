@@ -2,17 +2,26 @@ package com.snowypeaksystems.mobactions.player;
 
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 
 /**
  * Console based implementation of MobActionsUser.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class ConsoleUser implements MobActionsUser {
+public class ConsoleUser implements ConsoleActionUser {
   private final ConsoleCommandSender console;
+  private final Server server;
 
+  public ConsoleUser(ConsoleCommandSender console, Server server) {
+    this.console = console;
+    this.server = server;
+  }
+
+  @Deprecated
   public ConsoleUser(ConsoleCommandSender console) {
     this.console = console;
+    this.server = null;
   }
 
   @Override
@@ -22,7 +31,7 @@ public class ConsoleUser implements MobActionsUser {
 
   @Override
   public boolean canRunCommand() {
-    return false;
+    return true;
   }
 
   @Override
@@ -107,7 +116,11 @@ public class ConsoleUser implements MobActionsUser {
 
   @Override
   public boolean performCommand(String command) {
-    throw new UnsupportedOperationException();
+    if (server == null) {
+      throw new UnsupportedOperationException();
+    }
+
+    return server.dispatchCommand(console, command);
   }
 
   @Override
@@ -118,5 +131,10 @@ public class ConsoleUser implements MobActionsUser {
   @Override
   public String getName() {
     return "Console";
+  }
+
+  @Override
+  public boolean canUseConsoleCommand() {
+    return false;
   }
 }

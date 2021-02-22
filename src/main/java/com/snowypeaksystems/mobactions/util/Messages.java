@@ -58,6 +58,8 @@ public final class Messages {
     messages.put("help-usage", new Message("&eUsage: /mac <subcommand>"));
     messages.put("help-command-action", new Message("&e/mac action create command \"command\""
         + " \"name tag text\" - Create a new command mob"));
+    messages.put("help-consolecmd-action", new Message("&e/mac action create consolecmd \"command\""
+        + " \"name tag text\" - Create a new console command mob"));
     messages.put("help-event-action",
         new Message("&e/mac action create event <event> - Create a new event mob action"));
     messages.put("help-warp-action",
@@ -67,6 +69,9 @@ public final class Messages {
         new Message("&e/mac action cancel - Cancels the current action operation"));
     messages.put("help-command-event", new Message("&e/mac events create <event name>"
         + " <wait seconds> [max players] command \"command\" - Create a command event with an"
+        + " optional player limit"));
+    messages.put("help-consolecmd-event", new Message("&e/mac events create <event name>"
+        + " <wait seconds> [max players] consolecmd \"command\" - Create a consolecmd event with an"
         + " optional player limit"));
     messages.put("help-warp-event", new Message("&e/mac events create <event name> <wait seconds>"
         + " [max players] warp <warp name> - Create a warp event with an optional player limit"));

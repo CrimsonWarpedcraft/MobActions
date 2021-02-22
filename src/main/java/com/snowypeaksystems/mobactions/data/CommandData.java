@@ -12,9 +12,10 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Stores a String command.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class CommandData implements ICommandData {
+public class CommandData implements ConsoleCommandData {
   private final String command;
   private final String description;
+  private final Boolean isConsoleCommand;
   private final String tokenStr = String.valueOf(new char[]{TOKEN_PREFIX, TOKEN_SUFFIX});
 
   /** Constructs CommandData from an entity. */
@@ -22,24 +23,43 @@ public class CommandData implements ICommandData {
     PersistentDataContainer container = entity.getPersistentDataContainer();
     NamespacedKey commandKey = new NamespacedKey(plugin, COMMAND_KEY);
     NamespacedKey descriptionKey = new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY);
+    NamespacedKey consoleKey = new NamespacedKey(plugin, CONSOLE_COMMAND_KEY);
 
     if (!container.has(commandKey, PersistentDataType.STRING)
         || !container.has(descriptionKey, PersistentDataType.STRING)) {
       throw new IncompleteDataException();
     }
 
+    // This is to upgrade legacy mobs without causing an error
+    if (!container.has(consoleKey, PersistentDataType.INTEGER)) {
+      container.set(consoleKey, PersistentDataType.INTEGER, 0);
+    }
+
+    Integer consoleNum = container.get(consoleKey, PersistentDataType.INTEGER);
     this.command = container.get(commandKey, PersistentDataType.STRING);
     this.description = container.get(descriptionKey, PersistentDataType.STRING);
+    this.isConsoleCommand = consoleNum != null && consoleNum == 1;
   }
 
   /** Constructs a command given a command to execute. */
   public CommandData(String command) {
-    this(command, null);
+    this(command, null, false);
   }
 
-  /** Constructs a command given a command to execute and description. */
+  /** Constructs a command given a command to execute and boolean to toggle console command. */
+  public CommandData(String command, boolean isConsoleCommand) {
+    this(command, null, isConsoleCommand);
+  }
+
+  /** Constructs a command given a command and description. */
   public CommandData(String command, String description) {
+    this(command, description, false);
+  }
+
+  /** Constructs a command given a command, description, and boolean to toggle console command. */
+  public CommandData(String command, String description, boolean isConsoleCommand) {
     this.command = command;
+    this.isConsoleCommand = isConsoleCommand;
 
     if (description != null && description.length() > 0) {
       this.description = description;
@@ -87,12 +107,16 @@ public class CommandData implements ICommandData {
     entity.getPersistentDataContainer()
         .set(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY),
             PersistentDataType.STRING, description);
+    entity.getPersistentDataContainer()
+        .set(new NamespacedKey(plugin, CONSOLE_COMMAND_KEY),
+            PersistentDataType.INTEGER, isConsoleCommand ? 1 : 0);
   }
 
   @Override
   public void purge(LivingEntity entity, JavaPlugin plugin) {
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_KEY));
     entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, COMMAND_DESCRIPTION_KEY));
+    entity.getPersistentDataContainer().remove(new NamespacedKey(plugin, CONSOLE_COMMAND_KEY));
   }
 
   @Override
@@ -108,5 +132,10 @@ public class CommandData implements ICommandData {
   @Override
   public String toString() {
     return command;
+  }
+
+  @Override
+  public boolean isConsoleCommand() {
+    return isConsoleCommand;
   }
 }

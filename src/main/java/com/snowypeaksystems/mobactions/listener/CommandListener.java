@@ -21,6 +21,7 @@ import com.snowypeaksystems.mobactions.command.SetWarpCommand;
 import com.snowypeaksystems.mobactions.command.WarpCommand;
 import com.snowypeaksystems.mobactions.data.CommandData;
 import com.snowypeaksystems.mobactions.data.EventData;
+import com.snowypeaksystems.mobactions.data.MobData;
 import com.snowypeaksystems.mobactions.data.WarpData;
 import com.snowypeaksystems.mobactions.mobevent.IMobEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
@@ -44,11 +45,13 @@ public class CommandListener implements ICommandListener {
   private final AMobActions ma;
   private final String[] help = {
       gm("help-command-action"),
+      gm("help-consolecmd-action"),
       gm("help-event-action"),
       gm("help-warp-action"),
       gm("help-action-remove"),
       gm("help-action-cancel"),
       gm("help-command-event"),
+      gm("help-consolecmd-event"),
       gm("help-warp-event"),
       gm("help-event-open"),
       gm("help-event-cancel"),
@@ -63,10 +66,10 @@ public class CommandListener implements ICommandListener {
       gm("help-reload")
   };
   private final String[] subcommands = {"events", "help", "action", "reload", "warp", "warps"};
-  private final String[] createCommands = {"command", "event", "warp"};
+  private final String[] createCommands = {"command", "consolecmd", "event", "warp"};
   private final String[] eventCommands =
       {"cancel", "create", "forcestart", "info", "open", "remove"};
-  private final String[] eventTypes = {"command", "warp"};
+  private final String[] eventTypes = {"command", "consolecmd", "warp"};
   private final String[] mobCommands = {"cancel", "create", "remove"};
   private final String[] warpCommands = {"set", "remove"};
 
@@ -225,16 +228,19 @@ public class CommandListener implements ICommandListener {
         try {
           long waitTime = Long.parseLong(args[3]);
 
-          if (args[4 + typeIndexOffset].equalsIgnoreCase("command")) {
+          String type = args[4 + typeIndexOffset];
+          if (type.equalsIgnoreCase("command") || type.equalsIgnoreCase("consolecmd")) {
             String[] sublist = Arrays.asList(args).subList(5 + typeIndexOffset, args.length)
                 .toArray(new String[]{});
             List<String> strArgs = parseForStrings(sublist);
             if (strArgs.size() == 1) {
-              cmd = new EventCreateCommand(args[2], new CommandData(strArgs.get(0)), waitTime,
-                  playerLimit, ma.getMobEventManager());
+              MobData data = new CommandData(strArgs.get(0),
+                  type.equalsIgnoreCase("consolecmd"));
+              cmd = new EventCreateCommand(args[2], data, waitTime, playerLimit,
+                  ma.getMobEventManager());
             }
 
-          } else if (args[4 + typeIndexOffset].equalsIgnoreCase("warp")) {
+          } else if (type.equalsIgnoreCase("warp")) {
             cmd = new EventCreateCommand(args[2], new WarpData(args[5 + typeIndexOffset]), waitTime,
                 playerLimit, ma.getMobEventManager());
           }
@@ -244,13 +250,15 @@ public class CommandListener implements ICommandListener {
 
       } else if (args.length >= 5 && args[0].equalsIgnoreCase("action")
           && args[1].equalsIgnoreCase("create")
-          && args[2].equalsIgnoreCase("command")) {
+          && (args[2].equalsIgnoreCase("command") || args[2].equalsIgnoreCase("consolecmd"))) {
         String[] sublist = Arrays.asList(args).subList(3, args.length).toArray(new String[]{});
         List<String> strArgs = parseForStrings(sublist);
 
         DebugLogger.getLogger().log("String arguments: " + strArgs.toString());
         if (strArgs.size() == 2) {
-          cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1)));
+          cmd = new CreateCommand(new CommandData(strArgs.get(0), strArgs.get(1),
+              args[2].equalsIgnoreCase("consolecmd")));
+
         }
       } else if (args.length == 4 && args[0].equalsIgnoreCase("action")
           && args[1].equalsIgnoreCase("create")

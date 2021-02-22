@@ -36,15 +36,18 @@ public class InteractiveMob implements IInteractiveMob {
               .getConstructor(LivingEntity.class, JavaPlugin.class);
           data = c.newInstance(entity, plugin);
         } catch (NoSuchMethodException e) {
-          Bukkit.getLogger().log(Level.WARNING, "Unrecognized data key found");
+          Bukkit.getLogger().log(Level.WARNING, "Unrecognized data key found", e.getCause());
         } catch (InvocationTargetException e) {
           if (e.getCause() instanceof IncompleteDataException) {
             throw (IncompleteDataException) e.getCause();
           } else {
             DebugLogger.getLogger().log("Error running constructor");
+            Bukkit.getLogger().log(Level.SEVERE, "Error running constructor", e.getCause());
           }
         } catch (IllegalAccessException | InstantiationException e) {
           DebugLogger.getLogger().log("Error creating mob from recognized class");
+          Bukkit.getLogger().log(Level.SEVERE, "Error creating mob from recognized class",
+              e.getCause());
         }
       }
     }
