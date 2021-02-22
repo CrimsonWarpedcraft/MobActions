@@ -3,6 +3,7 @@ package com.snowypeaksystems.mobactions.actions;
 import static com.snowypeaksystems.mobactions.util.Messages.gm;
 
 import com.snowypeaksystems.mobactions.AMobActions;
+import com.snowypeaksystems.mobactions.data.ConsoleCommandData;
 import com.snowypeaksystems.mobactions.data.ICommandData;
 import com.snowypeaksystems.mobactions.data.IWarpData;
 import com.snowypeaksystems.mobactions.data.MobData;
@@ -51,8 +52,12 @@ public class EventMobStartAction implements IEventMobStartAction {
       DebugLogger.getLogger().log("Executing command");
       String commandStr = ((ICommandData) data).getCommand(player.getName());
       DebugLogger.getLogger().log("Command: " + commandStr);
+      boolean isConsoleCommand = data instanceof ConsoleCommandData
+          && ((ConsoleCommandData) data).isConsoleCommand();
 
-      if (!player.performCommand(commandStr)) {
+      if ((!isConsoleCommand && !player.performCommand(commandStr))
+          || (isConsoleCommand && !ma.getPlayer(ma.getServer().getConsoleSender())
+          .performCommand(commandStr))) {
         DebugLogger.getLogger().log("Command execution failed");
         throw new CommandActionException();
       }

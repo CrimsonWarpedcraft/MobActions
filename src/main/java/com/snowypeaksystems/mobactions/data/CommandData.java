@@ -41,16 +41,22 @@ public class CommandData implements ConsoleCommandData {
     this.isConsoleCommand = consoleNum != null && consoleNum == 1;
   }
 
-  public CommandData(String command, String description) {
-    this(command, description, false);
-  }
-
   /** Constructs a command given a command to execute. */
   public CommandData(String command) {
     this(command, null, false);
   }
 
-  /** Constructs a command given a command to execute and description. */
+  /** Constructs a command given a command to execute and boolean to toggle console command. */
+  public CommandData(String command, boolean isConsoleCommand) {
+    this(command, null, isConsoleCommand);
+  }
+
+  /** Constructs a command given a command and description. */
+  public CommandData(String command, String description) {
+    this(command, description, false);
+  }
+
+  /** Constructs a command given a command, description, and boolean to toggle console command. */
   public CommandData(String command, String description, boolean isConsoleCommand) {
     this.command = command;
     this.isConsoleCommand = isConsoleCommand;
