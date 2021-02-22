@@ -9,7 +9,7 @@ import org.bukkit.command.ConsoleCommandSender;
  * Console based implementation of MobActionsUser.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class ConsoleUser implements MobActionsUser {
+public class ConsoleUser implements ConsoleActionUser {
   private final ConsoleCommandSender console;
   private final Server server;
 
@@ -131,5 +131,10 @@ public class ConsoleUser implements MobActionsUser {
   @Override
   public String getName() {
     return "Console";
+  }
+
+  @Override
+  public boolean canUseConsoleCommand() {
+    return false;
   }
 }

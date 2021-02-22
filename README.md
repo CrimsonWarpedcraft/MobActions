@@ -41,6 +41,7 @@ event with an optional player limit
 ### Permissions
 `mobactions.*` - Grants access to all warps and all other permissions (Default: disabled)  
 `mobactions.command` - Allows players to use all command mobs (Default: enabled)  
+`mobactions.consolecmd` - Allows players to use all console command mobs (Default: enabled)  
 `mobactions.event.*` - Allows players to join all events (Default: enabled)  
 `mobactions.event.[event]` - Allows players to use specific command mobs (Default: disabled)  
 `mobactions.warp` - Allows players to go to a warp using /mac warp. Also needed for /mac warps (Default: op)  

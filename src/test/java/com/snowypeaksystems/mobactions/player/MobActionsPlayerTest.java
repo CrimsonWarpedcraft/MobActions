@@ -188,7 +188,7 @@ class MobActionsPlayerTest {
   }
 
   @Test
-  void canListEvents() {
+  void canGetEventInfo() {
     FakePlayer fake = new FakePlayer();
     MobActionsUser player = new MobActionsPlayer(fake);
 
@@ -211,5 +211,17 @@ class MobActionsPlayerTest {
     fake.setPermission("mobactions.admin.events.stop", false);
 
     assertFalse(player.canGetEventInfo());
+  }
+
+  @Test
+  void canUseConsoleCommand() {
+    FakePlayer fake = new FakePlayer();
+    ConsoleActionUser player = new MobActionsPlayer(fake);
+
+    assertFalse(player.canUseConsoleCommand());
+
+    fake.setPermission("mobactions.consolecmd", true);
+    assertTrue(player.canUseConsoleCommand());
+    fake.setPermission("mobactions.consolecmd", false);
   }
 }
