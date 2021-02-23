@@ -27,10 +27,22 @@ java {
 }
 
 repositories {
-    mavenCentral()
+    mavenCentral {
+        content {
+            excludeModule("com.destroystokyo.paper", "paper-api")
+            excludeModule("io.papermc", "paperlib")
+        }
+    }
+
     maven {
         name 'papermc'
         url 'https://papermc.io/repo/repository/maven-public/'
+        content {
+            excludeModule("com.github.spotbugs", "spotbugs-annotations")
+            excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
+            excludeModule("org.junit.jupiter", "junit-jupiter-api")
+            excludeModule("org.junit.jupiter", "junit-jupiter-engine")
+        }
     }
 }
 
