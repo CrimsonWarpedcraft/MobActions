@@ -2,13 +2,14 @@
 
 Welcome to MobActions! A simple way to turn any mob into actions players can click to use!
 
+[![Build and Artifact](https://github.com/CrimsonWarpedcraft/MobActions/actions/workflows/artifact.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/MobActions/actions/workflows/artifact.yml)
+[![Known Vulnerabilities](https://snyk.io/test/github/CrimsonWarpedcraft/MobActions/badge.svg)](https://snyk.io/test/github/CrimsonWarpedcraft/MobActions?targetFile=build.gradle)
+
 ## Simple and Stable
 Works with Paper, Spigot, and Bukkit servers!
 
 Native Version: **1.16**  
 Tested Minecraft Versions: **1.16**
-
-![Build and Artifact](https://github.com/CrimsonWarpedcraft/MobActions/workflows/Build%20and%20Artifact/badge.svg?event=push)
 
 ## Features
 For a simple plugin, we pack a few powerful features!
