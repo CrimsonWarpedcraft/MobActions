@@ -3,7 +3,7 @@
 Welcome to MobActions! A simple way to turn any mob into actions players can click to use!
 
 [![Build and Artifact](https://github.com/CrimsonWarpedcraft/MobActions/actions/workflows/artifact.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/MobActions/actions/workflows/artifact.yml)
-[![Known Vulnerabilities](https://snyk.io/test/github/CrimsonWarpedcraft/MobActions/badge.svg)](https://snyk.io/test/github/CrimsonWarpedcraft/MobActions?targetFile=build.gradle)
+[![Known Vulnerabilities](https://snyk.io/test/github/CrimsonWarpedcraft/MobActions/badge.svg)](https://snyk.io/test/github/CrimsonWarpedcraft/MobActions)
 
 ## Simple and Stable
 Works with Paper, Spigot, and Bukkit servers!
