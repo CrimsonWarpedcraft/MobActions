@@ -39,6 +39,7 @@ public class MobActions extends AMobActions {
     PaperLib.suggestPaper(this);
 
     saveDefaultConfig();
+    Messages.setDataDir(getDataFolder());
 
     File warpDir = new File(getDataFolder(), "warps");
     if (!warpDir.exists() && !warpDir.mkdirs()) {
@@ -129,6 +130,7 @@ public class MobActions extends AMobActions {
   @Override
   public void reloadConfig() {
     super.reloadConfig();
+    Messages.setDataDir(getDataFolder());
     Messages.initialize();
     warps.reload();
     players.clear();

@@ -65,13 +65,27 @@ public class CommandListener implements ICommandListener {
       gm("help-warps-remove"),
       gm("help-reload")
   };
-  private final String[] subcommands = {"events", "help", "action", "reload", "warp", "warps"};
-  private final String[] createCommands = {"command", "consolecmd", "event", "warp"};
-  private final String[] eventCommands =
-      {"cancel", "create", "forcestart", "info", "open", "remove"};
-  private final String[] eventTypes = {"command", "consolecmd", "warp"};
-  private final String[] mobCommands = {"cancel", "create", "remove"};
-  private final String[] warpCommands = {"set", "remove"};
+  private final String[] subcommands = {
+      gm("command-events"), gm("command-help"), gm("command-action"),
+      gm("command-reload"), gm("command-warp"), gm("command-warps")
+  };
+  private final String[] createCommands = {
+      gm("command-command"), gm("command-consolecmd"), gm("command-event"),
+      gm("command-warp")
+  };
+  private final String[] eventCommands = {
+      gm("command-cancel"), gm("command-create"), gm("command-forcestart"),
+      gm("command-info"), gm("command-open"), gm("command-remove")
+  };
+  private final String[] eventTypes = {
+      gm("command-command"), gm("command-consolecmd"), gm("command-warp")
+  };
+  private final String[] mobCommands = {
+      gm("command-cancel"), gm("command-create"), gm("command-remove")
+  };
+  private final String[] warpCommands = {
+      gm("command-set"), gm("command-remove")
+  };
 
   public CommandListener(AMobActions parent) {
     this.ma = parent;

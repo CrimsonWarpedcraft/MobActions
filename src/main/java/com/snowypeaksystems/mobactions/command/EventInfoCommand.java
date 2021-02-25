@@ -40,11 +40,11 @@ public class EventInfoCommand implements IEventInfoCommand {
 
     String status = "";
     if (event.getState() == IMobEvent.State.OPEN) {
-      status = "Open";
+      status = gm("event-status-open");
     } else if (event.getState() == IMobEvent.State.CLOSED) {
-      status = "Closed";
+      status = gm("event-status-closed");
     } else if (event.getState() == IMobEvent.State.COUNTDOWN) {
-      status = "Starting";
+      status = gm("event-status-starting");
     }
 
     String players = String.valueOf(event.getPlayerSet().size());
@@ -56,13 +56,13 @@ public class EventInfoCommand implements IEventInfoCommand {
     String details = "";
     MobData data = event.getData();
     if (data instanceof ConsoleCommandData && ((ConsoleCommandData) data).isConsoleCommand()) {
-      type = "Console command";
+      type = gm("event-type-consolecmd");
       details = ((ConsoleCommandData) event.getData()).getCommand("{player}");
     } else if (data instanceof ICommandData) {
-      type = "Command";
+      type = gm("event-type-command");
       details = ((ICommandData) event.getData()).getCommand("{player}");
     } else if (data instanceof IWarpData) {
-      type = "Warp";
+      type = gm("event-type-warp");
       details = ((IWarpData) event.getData()).getAlias();
     }
 

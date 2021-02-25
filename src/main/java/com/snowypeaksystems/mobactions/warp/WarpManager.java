@@ -18,7 +18,7 @@ import org.bukkit.Location;
  */
 public class WarpManager implements IWarpManager {
   private final File storageDir;
-  private Map<String, IWarp> warps;
+  private final Map<String, IWarp> warps;
 
   /**
    * Construct a new WarpManager map from the specified dataDir and server.

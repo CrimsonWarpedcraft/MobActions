@@ -1,128 +1,63 @@
 package com.snowypeaksystems.mobactions.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Collection of messages to be used throughout the project.
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public final class Messages {
+  private static File dataDir;
   private static final Map<String, Message> messages = new HashMap<>();
+
+  public static void setDataDir(File dataDir) {
+    Messages.dataDir = dataDir;
+  }
 
   /** Loads message data. */
   public static void initialize() {
-    // TODO: Load other language translations if available in data folder and store in 2D map
     messages.clear();
+    YamlConfiguration rawMessages = new YamlConfiguration();
+    rawMessages.options().copyDefaults(true);
+    rawMessages.addDefaults(getDefaults());
 
-    // General messages
-    messages.put("permission-error",
-        new Message("&cYou do not have permission to do that!"));
-    messages.put("reload-success", new Message("&aMobActions reload complete!"));
+    if (dataDir != null) {
+      String messagesLoc = dataDir.getPath() + "/messages.yml";
+      DebugLogger.getLogger().log("Attempting to load and update message file at " + messagesLoc);
 
-    // Command messages
-    messages.put("create-command", new Message("&bClick on a mob to set the action!"));
-    messages.put("edit-cancel", new Message("&eUse \"/mac action cancel\" to cancel"));
-    messages.put("edit-cancel-success", new Message("&eCancelled!"));
-    messages.put("remove-command", new Message("&bClick on a mob to remove it"));
-    messages.put("edit-cancel-error", new Message("&eNothing to cancel!"));
+      try {
+        rawMessages.load(messagesLoc);
+      } catch (IOException e) {
+        DebugLogger.getLogger().log("Error reading messages file");
+      } catch (InvalidConfigurationException e) {
+        DebugLogger.getLogger().log("Invalid messages file");
+        Bukkit.getLogger().log(Level.WARNING, "Message file is invalid!");
+      }
 
-    // Event message
-    messages.put("event-countdown-text", new Message("&eStarting {&c} event in {&c} seconds."));
-    messages.put("event-joined-text", new Message("&aSuccessfully joined the {&c} event!"));
-    messages.put("event-left-text", new Message("&eLeft the {&c} event!"));
-    messages.put("event-create-text", new Message("&aCreated {&c} event!"));
-    messages.put("event-remove-text", new Message("&aRemoved {&c} event!"));
-    messages.put("event-open-text", new Message("&aOpened {&c} event!"));
-    messages.put("event-cancel-text", new Message("&aCancelled {&c} event!"));
-    messages.put("event-cancelled-text", new Message("&eThe {&c} event has been cancelled!"));
-    messages.put("event-forcestart-text", new Message("&aStarted {&c} event!"));
-    messages.put("event-leave-info", new Message("&eClick again to leave the event!"));
-    messages.put("event-missing-error", new Message("&cThe {} event doesn't exist!"));
-    messages.put("event-exists-error", new Message("&cThe {} event already exists!"));
-    messages.put("event-already-open-error", new Message("&cThe {} event is already open!"));
-    messages.put("event-closed-error", new Message("&cThe {} event isn't open!"));
-    messages.put("event-save-error", new Message("&cCouldn't save event \"{}\"!"));
-    messages.put("event-timeout-error", new Message("&cTimeout cannot be less than 1!"));
-    messages.put("event-players-error", new Message("&cMax players cannot be less than 0!"));
-    messages.put("event-info-text", new Message("&l&6{} Info"));
-    messages.put("event-status-text", new Message("&l&6Status: {&c}"));
-    messages.put("event-timeout-text", new Message("&l&6Wait time: {&c} seconds"));
-    messages.put("event-players-text", new Message("&l&6Players: {&c}"));
-    messages.put("event-type-text", new Message("&l&6Type: {&c}"));
-    messages.put("event-type-details-text", new Message("&l&6{}: {&c}"));
-    messages.put("event-list-message", new Message("&aAvailable events:"));
-    messages.put("event-list-empty-message", new Message("&eNo events available!"));
+      try {
+        // This "updates" the file
+        rawMessages.save(messagesLoc);
+      } catch (IOException exception) {
+        DebugLogger.getLogger().log("Error saving messages file");
+      }
+    } else {
+      DebugLogger.getLogger().log("No data directory provided, skip writing messages");
+    }
 
-    // Help messages
-    messages.put("help-usage", new Message("&eUsage: /mac <subcommand>"));
-    messages.put("help-command-action", new Message("&e/mac action create command \"command\""
-        + " \"name tag text\" - Create a new command mob"));
-    messages.put("help-consolecmd-action", new Message("&e/mac action create consolecmd \"command\""
-        + " \"name tag text\" - Create a new console command mob"));
-    messages.put("help-event-action",
-        new Message("&e/mac action create event <event> - Create a new event mob action"));
-    messages.put("help-warp-action",
-        new Message("&e/mac action create warp <warp> - Create a new warp mob action"));
-    messages.put("help-action-remove", new Message("&e/mac action remove - Remove a mob action"));
-    messages.put("help-action-cancel",
-        new Message("&e/mac action cancel - Cancels the current action operation"));
-    messages.put("help-command-event", new Message("&e/mac events create <event name>"
-        + " <wait seconds> [max players] command \"command\" - Create a command event with an"
-        + " optional player limit"));
-    messages.put("help-consolecmd-event", new Message("&e/mac events create <event name>"
-        + " <wait seconds> [max players] consolecmd \"command\" - Create a consolecmd event with an"
-        + " optional player limit"));
-    messages.put("help-warp-event", new Message("&e/mac events create <event name> <wait seconds>"
-        + " [max players] warp <warp name> - Create a warp event with an optional player limit"));
-    messages.put("help-event-open",
-        new Message("&e/mac events open <name> - Opens event, starts event timer"));
-    messages.put("help-event-cancel", new Message("&e/mac events cancel <name> - Cancel an event"));
-    messages.put("help-event-remove", new Message("&e/mac events remove <name> - Remove an event"));
-    messages.put("help-event-forcestart",
-        new Message("&e/mac events forcestart <name> - Forces an event to start now"));
-    messages.put("help-event-info",
-        new Message("&e/mac events info <name> - Show information about the event"));
-    messages.put("help-event-list", new Message("&e/mac events - List all events"));
-    messages.put("help-warp", new Message("&e/mac warp <warp> - Teleport to a warp"));
-    messages.put("help-warps-list", new Message("&e/mac warps - List available warps"));
-    messages.put("help-warps-set", new Message("&e/mac warps set <name> - Create a warp"));
-    messages.put("help-warps-remove", new Message("&e/mac warps remove <name> - Delete a warp"));
-    messages.put("help-reload", new Message("&e/mac reload - Reloads the plugin's configuration"));
-    messages.put("help-page-number", new Message("&6Help page {} / {}:"));
-    messages.put("help-command-usage",
-        new Message("&6/mac help [page] - Shows the specified help page"));
-    messages.put("help-command-error", new Message("&cThat page does not exist!"));
-
-    // Mob messages
-    messages.put("nametag-command-text", new Message("&6Click to {}!"));
-    messages.put("action-create-success", new Message("&aMobAction created successfully!"));
-    messages.put("action-remove-success", new Message("&aMobAction successfully removed!"));
-    messages.put("nametag-event-text", new Message("&6Click to join the {&c} event!"));
-    messages.put("nametag-portal-text", new Message("&6Click to warp to {&c}!"));
-    messages.put("mob-exists-error",
-        new Message("&cA MobAction already exists here! Delete it to recreate."));
-    messages.put("remove-error", new Message("&cNo active mob found!"));
-    messages.put("command-error",
-        new Message("&cThere was a problem running this MobAction command!"));
-    messages.put("mob-corrupt-error",
-        new Message("&cA MobAction mob exists here, but it's data became corrupt (possibly due to "
-            + "another plugin). Please destroy this mob. See console for details."));
-
-    // Warp messages
-    messages.put("warp-create-error",
-        new Message("&cCouldn't save warp!"));
-    messages.put("warp-create-success",
-        new Message("&aWarp {&c} created successfully!"));
-    messages.put("warp-delete-success",
-        new Message("&aWarp {&c} deleted successfully!"));
-    messages.put("warp-missing", new Message("&cWarp \"{}\" not found!"));
-    messages.put("warp-already-exists",
-        new Message("&cWarp \"{}\" already exists! Please remove it to recreate it."));
-    messages.put("warp-save-error", new Message("&cCouldn't save warp \"{}\"!"));
-    messages.put("warp-success", new Message("&6Welcome to {&c}!"));
-    messages.put("list-message", new Message("&aAvailable warps:"));
-    messages.put("list-empty-message", new Message("&eNo warps available!"));
+    for (String key : rawMessages.getKeys(false)) {
+      String lowerKey = key.toLowerCase();
+      String message = rawMessages.getString(lowerKey);
+      if (message != null) {
+        messages.put(lowerKey, new Message(message));
+      }
+    }
   }
 
   /**
@@ -142,5 +77,131 @@ public final class Messages {
     }
 
     return messages.get(key).replace(args);
+  }
+
+  private static Map<String, Object> getDefaults() {
+    Map<String, Object> messages = new HashMap<>();
+
+    // General messages
+    messages.put("permission-error", "&cYou do not have permission to do that!");
+    messages.put("reload-success", "&aMobActions reload complete!");
+    messages.put("command-action", "action");
+    messages.put("command-cancel", "cancel");
+    messages.put("command-create", "create");
+    messages.put("command-command", "command");
+    messages.put("command-consolecmd", "consolecmd");
+    messages.put("command-event", "event");
+    messages.put("command-events", "events");
+    messages.put("command-forcestart", "forcestart");
+    messages.put("command-help", "help");
+    messages.put("command-info", "info");
+    messages.put("command-open", "open");
+    messages.put("command-reload", "reload");
+    messages.put("command-remove", "remove");
+    messages.put("command-set", "set");
+    messages.put("command-warp", "warp");
+    messages.put("command-warps", "warps");
+
+    // Command messages
+    messages.put("create-command", "&bClick on a mob to set the action!");
+    messages.put("edit-cancel", "&eUse \"/mac action cancel\" to cancel");
+    messages.put("edit-cancel-success", "&eCancelled!");
+    messages.put("remove-command", "&bClick on a mob to remove it");
+    messages.put("edit-cancel-error", "&eNothing to cancel!");
+
+    // Event message
+    messages.put("event-countdown-text", "&eStarting {&c} event in {&c} seconds.");
+    messages.put("event-joined-text", "&aSuccessfully joined the {&c} event!");
+    messages.put("event-left-text", "&eLeft the {&c} event!");
+    messages.put("event-create-text", "&aCreated {&c} event!");
+    messages.put("event-remove-text", "&aRemoved {&c} event!");
+    messages.put("event-open-text", "&aOpened {&c} event!");
+    messages.put("event-cancel-text", "&aCancelled {&c} event!");
+    messages.put("event-cancelled-text", "&eThe {&c} event has been cancelled!");
+    messages.put("event-forcestart-text", "&aStarted {&c} event!");
+    messages.put("event-leave-info", "&eClick again to leave the event!");
+    messages.put("event-missing-error", "&cThe {} event doesn't exist!");
+    messages.put("event-exists-error", "&cThe {} event already exists!");
+    messages.put("event-already-open-error", "&cThe {} event is already open!");
+    messages.put("event-closed-error", "&cThe {} event isn't open!");
+    messages.put("event-save-error", "&cCouldn't save event \"{}\"!");
+    messages.put("event-timeout-error", "&cTimeout cannot be less than 1!");
+    messages.put("event-players-error", "&cMax players cannot be less than 0!");
+    messages.put("event-info-text", "&6&l{} info:");
+    messages.put("event-status-text", "&6Status: {}");
+    messages.put("event-status-open", "&aOpen");
+    messages.put("event-status-closed", "&cClosed");
+    messages.put("event-status-starting", "&eStarting");
+    messages.put("event-timeout-text", "&6Wait time: {&c} seconds");
+    messages.put("event-players-text", "&6Players: {&c}");
+    messages.put("event-type-text", "&6Type: {&c}");
+    messages.put("event-type-command", "Command");
+    messages.put("event-type-consolecmd", "Console command");
+    messages.put("event-type-warp", "Warp");
+    messages.put("event-type-details-text", "&6{}: {&c}");
+    messages.put("event-list-message", "&aAvailable events:");
+    messages.put("event-list-empty-message", "&eNo events available!");
+
+    // Help messages
+    messages.put("help-usage", "&eUsage: /mac <subcommand>");
+    messages.put("help-command-action", "&e/mac action create command \"command\" \"name tag text\""
+        + " - Create a new command mob");
+    messages.put("help-consolecmd-action", "&e/mac action create consolecmd \"command\" \"name tag"
+        + " text\" - Create a new console command mob");
+    messages.put("help-event-action", "&e/mac action create event <event> - Create a new event mob"
+        + " action");
+    messages.put("help-warp-action", "&e/mac action create warp <warp> - Create a new warp mob"
+        + " action");
+    messages.put("help-action-remove", "&e/mac action remove - Remove a mob action");
+    messages.put("help-action-cancel", "&e/mac action cancel - Cancels the current action"
+        + " operation");
+    messages.put("help-command-event", "&e/mac events create <event name> <wait seconds> [max"
+        + " players] command \"command\" - Create a command event with an optional player limit");
+    messages.put("help-consolecmd-event", "&e/mac events create <event name> <wait seconds> [max"
+        + " players] consolecmd \"command\" - Create a consolecmd event with an optional player"
+        + " limit");
+    messages.put("help-warp-event", "&e/mac events create <event name> <wait seconds> [max players]"
+        + " warp <warp name> - Create a warp event with an optional player limit");
+    messages.put("help-event-open", "&e/mac events open <name> - Opens event, starts event timer");
+    messages.put("help-event-cancel", "&e/mac events cancel <name> - Cancel an event");
+    messages.put("help-event-remove", "&e/mac events remove <name> - Remove an event");
+    messages.put("help-event-forcestart", "&e/mac events forcestart <name> - Forces an event to"
+        + " start now");
+    messages.put("help-event-info", "&e/mac events info <name> - Show information about the event");
+    messages.put("help-event-list", "&e/mac events - List all events");
+    messages.put("help-warp", "&e/mac warp <warp> - Teleport to a warp");
+    messages.put("help-warps-list", "&e/mac warps - List available warps");
+    messages.put("help-warps-set", "&e/mac warps set <name> - Create a warp");
+    messages.put("help-warps-remove", "&e/mac warps remove <name> - Delete a warp");
+    messages.put("help-reload", "&e/mac reload - Reloads the plugin's configuration");
+    messages.put("help-page-number", "&6Help page {} / {}:");
+    messages.put("help-command-usage", "&6/mac help [page] - Shows the specified help page");
+    messages.put("help-command-error", "&cThat page does not exist!");
+
+    // Mob messages
+    messages.put("nametag-command-text", "&6Click to {}!");
+    messages.put("action-create-success", "&aMobAction created successfully!");
+    messages.put("action-remove-success", "&aMobAction successfully removed!");
+    messages.put("nametag-event-text", "&6Click to join the {&c} event!");
+    messages.put("nametag-portal-text", "&6Click to warp to {&c}!");
+    messages.put("mob-exists-error", "&cA MobAction already exists here! Delete it to recreate.");
+    messages.put("remove-error", "&cNo mob action found!");
+    messages.put("command-error", "&cThere was a problem running this MobAction command!");
+    messages.put("mob-corrupt-error", "&cA MobAction mob exists here, but it's data became corrupt"
+        + " (possibly due to another plugin). Please destroy this mob. See console for details.");
+
+    // Warp messages
+    messages.put("warp-create-error", "&cCouldn't save warp!");
+    messages.put("warp-create-success", "&aWarp {&c} created successfully!");
+    messages.put("warp-delete-success", "&aWarp {&c} deleted successfully!");
+    messages.put("warp-missing", "&cWarp \"{}\" not found!");
+    messages.put("warp-already-exists", "&cWarp \"{}\" already exists! Please remove it to recreate"
+        + " it.");
+    messages.put("warp-save-error", "&cCouldn't save warp \"{}\"!");
+    messages.put("warp-success", "&6Welcome to {&c}!");
+    messages.put("list-message", "&aAvailable warps:");
+    messages.put("list-empty-message", "&eNo warps available!");
+
+    return messages;
   }
 }
