@@ -55,11 +55,19 @@ public class EventMobStartAction implements IEventMobStartAction {
       boolean isConsoleCommand = data instanceof ConsoleCommandData
           && ((ConsoleCommandData) data).isConsoleCommand();
 
-      if ((!isConsoleCommand && !player.performCommand(commandStr))
-          || (isConsoleCommand && !ma.getPlayer(ma.getServer().getConsoleSender())
-          .performCommand(commandStr))) {
-        DebugLogger.getLogger().log("Command execution failed");
-        throw new CommandActionException();
+      MobActionsUser user;
+      if (isConsoleCommand) {
+        user = ma.getPlayer(ma.getServer().getConsoleSender());
+      } else {
+        user = player;
+      }
+
+      String[] commandList = commandStr.split("(?<!\\\\);");
+      for (String command : commandList) {
+        if (!user.performCommand(command)) {
+          DebugLogger.getLogger().log("Command execution failed");
+          throw new CommandActionException();
+        }
       }
 
       DebugLogger.getLogger().log("Command executed");

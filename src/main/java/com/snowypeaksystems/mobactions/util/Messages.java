@@ -144,10 +144,10 @@ public final class Messages {
 
     // Help messages
     messages.put("help-usage", "&eUsage: /mac <subcommand>");
-    messages.put("help-command-action", "&e/mac action create command \"command\" \"name tag text\""
-        + " - Create a new command mob");
-    messages.put("help-consolecmd-action", "&e/mac action create consolecmd \"command\" \"name tag"
-        + " text\" - Create a new console command mob");
+    messages.put("help-command-action", "&e/mac action create command \"command[;command 2]\""
+        + " \"name tag text\" - Create a new command mob");
+    messages.put("help-consolecmd-action", "&e/mac action create consolecmd \"command[;command 2]\""
+        + " \"name tag text\" - Create a new console command mob");
     messages.put("help-event-action", "&e/mac action create event <event> - Create a new event mob"
         + " action");
     messages.put("help-warp-action", "&e/mac action create warp <warp> - Create a new warp mob"
@@ -156,10 +156,11 @@ public final class Messages {
     messages.put("help-action-cancel", "&e/mac action cancel - Cancels the current action"
         + " operation");
     messages.put("help-command-event", "&e/mac events create <event name> <wait seconds> [max"
-        + " players] command \"command\" - Create a command event with an optional player limit");
+        + " players] command \"command[;command 2]\" - Create a command event with an optional"
+        + " player limit");
     messages.put("help-consolecmd-event", "&e/mac events create <event name> <wait seconds> [max"
-        + " players] consolecmd \"command\" - Create a consolecmd event with an optional player"
-        + " limit");
+        + " players] consolecmd \"command[;command 2]\" - Create a consolecmd event with an"
+        + " optional player limit");
     messages.put("help-warp-event", "&e/mac events create <event name> <wait seconds> [max players]"
         + " warp <warp name> - Create a warp event with an optional player limit");
     messages.put("help-event-open", "&e/mac events open <name> - Opens event, starts event timer");
