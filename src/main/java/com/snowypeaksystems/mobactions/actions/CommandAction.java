@@ -58,7 +58,7 @@ public class CommandAction implements ICommandAction {
 
       String[] commandList = commandStr.split("(?<!\\\\);");
       for (String command : commandList) {
-        if (!user.performCommand(command)) {
+        if (!user.performCommand(command.trim())) {
           DebugLogger.getLogger().log("Command execution failed");
           throw new CommandActionException();
         }
