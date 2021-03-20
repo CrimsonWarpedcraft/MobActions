@@ -16,8 +16,10 @@ class CommandDataTest {
     ICommandData data = new CommandData("te{}s\\\\t");
     assertEquals("test tes\\\\t", data.getCommand("st te"));
 
-    data = new CommandData("{}st {}st");
-    assertEquals("test test", data.getCommand("te"));
+    data = new CommandData("{}st; {}st");
+    assertEquals("test; test", data.getCommand("te"));
+    data = new CommandData("{}st\\; {}st");
+    assertEquals("test\\; test", data.getCommand("te"));
 
     data = new CommandData("\\\\{} \\{\\} {}");
     assertEquals("\\test {} test", data.getCommand("test"));
