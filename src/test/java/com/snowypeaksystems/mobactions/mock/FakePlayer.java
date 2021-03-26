@@ -10,9 +10,11 @@ import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Chunk;
 import org.bukkit.DyeColor;
@@ -78,6 +80,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Dummy implementation for Player.
@@ -92,6 +96,16 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public @NotNull Component displayName() {
+    return null;
+  }
+
+  @Override
+  public void displayName(@Nullable Component displayName) {
+
+  }
+
+  @Override
   public String getDisplayName() {
     return null;
   }
@@ -99,6 +113,26 @@ public class FakePlayer implements Player {
   @Override
   public void setDisplayName(String name) {
 
+  }
+
+  @Override
+  public void playerListName(@Nullable Component name) {
+
+  }
+
+  @Override
+  public @Nullable Component playerListName() {
+    return null;
+  }
+
+  @Override
+  public @Nullable Component playerListHeader() {
+    return null;
+  }
+
+  @Override
+  public @Nullable Component playerListFooter() {
+    return null;
   }
 
   @Override
@@ -193,6 +227,11 @@ public class FakePlayer implements Player {
 
   @Override
   public void kickPlayer(String message) {
+
+  }
+
+  @Override
+  public void kick(@Nullable Component message) {
 
   }
 
@@ -813,8 +852,25 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public void sendBlockDamage(@NotNull Location loc, float progress) {
+
+  }
+
+  @Override
   public boolean sendChunkChange(Location loc, int sx, int sy, int sz, byte[] data) {
     return false;
+  }
+
+  @Override
+  public void sendSignChange(@NotNull Location loc, @Nullable List<Component> lines)
+      throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void sendSignChange(@NotNull Location loc, @Nullable List<Component> lines,
+                             @NotNull DyeColor dyeColor) throws IllegalArgumentException {
+
   }
 
   @Override
@@ -1037,6 +1093,36 @@ public class FakePlayer implements Player {
 
   @Override
   public void setFoodLevel(int value) {
+
+  }
+
+  @Override
+  public int getSaturatedRegenRate() {
+    return 0;
+  }
+
+  @Override
+  public void setSaturatedRegenRate(int ticks) {
+
+  }
+
+  @Override
+  public int getUnsaturatedRegenRate() {
+    return 0;
+  }
+
+  @Override
+  public void setUnsaturatedRegenRate(int ticks) {
+
+  }
+
+  @Override
+  public int getStarvationRate() {
+    return 0;
+  }
+
+  @Override
+  public void setStarvationRate(int ticks) {
 
   }
 
@@ -1267,6 +1353,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public @NotNull Locale locale() {
+    return null;
+  }
+
+  @Override
   public String getLocale() {
     return null;
   }
@@ -1348,6 +1439,16 @@ public class FakePlayer implements Player {
 
   @Override
   public Firework boostElytra(ItemStack firework) {
+    return null;
+  }
+
+  @Override
+  public void sendOpLevel(byte level) {
+
+  }
+
+  @Override
+  public @NotNull Set<Player> getTrackedPlayers() {
     return null;
   }
 
@@ -2087,6 +2188,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public void registerAttribute(@NotNull Attribute attribute) {
+
+  }
+
+  @Override
   public void damage(double amount) {
 
   }
@@ -2128,6 +2234,16 @@ public class FakePlayer implements Player {
 
   @Override
   public void resetMaxHealth() {
+
+  }
+
+  @Override
+  public @Nullable Component customName() {
+    return null;
+  }
+
+  @Override
+  public void customName(@Nullable Component customName) {
 
   }
 

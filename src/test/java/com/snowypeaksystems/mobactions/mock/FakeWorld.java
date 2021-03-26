@@ -21,6 +21,7 @@ import org.bukkit.GameRule;
 import org.bukkit.HeightMap;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Raid;
 import org.bukkit.Sound;
@@ -54,6 +55,8 @@ import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Consumer;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Dummy class for World implementation.
@@ -174,6 +177,11 @@ public class FakeWorld implements World {
   }
 
   @Override
+  public @NotNull NamespacedKey getKey() {
+    return null;
+  }
+
+  @Override
   public Chunk[] getLoadedChunks() {
     return new Chunk[0];
   }
@@ -289,7 +297,19 @@ public class FakeWorld implements World {
   }
 
   @Override
+  public @NotNull Item dropItem(@NotNull Location location, @NotNull ItemStack item,
+                                @Nullable Consumer<Item> function) {
+    return null;
+  }
+
+  @Override
   public Item dropItemNaturally(Location location, ItemStack item) {
+    return null;
+  }
+
+  @Override
+  public @NotNull Item dropItemNaturally(@NotNull Location location, @NotNull ItemStack item,
+                                         @Nullable Consumer<Item> function) {
     return null;
   }
 
@@ -487,6 +507,11 @@ public class FakeWorld implements World {
   @Override
   public boolean isDayTime() {
     return false;
+  }
+
+  @Override
+  public long getGameTime() {
+    return 0;
   }
 
   @Override
