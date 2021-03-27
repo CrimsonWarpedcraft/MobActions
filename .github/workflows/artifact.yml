@@ -33,7 +33,7 @@ jobs:
 
       - name: Build with Gradle (Windows)
         if: runner.os == 'Windows'
-        run: ./gradlew -Pver=${env:GITHUB_RUN_NUMBER} build --info
+        run: ./gradlew build --info
 
       - name: Upload artifact
         if: runner.os == 'Linux'
