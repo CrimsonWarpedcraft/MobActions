@@ -27,8 +27,13 @@ jobs:
         if: runner.os == 'Linux'
         run: chmod +x gradlew
 
-      - name: Build with Gradle
+      - name: Build with Gradle (Linux)
+        if: runner.os == 'Linux'
         run: ./gradlew -Pver=${GITHUB_RUN_NUMBER} build --info
+
+      - name: Build with Gradle (Windows)
+        if: runner.os == 'Windows'
+        run: ./gradlew -Pver=$env:GITHUB_RUN_NUMBER build --info
 
       - name: Upload artifact
         if: runner.os == 'Linux'
