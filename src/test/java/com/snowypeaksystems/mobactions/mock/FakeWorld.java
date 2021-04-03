@@ -766,6 +766,11 @@ public class FakeWorld implements World {
   }
 
   @Override
+  public int getMinHeight() {
+    return 0;
+  }
+
+  @Override
   public int getMaxHeight() {
     return 0;
   }
