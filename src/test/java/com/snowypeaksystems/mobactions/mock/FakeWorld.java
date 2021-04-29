@@ -1088,6 +1088,73 @@ public class FakeWorld implements World {
   }
 
   @Override
+  public @Nullable Location locateNearestBiome(@NotNull Location origin, @NotNull Biome biome,
+                                               int radius) {
+    return null;
+  }
+
+  @Override
+  public @Nullable Location locateNearestBiome(@NotNull Location origin, @NotNull Biome biome,
+                                               int radius, int step) {
+    return null;
+  }
+
+  @Override
+  public boolean isUltrawarm() {
+    return false;
+  }
+
+  @Override
+  public boolean isNatural() {
+    return false;
+  }
+
+  @Override
+  public double getCoordinateScale() {
+    return 0;
+  }
+
+  @Override
+  public boolean hasSkylight() {
+    return false;
+  }
+
+  @Override
+  public boolean hasBedrockCeiling() {
+    return false;
+  }
+
+  @Override
+  public boolean isPiglinSafe() {
+    return false;
+  }
+
+  @Override
+  public boolean doesBedWork() {
+    return false;
+  }
+
+  @Override
+  public boolean doesRespawnAnchorWork() {
+    return false;
+  }
+
+  @Override
+  public boolean hasRaids() {
+    return false;
+  }
+
+  @Override
+  public boolean isFixedTime() {
+    return false;
+  }
+
+  @Override
+  public @NotNull Collection<Material> getInfiniburn() {
+    return null;
+  }
+
+  @Override
   public int getViewDistance() {
     return 0;
   }

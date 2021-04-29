@@ -1663,6 +1663,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public boolean isDeeplySleeping() {
+    return false;
+  }
+
+  @Override
   public int getSleepTicks() {
     return 0;
   }
