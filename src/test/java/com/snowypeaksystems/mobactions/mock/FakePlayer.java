@@ -1358,6 +1358,11 @@ public class FakePlayer implements Player {
   }
 
   @Override
+  public int getPing() {
+    return 0;
+  }
+
+  @Override
   public String getLocale() {
     return null;
   }
