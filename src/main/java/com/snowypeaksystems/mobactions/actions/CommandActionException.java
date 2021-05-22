@@ -6,6 +6,7 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
  * Thrown if there is an error running a command.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class CommandActionException extends PlayerException {

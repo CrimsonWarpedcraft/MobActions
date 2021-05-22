@@ -60,6 +60,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Dummy class for World implementation.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 @SuppressFBWarnings

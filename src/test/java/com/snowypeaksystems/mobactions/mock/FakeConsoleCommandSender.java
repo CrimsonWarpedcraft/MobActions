@@ -14,6 +14,7 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * Dummy implementation for ConsoleCommandSender.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 @SuppressFBWarnings

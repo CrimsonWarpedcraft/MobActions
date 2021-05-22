@@ -6,6 +6,7 @@ import com.snowypeaksystems.mobactions.player.PlayerException;
 
 /**
  * Thrown when a warp cannot be created successfully.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class WarpCreateException extends PlayerException {

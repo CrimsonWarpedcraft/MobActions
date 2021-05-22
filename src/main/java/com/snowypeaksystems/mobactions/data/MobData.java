@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Data that can be stored by a Mob.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface MobData {
@@ -24,7 +25,7 @@ public interface MobData {
   String getNametagString();
 
   Map<String, Class<? extends MobData>> DATA_KEY_MAP = Map.ofEntries(
-      entry(ICommandData.COMMAND_KEY, CommandData.class),
-      entry(IWarpData.WARP_KEY, WarpData.class),
-      entry(IEventData.EVENT_KEY, EventData.class));
+      entry(CommandData.COMMAND_KEY, CommandDataImpl.class),
+      entry(WarpData.WARP_KEY, WarpDataImpl.class),
+      entry(EventData.EVENT_KEY, EventDataImpl.class));
 }

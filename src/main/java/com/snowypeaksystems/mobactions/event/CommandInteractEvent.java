@@ -1,18 +1,23 @@
 package com.snowypeaksystems.mobactions.event;
 
-import com.snowypeaksystems.mobactions.IInteractiveMob;
+import com.snowypeaksystems.mobactions.InteractiveMob;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Event called when a player interacts with a command mob.
+ *
+ * @author Copyright (c) Levi Muniz. All Rights Reserved.
+ */
 public class CommandInteractEvent extends MobActionsUserEvent
     implements InteractEvent, ConsoleCommandEvent {
   private static final HandlerList handlers = new HandlerList();
-  private final IInteractiveMob mob;
+  private final InteractiveMob mob;
   private final String command;
   private final boolean isServerCommand;
 
   /** Create a CommandInteractEvent from the provided user, mob, command, and command state. */
-  public CommandInteractEvent(MobActionsUser user, IInteractiveMob mob, String command,
+  public CommandInteractEvent(MobActionsUser user, InteractiveMob mob, String command,
                               boolean isServerCommand) {
     super(user);
     this.mob = mob;
@@ -21,12 +26,12 @@ public class CommandInteractEvent extends MobActionsUserEvent
   }
 
   /** Create a CommandInteractEvent from the provided user, mob, and command. */
-  public CommandInteractEvent(MobActionsUser user, IInteractiveMob mob, String command) {
+  public CommandInteractEvent(MobActionsUser user, InteractiveMob mob, String command) {
     this(user, mob, command, false);
   }
 
   @Override
-  public IInteractiveMob getIInteractiveMob() {
+  public InteractiveMob getInteractiveMob() {
     return mob;
   }
 

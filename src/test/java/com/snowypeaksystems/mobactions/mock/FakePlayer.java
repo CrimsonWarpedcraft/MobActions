@@ -85,6 +85,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Dummy implementation for Player.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 @SuppressFBWarnings

@@ -7,19 +7,20 @@ import org.bukkit.entity.Player;
 
 /**
  * Player based implementation of MobActionsUser.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class MobActionsPlayer implements ConsoleActionUser {
   private final Player player;
-  private final IStatus status;
+  private final Status status;
 
   public MobActionsPlayer(Player player) {
     this.player = player;
-    this.status = new Status();
+    this.status = new StatusImpl();
   }
 
   @Override
-  public IStatus getStatus() {
+  public Status getStatus() {
     return status;
   }
 

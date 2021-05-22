@@ -4,6 +4,7 @@ import java.io.IOException;
 
 /**
  * An object that can be written to storage.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface FileData {

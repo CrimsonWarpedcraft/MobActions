@@ -1,269 +1,69 @@
 package com.snowypeaksystems.mobactions.mobevent;
 
-import static com.snowypeaksystems.mobactions.util.Messages.gm;
-
-import com.snowypeaksystems.mobactions.AMobActions;
-import com.snowypeaksystems.mobactions.actions.EventMobStartAction;
-import com.snowypeaksystems.mobactions.actions.IEventMobStartAction;
-import com.snowypeaksystems.mobactions.data.CommandData;
-import com.snowypeaksystems.mobactions.data.ICommandData;
-import com.snowypeaksystems.mobactions.data.IWarpData;
+import com.snowypeaksystems.mobactions.data.AliasedData;
+import com.snowypeaksystems.mobactions.data.FileData;
 import com.snowypeaksystems.mobactions.data.MobData;
-import com.snowypeaksystems.mobactions.data.WarpData;
-import com.snowypeaksystems.mobactions.event.MobEventStartEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
-import com.snowypeaksystems.mobactions.player.PlayerException;
-import com.snowypeaksystems.mobactions.util.DebugLogger;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class MobEvent implements IMobEvent {
-  private final String name;
-  private final int maxPlayers;
-  private final long timeout;
-  private BukkitRunnable timeoutCounter;
-  private BukkitRunnable countdown;
-  private final Set<MobActionsUser> users;
-  private final AMobActions plugin;
-  private final MobData data;
-  private final File file;
-  private State state;
-
-  MobEvent(String name, MobData data, long timeout, AMobActions plugin, int maxPlayers,
-           File eventFolder) {
-    if (timeout < 1) {
-      throw new IllegalArgumentException("Argument \"timeout\" cannot be less than 1");
-    }
-
-    if (maxPlayers < 0) {
-      throw new IllegalArgumentException("Argument \"maxPlayers\" cannot be less than 0");
-    }
-
-    this.name = name;
-    this.data = data;
-    this.timeout = timeout;
-    this.plugin = plugin;
-    this.maxPlayers = maxPlayers;
-    state = State.CLOSED;
-    users = new HashSet<>();
-    file = new File(eventFolder, String.valueOf(name.toLowerCase().hashCode()));
+/**
+ * Objects representing running MobEvents.
+ *
+ * @author Copyright (c) Levi Muniz. All Rights Reserved.
+ */
+public interface MobEvent extends AliasedData, FileData {
+  /** Possible states of a MobEvent. */
+  enum State {
+    OPEN,
+    COUNTDOWN,
+    CLOSED
   }
 
-  MobEvent(File file, AMobActions plugin) throws EventConfigException {
-    YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-    if (!config.isSet("name") || !config.isSet("timeout")
-        || !config.isSet("max-players")) {
-      throw new EventConfigException("config key is not set");
-    }
-    this.file = file;
-    this.data = loadData(config);
-    this.name = config.getString("name", "");
-    this.maxPlayers = config.getInt("max-players", 0);
-    this.timeout = config.getLong("timeout");
-    this.users = new HashSet<>();
-    this.state = State.CLOSED;
-    this.plugin = plugin;
+  /** Adds the provided player to the list of joined players. */
+  void addPlayer(MobActionsUser player) throws EventStateException;
 
-    if (timeout < 1) {
-      throw new EventConfigException("Property \"timeout\" cannot be less than 1");
-    }
+  /** Removes the provided player from the list of joined players. */
+  void removePlayer(MobActionsUser player);
 
-    if (maxPlayers < 0) {
-      throw new EventConfigException("Property \"maxPlayers\" cannot be less than 0");
-    }
-  }
+  /** Returns true if the provided player has joined, false otherwise. */
+  boolean hasPlayerJoined(MobActionsUser player);
 
-  @Override
-  public void addPlayer(MobActionsUser player) throws EventStateException {
-    if (state != State.OPEN) {
-      throw new EventStateException(gm("event-closed-error", name));
-    }
+  /** Returns an unmodifiable copy of the set of joined players. */
+  Set<MobActionsUser> getPlayerSet();
 
-    users.add(player);
+  /** Returns the mob data for the event. */
+  MobData getData();
 
-    if (users.size() == maxPlayers) {
-      force();
-    }
-  }
+  /** Returns the timeout in seconds. */
+  long getTimeout();
 
-  @Override
-  public void removePlayer(MobActionsUser player) {
-    users.remove(player);
-  }
+  /** Returns the max players allowed for the event. */
+  int getMaxPlayers();
 
-  @Override
-  public boolean hasPlayerJoined(MobActionsUser player) {
-    return users.contains(player);
-  }
+  /**
+   * Allows players to join the event and begins the event's timeout period. The event countdown
+   * will start when the timeout has been reached or the maximum players if set have joined. Players
+   * will no longer be able to join after the countdown begins. The event action will trigger after
+   * the countdown completes.
+   */
+  void open() throws EventStateException;
 
-  @Override
-  public Set<MobActionsUser> getPlayerSet() {
-    return Set.copyOf(users);
-  }
+  /**
+   * Forces the event countdown to start now with all currently joined players. This stops any
+   * timeout periods and prevents players from joining. The event action will trigger after the
+   * countdown completes.
+   */
+  void forceStart() throws EventStateException;
 
-  @Override
-  public MobData getData() {
-    return data;
-  }
+  /**
+   * Stops any running timeout period or countdown and prevents players from joining without the
+   * event action triggering. Clears the list of all joined players.
+   */
+  void cancel();
 
-  @Override
-  public long getTimeout() {
-    return timeout;
-  }
-
-  @Override
-  public int getMaxPlayers() {
-    return maxPlayers;
-  }
-
-  @Override
-  public void open() throws EventStateException {
-    if (state != State.CLOSED) {
-      throw new EventStateException(gm("event-already-open-error", name));
-    }
-
-    state = State.OPEN;
-    timeoutCounter = getTimeoutCounter();
-    timeoutCounter.runTaskLater(plugin, timeout * 20);
-  }
-
-  @Override
-  public void forceStart() throws EventStateException {
-    if (state != State.OPEN) {
-      throw new EventStateException(gm("event-closed-error", name));
-    }
-
-    force();
-  }
-
-  @Override
-  public void cancel() {
-    for (MobActionsUser user : users) {
-      user.sendMessage(gm("event-cancelled-text", name));
-    }
-
-    users.clear();
-
-    if (state == State.OPEN) {
-      timeoutCounter.cancel();
-    } else if (state == State.COUNTDOWN) {
-      countdown.cancel();
-    }
-
-    state = State.CLOSED;
-  }
-
-  @Override
-  public State getState() {
-    return state;
-  }
-
-  private void force() {
-    if (state == State.OPEN) {
-      timeoutCounter.cancel();
-    }
-
-    state = State.COUNTDOWN;
-    countdown = getCountdown();
-    countdown.runTaskTimer(plugin, 0, 20);
-  }
-
-  @Override
-  public String getAlias() {
-    return name;
-  }
-
-  @Override
-  public void save() throws IOException {
-    YamlConfiguration config = toYamlConfiguration();
-
-    config.save(file);
-  }
-
-  @Override
-  public boolean delete() {
-    return file.delete();
-  }
-
-  private YamlConfiguration toYamlConfiguration() {
-    YamlConfiguration config = new YamlConfiguration();
-    config.set("name", name);
-    config.set("timeout", timeout);
-    config.set("max-players", maxPlayers);
-    config.set("data", data.getKeyString());
-
-    if (data instanceof IWarpData) {
-      config.set("warp-name", ((IWarpData) data).getAlias());
-    } else if (data instanceof ICommandData) {
-      config.set("command", data.toString());
-    }
-
-    return config;
-  }
-
-  private MobData loadData(YamlConfiguration config)
-      throws EventConfigException {
-
-    if (config.isSet("data")
-        && ICommandData.COMMAND_KEY.equals(config.getString("data", ""))) {
-      return new CommandData(config.getString("command", ""));
-    } else if (config.isSet("data")
-        && IWarpData.WARP_KEY.equals(config.getString("data", ""))) {
-      return new WarpData(config.getString("warp-name", ""));
-    } else {
-      throw new EventConfigException("data key not valid");
-    }
-  }
-
-  private BukkitRunnable getCountdown() {
-    MobEvent e = this;
-    IEventMobStartAction action = new EventMobStartAction(data, plugin);
-    return new BukkitRunnable() {
-      private int seconds = 10;
-      @Override
-      public void run() {
-        if (seconds < 1) {
-          super.cancel();
-          state = State.CLOSED;
-
-          MobEventStartEvent event = new MobEventStartEvent(e);
-          Bukkit.getPluginManager().callEvent(event);
-          if (!event.isCancelled()) {
-            for (MobActionsUser user : users) {
-              try {
-                action.run(user);
-              } catch (PlayerException e) {
-                user.sendMessage(e.getPlayerFormattedString());
-              }
-            }
-          } else {
-            DebugLogger.getLogger().log("Event cancelled");
-          }
-
-          users.clear();
-        } else {
-          for (MobActionsUser user : users) {
-            user.sendMessage(gm("event-countdown-text", name, String.valueOf(seconds)));
-          }
-          seconds--;
-        }
-      }
-    };
-  }
-
-  private BukkitRunnable getTimeoutCounter() {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        state = State.COUNTDOWN;
-        countdown = getCountdown();
-        countdown.runTaskTimer(plugin, 0, 20);
-      }
-    };
-  }
+  /**
+   * Returns State.OPEN if the event is open, State.COUNTDOWN when the countdown is running, and
+   * State.CLOSED when the event is not running.
+   */
+  State getState();
 }

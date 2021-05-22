@@ -11,11 +11,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Collection of messages to be used throughout the project.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public final class Messages {
   private static File dataDir;
-  private static final Map<String, Message> messages = new HashMap<>();
+  private static final Map<String, MessageImpl> messages = new HashMap<>();
 
   public static void setDataDir(File dataDir) {
     Messages.dataDir = dataDir;
@@ -55,13 +56,14 @@ public final class Messages {
       String lowerKey = key.toLowerCase();
       String message = rawMessages.getString(lowerKey);
       if (message != null) {
-        messages.put(lowerKey, new Message(message));
+        messages.put(lowerKey, new MessageImpl(message));
       }
     }
   }
 
   /**
    * Get the message for the given string, replacing instances of the token with args.
+   *
    * @param key the identifier of the message
    * @param args list of strings to replace tokens with in messages
    * @return Returns the message for the key

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for MobActionsPlayer.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class MobActionsPlayerTest {

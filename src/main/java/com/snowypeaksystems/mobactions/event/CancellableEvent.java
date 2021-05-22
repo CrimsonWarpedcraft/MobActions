@@ -5,6 +5,7 @@ import org.bukkit.event.Event;
 
 /**
  * Events that can be cancelled.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public abstract class CancellableEvent extends Event implements Cancellable {

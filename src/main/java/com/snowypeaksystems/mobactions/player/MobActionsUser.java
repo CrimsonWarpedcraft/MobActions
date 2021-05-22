@@ -5,11 +5,12 @@ import org.bukkit.Location;
 
 /**
  * An object that represents a player interacting with the plugin.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public interface MobActionsUser {
   /** Returns the status of the user. */
-  IStatus getStatus();
+  Status getStatus();
 
   /** Teleports the user to the location. Returns a CompletableFuture for async behavior. */
   CompletableFuture<Boolean> teleport(Location location);

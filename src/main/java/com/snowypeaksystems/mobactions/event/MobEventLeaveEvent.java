@@ -1,30 +1,35 @@
 package com.snowypeaksystems.mobactions.event;
 
-import com.snowypeaksystems.mobactions.IInteractiveMob;
-import com.snowypeaksystems.mobactions.mobevent.IMobEvent;
+import com.snowypeaksystems.mobactions.InteractiveMob;
+import com.snowypeaksystems.mobactions.mobevent.MobEvent;
 import com.snowypeaksystems.mobactions.player.MobActionsUser;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Event called when a player leaves an event mob event.
+ *
+ * @author Copyright (c) Levi Muniz. All Rights Reserved.
+ */
 public class MobEventLeaveEvent extends MobActionsUserEvent
-    implements IInteractiveMobEvent, MobEventEvent {
+    implements InteractiveMobEvent, MobEventEvent {
   private static final HandlerList handlers = new HandlerList();
-  private final IInteractiveMob mob;
-  private final IMobEvent event;
+  private final InteractiveMob mob;
+  private final MobEvent event;
 
   /** Create a MobEventLeaveEvent from a user, mob, and mob event. */
-  public MobEventLeaveEvent(MobActionsUser user, IInteractiveMob mob, IMobEvent event) {
+  public MobEventLeaveEvent(MobActionsUser user, InteractiveMob mob, MobEvent event) {
     super(user);
     this.mob = mob;
     this.event = event;
   }
 
   @Override
-  public IInteractiveMob getIInteractiveMob() {
+  public InteractiveMob getInteractiveMob() {
     return mob;
   }
 
   @Override
-  public IMobEvent getMobEvent() {
+  public MobEvent getMobEvent() {
     return event;
   }
 

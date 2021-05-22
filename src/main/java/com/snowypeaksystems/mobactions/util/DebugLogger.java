@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 /**
  * Logger for debugging information.
  * Only works if the "MA_DEBUG" environment variable is set to true.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class DebugLogger {

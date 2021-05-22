@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for ConsoleUser.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class ConsoleUserTest {

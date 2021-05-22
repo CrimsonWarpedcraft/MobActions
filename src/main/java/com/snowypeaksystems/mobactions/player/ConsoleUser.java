@@ -7,6 +7,7 @@ import org.bukkit.command.ConsoleCommandSender;
 
 /**
  * Console based implementation of MobActionsUser.
+ *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class ConsoleUser implements ConsoleActionUser {
@@ -16,12 +17,6 @@ public class ConsoleUser implements ConsoleActionUser {
   public ConsoleUser(ConsoleCommandSender console, Server server) {
     this.console = console;
     this.server = server;
-  }
-
-  @Deprecated
-  public ConsoleUser(ConsoleCommandSender console) {
-    this.console = console;
-    this.server = null;
   }
 
   @Override
@@ -100,7 +95,7 @@ public class ConsoleUser implements ConsoleActionUser {
   }
 
   @Override
-  public IStatus getStatus() {
+  public Status getStatus() {
     throw new UnsupportedOperationException();
   }
 
