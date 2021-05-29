@@ -58,6 +58,7 @@ import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EntityEquipment;
@@ -233,6 +234,11 @@ public class FakePlayer implements Player {
 
   @Override
   public void kick(@Nullable Component message) {
+
+  }
+
+  @Override
+  public void kick(@Nullable Component message, PlayerKickEvent.@NotNull Cause cause) {
 
   }
 
