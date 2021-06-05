@@ -62,6 +62,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -2092,6 +2093,11 @@ public class FakePlayer implements Player {
   @Override
   public boolean isHandRaised() {
     return false;
+  }
+
+  @Override
+  public @NotNull EquipmentSlot getHandRaised() {
+    return null;
   }
 
   @Override
