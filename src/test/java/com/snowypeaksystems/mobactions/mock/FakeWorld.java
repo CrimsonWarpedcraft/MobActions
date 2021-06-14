@@ -102,6 +102,11 @@ public class FakeWorld implements World {
   }
 
   @Override
+  public boolean lineOfSightExists(@NotNull Location from, @NotNull Location to) {
+    return false;
+  }
+
+  @Override
   public Block getBlockAt(int x, int y, int z) {
     return null;
   }
