@@ -20,12 +20,12 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        java: ['11', '16']
+        java: [11, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java }}
@@ -35,20 +35,21 @@ jobs:
         if: runner.os == 'Linux'
         run: chmod +x gradlew
 
-      - name: Build with Gradle (Linux)
+      - name: Build with Gradle
         if: runner.os == 'Linux'
         run: ./gradlew -Pver=${GITHUB_RUN_NUMBER} build --info
 
-      - name: Build with Gradle (Windows)
+      - name: Build with Gradle
         if: runner.os == 'Windows'
-        run: ./gradlew build --info
+        run: ./gradlew "-Pver=$env:GITHUB_RUN_NUMBER" build --info
 
       - name: Upload artifact
-        if: matrix.os == 'ubuntu-latest' && matrix.java == '11'
+        if: ${{ always() }}
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: Compiled Jar(s)
-          path: ${{ github.workspace }}/build/libs/
+          name: ${{ matrix.os }} Java ${{ matrix.java }} build
+          path: |
+            ${{ github.workspace }}/build
 
   notify:
     needs: artifact
